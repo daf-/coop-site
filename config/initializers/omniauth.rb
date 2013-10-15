@@ -1,6 +1,8 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google_oauth2, ENV["950188685519.apps.googleusercontent.com"], ENV["Ky_jXimiE8fsRBSGxPjLBc3e"],
+  provider :google_oauth2, "950188685519.apps.googleusercontent.com", "Ky_jXimiE8fsRBSGxPjLBc3e",
   	{
-  		:scope => "userinfo.email"
+  		:name => "google_login",
+  		:scope => "userinfo.email",
+  		:approval_prompt => ''
   	}
 end

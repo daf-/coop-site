@@ -1,5 +1,4 @@
 CoopSite::Application.routes.draw do
-  resources :coops
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -7,6 +6,9 @@ CoopSite::Application.routes.draw do
 
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
+
+  resources :coops
+  resources :users
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

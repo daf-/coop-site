@@ -1,9 +1,9 @@
 class CreateMeals < ActiveRecord::Migration
   def change
     create_table :meals do |t|
-      t.String :type
-      t.Boolean :isSpecial
-      t.String :name
+      t.string :type
+      t.boolean :isSpecial
+      t.string :name
 
       t.timestamps
     end

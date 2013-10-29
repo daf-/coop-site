@@ -9,6 +9,7 @@ CoopSite::Application.routes.draw do
 
   resources :coops
   resources :users
+  resources :meals
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

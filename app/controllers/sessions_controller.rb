@@ -4,15 +4,26 @@ class SessionsController < ApplicationController
     user = User.where(:email => auth["info"]["email"]).first_or_initialize(
       :email => auth["info"]["email"]
     )
+
     url = session[:return_to] || root_path
     session[:return_to] = nil
     url = root_path if url.eql?('/logout')
 
+    unless user.id
+      # the user is new, direct them to the form to edit profile
+      url = nil
+    end
+
     if user.save
       session[:user_id] = user.id
       notice = "Signed in!"
-      logger.debug "URL to redirect to: #{url}"
-      redirect_to url, :notice => notice
+      if url
+        logger.debug "URL to redirect to: #{url}"
+        redirect_to url, :notice => notice
+      else
+        logger.debug "URL to redirect to: /users/#{user.id}/edit"
+        redirect_to "/users/#{user.id}/edit"
+      end
     else
       raise "Failed to login"
     end

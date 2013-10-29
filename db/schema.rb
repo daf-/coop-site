@@ -11,13 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015203348) do
+ActiveRecord::Schema.define(version: 20131023142358) do
+
+  create_table "coops", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "coop_id"
   end
+
+  add_index "users", ["coop_id"], name: "index_users_on_coop_id"
 
 end

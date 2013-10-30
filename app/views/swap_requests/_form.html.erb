@@ -1,0 +1,33 @@
+<%= form_for(@swap_request) do |f| %>
+  <% if @swap_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@swap_request.errors.count, "error") %> prohibited this swap_request from being saved:</h2>
+
+      <ul>
+      <% @swap_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :headcook_required %><br>
+    <%= f.check_box :headcook_required %>
+  </div>
+  <div class="field">
+    <%= f.label :message %><br>
+    <%= f.text_field :message %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :isResolved? %><br>
+    <%= f.check_box :isResolved? %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

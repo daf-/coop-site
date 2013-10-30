@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :swap_requests
 	validates_uniqueness_of :email
 
 	def coopName

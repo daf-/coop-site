@@ -25,7 +25,7 @@ class SwapRequestsController < ApplicationController
   # POST /swap_requests.json
   def create
     @swap_request = SwapRequest.new(swap_request_params)
-
+    @swap_request.user = current_user
     respond_to do |format|
       if @swap_request.save
         format.html { redirect_to @swap_request, notice: 'Swap request was successfully created.' }

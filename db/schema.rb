@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029213649) do
+ActiveRecord::Schema.define(version: 20131030014236) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.time     "bfast_time"
+    t.time     "lunch_time"
+    t.time     "dinner_time"
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
   end
 
   create_table "meals", force: true do |t|

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_coop, only: [:show, :edit]
 
   # GET /users
   # GET /users.json
@@ -62,6 +63,10 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_coop
+      @coop = Coop.find(@user.coop_id)
+    end
+
     def set_user
       @user = User.find(params[:id])
     end

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   end
 
   def coopName=(name)
-    @coop = Coop.find_or_create_by name: name
+    @coop = Coop.find_by_name name
     self.coop_id = @coop.id
   end
 end

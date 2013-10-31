@@ -7,7 +7,7 @@ namespace :coop do
       if coop.save
         puts "Co-op #{coop.name} (id: #{coop.id}) successfully created."
       else
-        puts "Error: coop #{coop} not saved in database"
+        puts "Error: coop #{coop.name} not saved in database"
       end
     end
   end

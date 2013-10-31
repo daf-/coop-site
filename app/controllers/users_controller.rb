@@ -64,6 +64,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_coop
+      puts @user.coop_id
       @coop = Coop.find(@user.coop_id)
     end
 

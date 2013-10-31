@@ -2,6 +2,19 @@ class Coop < ActiveRecord::Base
 
   has_many :meals
 
+  def breakfast_fields
+  days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    bfasts = {}
+    days.each do |day|
+      bfasts[day] = self[day] && self[day].count('b')
+    end
+    bfasts
+  end
+
+  def breakfast_fields=(bools)
+    puts bools
+  end
+
 # breakfast!!
   def monday_breakfast
   	return self.monday && self.monday.count('b')
@@ -38,7 +51,7 @@ class Coop < ActiveRecord::Base
       self.thursday += 'b'
     end
   end
-  
+
   def friday_breakfast
     return self.friday && self.friday.count('b')
   end
@@ -47,7 +60,7 @@ class Coop < ActiveRecord::Base
       self.friday += 'b'
     end
   end
-  
+
   def saturday_breakfast
     return self.saturday && self.saturday.count('b')
   end
@@ -102,7 +115,7 @@ class Coop < ActiveRecord::Base
       self.thursday += 'l'
     end
   end
-  
+
   def friday_lunch
     return self.friday && self.friday.count('l')
   end
@@ -111,7 +124,7 @@ class Coop < ActiveRecord::Base
       self.friday += 'l'
     end
   end
-  
+
   def saturday_lunch
     return self.tuesday && self.saturday.count('l')
   end
@@ -166,7 +179,7 @@ class Coop < ActiveRecord::Base
       self.thursday += 'd'
     end
   end
-  
+
   def friday_dinner
     return self.friday && self.friday.count('d')
   end
@@ -175,7 +188,7 @@ class Coop < ActiveRecord::Base
       self.friday += 'd'
     end
   end
-  
+
   def saturday_dinner
     return self.saturday && self.saturday.count('d')
   end

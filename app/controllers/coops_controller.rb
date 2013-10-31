@@ -19,6 +19,9 @@ class CoopsController < ApplicationController
 
   # GET /coops/1/edit
   def edit
+    @coop.breakfast_fields.each_pair do |field, value|
+      @coop[field] = value
+    end
   end
 
   # POST /coops

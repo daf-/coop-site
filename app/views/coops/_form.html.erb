@@ -29,7 +29,14 @@
     </tr>
     <tr>
       <td>Breakfast</td>
-      <td class="field">
+      <% @coop.breakfast_fields.each_pair do |field, value| %>
+        <td class="field">
+          <%= "#{field} #{value}" %>
+          <%# f.check_box @coop[field] %>
+        </td>
+      <% end %>
+
+<!--       <td class="field">
         <%= f.check_box :monday_breakfast %>
       </td>
       <td class="field">
@@ -49,7 +56,7 @@
       </td>
       <td class="field">
         <%= f.check_box :sunday_breakfast %>
-      </td>
+      </td> -->
     </tr>
      <tr>
       <td>Lunch</td>

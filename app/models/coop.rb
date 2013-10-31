@@ -2,18 +2,20 @@ class Coop < ActiveRecord::Base
 
   has_many :meals
 
-  def breakfast_fields
-  days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    bfasts = {}
-    days.each do |day|
-      bfasts[day] = self[day] && self[day].count('b')
-    end
-    bfasts
-  end
-
-  def breakfast_fields=(bools)
-    puts bools
-  end
+  # def breakfast_fields
+  # days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+  #   bfasts = {}<<
+  #   days.each do |day|
+  #     #bfasts[day] = self[day] && self[day].count('b')
+  #     bfasts[day] = 1
+  #     self["bfast_#{day}"] = bfasts[day]
+  #   end
+  #   bfasts
+  # end
+  # 
+  # def breakfast_fields=(bools)
+  #   puts bools
+  # end
 
 # breakfast!!
   def monday_breakfast
@@ -21,7 +23,7 @@ class Coop < ActiveRecord::Base
   end
   def monday_breakfast=(on)
   	if on
-  		self.monday += 'b'
+  		self.monday << 'b'
   	end
   end
 
@@ -30,7 +32,7 @@ class Coop < ActiveRecord::Base
   end
   def tuesday_breakfast=(on)
     if on
-      self.tuesday += 'b'
+      self.tuesday << 'b'
     end
   end
 
@@ -39,7 +41,7 @@ class Coop < ActiveRecord::Base
   end
   def wednesday_breakfast=(on)
     if on
-      self.wednesday += 'b'
+      self.wednesday << 'b'
     end
   end
 
@@ -48,7 +50,7 @@ class Coop < ActiveRecord::Base
   end
   def thursday_breakfast=(on)
     if on
-      self.thursday += 'b'
+      self.thursday << 'b'
     end
   end
 
@@ -57,7 +59,7 @@ class Coop < ActiveRecord::Base
   end
   def friday_breakfast=(on)
     if on
-      self.friday += 'b'
+      self.friday << 'b'
     end
   end
 
@@ -66,7 +68,7 @@ class Coop < ActiveRecord::Base
   end
   def saturday_breakfast=(on)
     if on
-      self.saturday += 'b'
+      self.saturday << 'b'
     end
   end
 
@@ -75,7 +77,7 @@ class Coop < ActiveRecord::Base
   end
   def sunday_breakfast=(on)
     if on
-      self.sunday += 'b'
+      self.sunday << 'b'
     end
   end
 
@@ -85,7 +87,7 @@ class Coop < ActiveRecord::Base
   end
   def monday_lunch=(on)
     if on
-      self.monday += 'l'
+      self.monday << 'l'
     end
   end
 
@@ -94,7 +96,7 @@ class Coop < ActiveRecord::Base
   end
   def tuesday_lunch=(on)
     if on
-      self.tuesday += 'l'
+      self.tuesday << 'l'
     end
   end
 
@@ -103,7 +105,7 @@ class Coop < ActiveRecord::Base
   end
   def wednesday_lunch=(on)
     if on
-      self.wednesday += 'l'
+      self.wednesday << 'l'
     end
   end
 
@@ -112,7 +114,7 @@ class Coop < ActiveRecord::Base
   end
   def thursday_lunch=(on)
     if on
-      self.thursday += 'l'
+      self.thursday << 'l'
     end
   end
 
@@ -121,7 +123,7 @@ class Coop < ActiveRecord::Base
   end
   def friday_lunch=(on)
     if on
-      self.friday += 'l'
+      self.friday << 'l'
     end
   end
 
@@ -130,7 +132,7 @@ class Coop < ActiveRecord::Base
   end
   def saturday_lunch=(on)
     if on
-      self.saturday += 'l'
+      self.saturday << 'l'
     end
   end
 
@@ -139,7 +141,7 @@ class Coop < ActiveRecord::Base
   end
   def sunday_lunch=(on)
     if on
-      self.sunday += 'l'
+      self.sunday << 'l'
     end
   end
 
@@ -149,7 +151,7 @@ class Coop < ActiveRecord::Base
   end
   def monday_dinner=(on)
     if on
-      self.monday += 'd'
+      self.monday << 'd'
     end
   end
 
@@ -158,7 +160,7 @@ class Coop < ActiveRecord::Base
   end
   def tuesday_dinner=(on)
     if on
-      self.tuesday += 'd'
+      self.tuesday << 'd'
     end
   end
 
@@ -167,7 +169,7 @@ class Coop < ActiveRecord::Base
   end
   def wednesday_dinner=(on)
     if on
-      self.wednesday += 'd'
+      self.wednesday << 'd'
     end
   end
 
@@ -176,7 +178,7 @@ class Coop < ActiveRecord::Base
   end
   def thursday_dinner=(on)
     if on
-      self.thursday += 'd'
+      self.thursday << 'd'
     end
   end
 
@@ -185,7 +187,7 @@ class Coop < ActiveRecord::Base
   end
   def friday_dinner=(on)
     if on
-      self.friday += 'd'
+      self.friday << 'd'
     end
   end
 
@@ -194,7 +196,7 @@ class Coop < ActiveRecord::Base
   end
   def saturday_dinner=(on)
     if on
-      self.saturday += 'd'
+      self.saturday << 'd'
     end
   end
 
@@ -203,7 +205,7 @@ class Coop < ActiveRecord::Base
   end
   def sunday_dinner=(on)
     if on
-      self.sunday += 'd'
+      self.sunday << 'd'
     end
   end
 end

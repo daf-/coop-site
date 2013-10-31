@@ -72,6 +72,6 @@ class CoopsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coop_params
-      params.require(:coop).permit(:name)
+      params.require(:coop).permit(:name, :bfast_time, :lunch_time, :dinner_time, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner)
     end
 end

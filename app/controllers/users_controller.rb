@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @coops = Coop.all
   end
 
   # POST /users
@@ -68,6 +69,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :username, :coopName)
+      params.require(:user).permit(:email, :username, :coop_id)
     end
 end

@@ -10,5 +10,10 @@
   <%= @user.username %>
 </p>
 
+<p>
+  <strong>Coop:</strong>
+  <%= Coop.find(@user.coop_id).name %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

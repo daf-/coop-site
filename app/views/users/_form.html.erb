@@ -12,9 +12,9 @@
   <% end %>
 
   <div class="field coopName">
-    <%= f.label :coopId %><br>
+    <%= f.label :coop_id %><br>
     <%# <%= f.text_field :coopName %>
-    <%= f.select :coopId, @coops.collect { |coop| [ coop.name, coop.id ] } %>
+    <%= f.select :coop_id, @coops.collect { |coop| [ coop.name, coop.id ] } %>
   </div>
   <div class="field">
     <%= f.label :username %><br>

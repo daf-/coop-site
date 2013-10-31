@@ -19,9 +19,6 @@ class CoopsController < ApplicationController
 
   # GET /coops/1/edit
   def edit
-    @coop.breakfast_fields.each_pair do |field, value|
-      @coop[field] = value
-    end
   end
 
   # POST /coops
@@ -45,6 +42,7 @@ class CoopsController < ApplicationController
   def update
     respond_to do |format|
       if @coop.update(coop_params)
+        Meal.generate_meals_for_coop(coop_params, @coop)
         format.html { redirect_to @coop, notice: 'Coop was successfully updated.' }
         format.json { head :no_content }
       else

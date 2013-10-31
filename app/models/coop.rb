@@ -2,21 +2,6 @@ class Coop < ActiveRecord::Base
 
   has_many :meals
 
-  # def breakfast_fields
-  # days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-  #   bfasts = {}<<
-  #   days.each do |day|
-  #     #bfasts[day] = self[day] && self[day].count('b')
-  #     bfasts[day] = 1
-  #     self["bfast_#{day}"] = bfasts[day]
-  #   end
-  #   bfasts
-  # end
-  # 
-  # def breakfast_fields=(bools)
-  #   puts bools
-  # end
-
 # breakfast!!
   def monday_breakfast
   	return self.monday && self.monday.count('b')

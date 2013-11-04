@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030014410) do
+ActiveRecord::Schema.define(version: 20131104010437) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20131030014410) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "coop_id"
   end
 
+  add_index "swap_requests", ["coop_id"], name: "index_swap_requests_on_coop_id"
   add_index "swap_requests", ["user_id"], name: "index_swap_requests_on_user_id"
 
   create_table "users", force: true do |t|

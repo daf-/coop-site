@@ -94,6 +94,13 @@ class Meal < ActiveRecord::Base
       start_time = Time.parse(start_time)
       puts start_time.hour
       time = DateTime.new(curdate.year, curdate.month, curdate.day, start_time.hour, start_time.min)
-      Meal.create start_time: time, meal_type: meal_type, isSpecial: false, end_time: time + Rational(1, 24), coop: coop
+      old_meal = Meal.where(meal_type: meal_type, isSpecial: false, coop: coop).first
+      if old_meal
+        old_meal[:start_time] = time
+        old_meal[:end_time] = time + Rational(1, 24)
+        old_meal.save
+      else
+        Meal.create start_time: time, meal_type: meal_type, isSpecial: false, end_time: time + Rational(1, 24), coop: coop
+      end
     end
 end

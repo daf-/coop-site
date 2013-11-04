@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20131031190739) do
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
 
+  create_table "swap_requests", force: true do |t|
+    t.boolean  "headcook_required"
+    t.text     "message",           limit: 255
+    t.datetime "date"
+    t.boolean  "isResolved?"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "swap_requests", ["user_id"], name: "index_swap_requests_on_user_id"
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "username"

@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030014410) do
+ActiveRecord::Schema.define(version: 20131104015105) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shifts", force: true do |t|
+    t.integer  "coop_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "activity"
+    t.integer  "leader"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

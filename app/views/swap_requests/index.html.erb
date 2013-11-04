@@ -17,11 +17,11 @@
   <tbody>
     <% @swap_requests.each do |swap_request| %>
       <tr>
-        <td><%= swap_request.headcook_required %></td>
-        <td><%= swap_request.message %></td>
-        <td><%= swap_request.date %></td>
-        <td><%= swap_request.isResolved? %></td>
         <td><%= swap_request.user.username %></td>
+        <td><%= swap_request.message %></td>
+        </tr><tr>
+        <td><%= swap_request.date %></td>
+        <td><%= swap_request.user.coopName %></td>
         <td><%= link_to 'Show', swap_request %></td>
         <td><%= link_to 'Edit', edit_swap_request_path(swap_request) %></td>
         <td><%= link_to 'Destroy', swap_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>

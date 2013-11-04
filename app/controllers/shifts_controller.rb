@@ -15,12 +15,10 @@ class ShiftsController < ApplicationController
   # GET /shifts/new
   def new
     @shift = Shift.new
-    @coops = Coop.all
   end
 
   # GET /shifts/1/edit
   def edit
-    @coops = Coop.all
   end
 
   # POST /shifts

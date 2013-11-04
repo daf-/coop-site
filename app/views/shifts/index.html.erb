@@ -17,7 +17,7 @@
   <tbody>
     <% @shifts.each do |shift| %>
       <tr>
-        <td><%= shift.coop_id %></td>
+        <td><%= Coop.find(shift.coop_id).name %></td>
         <td><%= shift.start_time %></td>
         <td><%= shift.end_time %></td>
         <td><%= shift.activity %></td>

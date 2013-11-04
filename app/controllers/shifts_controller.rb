@@ -15,18 +15,17 @@ class ShiftsController < ApplicationController
   # GET /shifts/new
   def new
     @shift = Shift.new
-    @coops = Coop.all
   end
 
   # GET /shifts/1/edit
   def edit
-    @coops = Coop.all
   end
 
   # POST /shifts
   # POST /shifts.json
   def create
     @shift = Shift.new(shift_params)
+    @shift.coop_id = current_user.coop_id
 
     respond_to do |format|
       if @shift.save

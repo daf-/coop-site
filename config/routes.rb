@@ -1,5 +1,7 @@
 CoopSite::Application.routes.draw do
 
+  resources :shifts
+
   resources :swap_requests
 
   # The priority is based upon order of creation: first created -> highest priority.

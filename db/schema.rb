@@ -10,8 +10,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 20131106024549) do
+ActiveRecord::Schema.define(version: 20131104015105) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -44,6 +43,16 @@ ActiveRecord::Schema.define(version: 20131106024549) do
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
+
+  create_table "shifts", force: true do |t|
+    t.integer  "coop_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "activity"
+    t.integer  "leader"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "swap_requests", force: true do |t|
     t.boolean  "headcook_required"

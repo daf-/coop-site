@@ -3,8 +3,8 @@ class Meal < ActiveRecord::Base
   belongs_to :coop
 
   def self.generate_meals_for_coop(coop_params, coop)
-  end_of_fall = Date.new(Date.today.year, 12, 31)
-  end_of_spring = Date.new(Date.today.year, 5, 30)
+    end_of_fall = Date.new(Date.today.year, 12, 31)
+    end_of_spring = Date.new(Date.today.year, 5, 30)
     curdate = Date.today
     puts curdate.wday
     puts coop_params.inspect

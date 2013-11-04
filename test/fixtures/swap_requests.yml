@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  headcook_required: false
+  message: MyString
+  date: 2013-10-29 20:28:06
+  isResolved?: false
+
+two:
+  headcook_required: false
+  message: MyString
+  date: 2013-10-29 20:28:06
+  isResolved?: false

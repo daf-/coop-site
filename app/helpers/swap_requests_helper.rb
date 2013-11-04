@@ -1,0 +1,2 @@
+module SwapRequestsHelper
+end

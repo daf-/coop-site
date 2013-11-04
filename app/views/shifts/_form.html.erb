@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :coop_id %><br>
-    <%= f.number_field :coop_id %>
+    <%= f.select :coop_id, @coops.collect { |coop| [ coop.name, coop.id ] } %>
   </div>
   <div class="field">
     <%= f.label :start_time %><br>
@@ -25,7 +25,8 @@
   </div>
   <div class="field">
     <%= f.label :activity %><br>
-    <%= f.text_field :activity %>
+    <%# f.text_field :activity %>
+    <%= f.select :activity, [['Cooking', 'Cooking'], ['Crew', 'Crew'], ['Super Commando', 'Super Commando']] %>
   </div>
   <div class="field">
     <%= f.label :leader %><br>

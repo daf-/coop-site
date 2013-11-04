@@ -5,5 +5,38 @@
   <%= @coop.name %>
 </p>
 
+<table>
+	<tr>
+		<th>Meal</th>
+		<% @days.each do |day| %>
+			<th><%= day %></th>
+		<% end %>
+	</tr>
+	<tr>
+		<td>Breakfast</td>
+		<% @breakfasts.each do |meal| %>
+			<td>
+				<%= meal.start_time %>
+			</td>
+		<% end %>
+	</tr>
+		<tr>
+		<td>Lunch</td>
+		<% @lunches.each do |meal| %>
+			<td>
+				<%= meal.start_time %>
+			</td>
+		<% end %>
+	</tr>
+		<tr>
+		<td>Dinner</td>
+		<% @dinners.each do |meal| %>
+			<td>
+				<%= meal.start_time %>
+			</td>
+		<% end %>
+	</tr>
+</table>
+
 <%= link_to 'Edit', edit_coop_path(@coop) %> |
 <%= link_to 'Back', coops_path %>

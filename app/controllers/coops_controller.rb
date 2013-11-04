@@ -1,6 +1,8 @@
 class CoopsController < ApplicationController
   before_action :set_coop, only: [:show, :edit, :update, :destroy]
 
+  include CoopsHelper
+
   # GET /coops
   # GET /coops.json
   def index
@@ -10,6 +12,10 @@ class CoopsController < ApplicationController
   # GET /coops/1
   # GET /coops/1.json
   def show
+    @breakfasts = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7))
+    @lunches = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7))
+    @dinners = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7))
+    @days = weekFromToday
   end
 
   # GET /coops/new

@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20131106024549) do
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
 
+  create_table "shifts", force: true do |t|
+    t.integer  "coop_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "activity"
+    t.integer  "leader"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "swap_requests", force: true do |t|
     t.boolean  "headcook_required"
     t.text     "message",           limit: 255

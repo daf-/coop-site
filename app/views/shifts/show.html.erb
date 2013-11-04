@@ -2,7 +2,7 @@
 
 <p>
   <strong>Coop:</strong>
-  <%= @shift.coop_id %>
+  <%= Coop.find(@shift.coop_id).name %>
 </p>
 
 <p>

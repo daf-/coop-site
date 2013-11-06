@@ -11,4 +11,12 @@ module CoopsHelper
     end
     ret
   end
+
+  def days
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  end
+
+  def calendarTime(datetime)
+    datetime.to_time.strftime "%l:%M %p"
+  end
 end

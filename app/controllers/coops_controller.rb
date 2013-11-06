@@ -12,10 +12,30 @@ class CoopsController < ApplicationController
   # GET /coops/1
   # GET /coops/1.json
   def show
-    @breakfasts = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7))
-    @lunches = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7))
-    @dinners = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7))
-    @days = weekFromToday
+    bs = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7))
+    ls = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7))
+    ds = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7))
+    @days = weekFromToday;
+    @breakfasts = []
+    @lunches = []
+    @dinners = []
+    @days.each do |day|
+      if bs[0] && bs[0].day == day
+        @breakfasts << bs.shift
+      else
+        @breakfasts << nil
+      end
+      if ls[0] && ls[0].day == day
+        @lunches << ls.shift
+      else
+        @lunches << nil
+      end
+      if ds[0] && ds[0].day == day
+        @dinners << ds.shift
+      else
+        @dinners << nil
+      end
+    end
   end
 
   # GET /coops/new

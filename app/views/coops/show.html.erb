@@ -13,27 +13,37 @@
 		<% end %>
 	</tr>
 	<tr>
-		<td>Breakfast</td>
+		<td class='meal breakfast'>Breakfast</td>
 		<% @breakfasts.each do |meal| %>
-			<td>
-				<%= meal.start_time %>
-			</td>
+			<% if meal %>
+				<td>
+					<div class='time'>
+						<%= calendarTime(meal.start_time) %>
+					</div>
+				</td>
+			<% end %>
 		<% end %>
 	</tr>
 		<tr>
-		<td>Lunch</td>
+		<td class='meal lunch'>Lunch</td>
 		<% @lunches.each do |meal| %>
-			<td>
-				<%= meal.start_time %>
-			</td>
+			<% if meal %>
+				<td>
+					<div class='time'>
+						<%= calendarTime(meal.start_time) %>
+					</div>
+				</td>
+			<% end %>
 		<% end %>
 	</tr>
 		<tr>
-		<td>Dinner</td>
+		<td class='meal dinner'>Dinner</td>
 		<% @dinners.each do |meal| %>
-			<td>
-				<%= meal.start_time %>
-			</td>
+			<% if meal %>
+				<td>
+					<%= calendarTime(meal.start_time) %>
+				</td>
+			<% end %>
 		<% end %>
 	</tr>
 </table>

@@ -51,7 +51,6 @@ class CoopsController < ApplicationController
   # POST /coops.json
   def create
     @coop = Coop.new(coop_params)
-
     respond_to do |format|
       if @coop.save
         format.html { redirect_to @coop, notice: 'Coop was successfully created.' }
@@ -68,7 +67,11 @@ class CoopsController < ApplicationController
   def update
     respond_to do |format|
       if @coop.update(coop_params)
-        Meal.generate_meals_for_coop(coop_params, @coop)
+        if Meal.where(coop: @coop)
+          Meal.update_meals_for_coop(coop_params, @coop)
+        else
+          Meal.generate_meals_for_coop(coop_params, @coop)
+        end
         format.html { redirect_to @coop, notice: 'Coop was successfully updated.' }
         format.json { head :no_content }
       else

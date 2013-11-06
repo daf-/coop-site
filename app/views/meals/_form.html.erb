@@ -12,16 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.label :cancelled %><br>
+    <%= f.check_box :cancelled %>
   </div>
   <div class="field">
     <%= f.label :isSpecial %><br>
-    <%= f.text_field :isSpecial %>
+    <%= f.check_box :isSpecial %>
   </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :meal_info %><br>
+    <%= f.text_area :meal_info %>
+  </div>
+  <div class="field">
+    <%= f.label :discussion_info %><br>
+    <%= f.text_area :discussion_info %>
   </div>
   <div class="actions">
     <%= f.submit %>

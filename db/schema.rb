@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031190739) do
+ActiveRecord::Schema.define(version: 20131106024549) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20131031190739) do
     t.string   "meal_info"
     t.string   "discussion_info"
     t.integer  "coop_id"
+    t.boolean  "cancelled"
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"

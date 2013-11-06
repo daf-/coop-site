@@ -28,7 +28,7 @@ class MealsController < ApplicationController
 
     respond_to do |format|
       if @meal.save
-        format.html { redirect_to @meal, notice: 'Meal was successfully created.' }
+        format.html { redirect_to coop_path(@meal.coop), notice: 'Meal was successfully created.' }
         format.json { render action: 'show', status: :created, location: @meal }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class MealsController < ApplicationController
   def update
     respond_to do |format|
       if @meal.update(meal_params)
-        format.html { redirect_to @meal, notice: 'Meal was successfully updated.' }
+        format.html { redirect_to coop_path(@meal.coop), notice: 'Meal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +69,6 @@ class MealsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meal_params
-      params.require(:meal).permit(:type, :isSpecial, :name)
+      params.require(:meal).permit(:type, :isSpecial, :name, :cancelled, :discussion_info, :meal_info)
     end
 end

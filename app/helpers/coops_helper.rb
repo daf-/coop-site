@@ -17,6 +17,6 @@ module CoopsHelper
   end
 
   def calendarTime(datetime)
-    datetime.to_time.strftime "%l:%M %p"
+    datetime.to_time.utc.strftime "%l:%M %p"
   end
 end

@@ -16,15 +16,7 @@
 		<td class='meal breakfast'>Breakfast</td>
 		<% @breakfasts.each do |meal| %>
 			<% if meal %>
-				<td>
-					<div class='time'>
-						<%= calendarTime(meal.start_time) %>
-					</div>
-					<% if meal.cancelled %>
-						<div>Cancelled</div>
-					<% end %>
-					<%= link_to 'Edit meal', edit_meal_path(meal) %>
-				</td>
+				<%= render 'meals/table_show', meal: meal %>
 			<% end %>
 		<% end %>
 	</tr>
@@ -32,15 +24,7 @@
 		<td class='meal lunch'>Lunch</td>
 		<% @lunches.each do |meal| %>
 			<% if meal %>
-				<td>
-					<div class='time'>
-						<%= calendarTime(meal.start_time) %>
-					</div>
-					<% if meal.cancelled %>
-						<div>Cancelled</div>
-					<% end %>
-					<%= link_to 'Edit meal', edit_meal_path(meal) %>
-				</td>
+				<%= render 'meals/table_show', meal: meal %>
 			<% end %>
 		<% end %>
 	</tr>
@@ -48,19 +32,14 @@
 		<td class='meal dinner'>Dinner</td>
 		<% @dinners.each do |meal| %>
 			<% if meal %>
-				<td>
-					<div class='time'>
-						<%= calendarTime(meal.start_time) %>
-					</div>
-					<% if meal.cancelled %>
-						<div>Cancelled</div>
-					<% end %>
-					<%= link_to 'Edit meal', edit_meal_path(meal) %>
-				</td>
+				<%= render 'meals/table_show', meal: meal %>
 			<% end %>
 		<% end %>
 	</tr>
 </table>
+
+<!-- The box that will follow the mouse holding the meal info -->
+<div id='mealInfo'></div>
 
 <%= link_to 'Edit', edit_coop_path(@coop) %> |
 <%= link_to 'Back', coops_path %>

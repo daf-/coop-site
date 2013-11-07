@@ -2,6 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_coop, only: [:show, :edit]
 
+  def home
+    unless current_user
+      redirect_to 'index'
+    end
+    redirect_to coop_path(current_user.coop_id)
+  end
   # GET /users
   # GET /users.json
   def index

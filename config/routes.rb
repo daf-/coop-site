@@ -4,7 +4,7 @@ CoopSite::Application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  root 'users#index'
+  root 'users#home'
 
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout

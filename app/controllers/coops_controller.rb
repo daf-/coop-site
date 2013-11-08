@@ -1,5 +1,6 @@
 class CoopsController < ApplicationController
   before_action :set_coop, only: [:show, :edit, :update, :destroy]
+  before_action :force_admin, only: [:edit, :update, :destroy]
 
   include CoopsHelper
 
@@ -92,6 +93,12 @@ class CoopsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_coop
       @coop = Coop.find(params[:id])
+    end
+
+    def force_admin
+      unless current_user && current_user.admin?
+        redirect_to @coop, notice: 'Must be a coop admin to modify coop'
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

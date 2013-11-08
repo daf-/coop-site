@@ -1,4 +1,3 @@
-<td class='meal'>
 	<div class='namearea'>
 		<% if meal.name %>
 			<span class='name'><%= meal.name %></span>
@@ -17,5 +16,4 @@
 		<h3>Discussion Info</h3>
 		<p><%= meal.discussion_info %></p>
 	</div>
-	<%= link_to 'Edit meal', edit_meal_path(meal) %>
-</td>
+	<%= link_to 'Edit meal', edit_coop_meal_path(@coop, meal) %>

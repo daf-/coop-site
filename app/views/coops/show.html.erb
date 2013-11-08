@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @coop.name %>
+	<strong>Name:</strong>
+	<%= @coop.name %>
 </p>
 
 <table>
@@ -14,26 +14,38 @@
 	</tr>
 	<tr>
 		<td class='meal breakfast'>Breakfast</td>
-		<% @breakfasts.each do |meal| %>
-			<% if meal %>
-				<%= render 'meals/table_show', meal: meal %>
-			<% end %>
+		<% @days.each do |day| %>
+			<td>
+				<% @breakfasts[day].each do |meal| %>
+					<% if meal %>
+						<%= render 'meals/table_show', meal: meal, coop: @coop %>
+					<% end %>
+				<% end %>
+			</td>
 		<% end %>
 	</tr>
-		<tr>
+	<tr>
 		<td class='meal lunch'>Lunch</td>
-		<% @lunches.each do |meal| %>
-			<% if meal %>
-				<%= render 'meals/table_show', meal: meal %>
-			<% end %>
+		<% @days.each do |day| %>
+			<td>
+				<% @lunches[day].each do |meal| %>
+					<% if meal %>
+						<%= render 'meals/table_show', meal: meal, coop: @coop %>
+					<% end %>
+				<% end %>
+			</td>
 		<% end %>
 	</tr>
-		<tr>
+	<tr>
 		<td class='meal dinner'>Dinner</td>
-		<% @dinners.each do |meal| %>
-			<% if meal %>
-				<%= render 'meals/table_show', meal: meal %>
-			<% end %>
+		<% @days.each do |day| %>
+			<td>
+				<% @dinners[day].each do |meal| %>
+					<% if meal %>
+						<%= render 'meals/table_show', meal: meal, coop: @coop %>
+					<% end %>
+				<% end %>
+			</td>
 		<% end %>
 	</tr>
 </table>
@@ -41,5 +53,5 @@
 <!-- The box that will follow the mouse holding the meal info -->
 <div id='mealInfo'></div>
 
-<%= link_to 'Edit', edit_coop_path(@coop) %> |
-<%= link_to 'Back', coops_path %>
+<%= link_to "Add New Meal", new_coop_meal_path(@coop) %>
+<%= link_to "Edit #{@coop.name}", edit_coop_path(@coop) %>	

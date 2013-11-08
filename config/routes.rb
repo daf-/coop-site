@@ -9,9 +9,10 @@ CoopSite::Application.routes.draw do
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
-  resources :coops
+  resources :coops do
+    resources :meals
+  end
   resources :users
-  resources :meals
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

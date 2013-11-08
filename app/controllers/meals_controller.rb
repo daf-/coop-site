@@ -1,5 +1,6 @@
 class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
+  before_action :set_coop, only: [:new, :create, :edit]
 
   # GET /meals
   # GET /meals.json
@@ -14,7 +15,8 @@ class MealsController < ApplicationController
 
   # GET /meals/new
   def new
-    @meal = Meal.new
+    time = DateTime.now.change(min: 0)
+    @meal = Meal.new({start_time: time, end_time: time + (60*60)})
   end
 
   # GET /meals/1/edit
@@ -25,7 +27,7 @@ class MealsController < ApplicationController
   # POST /meals.json
   def create
     @meal = Meal.new(meal_params)
-
+    @meal.coop = @coop
     respond_to do |format|
       if @meal.save
         format.html { redirect_to coop_path(@meal.coop), notice: 'Meal was successfully created.' }
@@ -67,8 +69,12 @@ class MealsController < ApplicationController
       @meal = Meal.find(params[:id])
     end
 
+    def set_coop
+      @coop = Coop.find(params[:coop_id]);
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def meal_params
-      params.require(:meal).permit(:type, :isSpecial, :name, :cancelled, :discussion_info, :meal_info)
+      params.require(:meal).permit(:meal_type, :isSpecial, :name, :cancelled, :discussion_info, :meal_info, :end_time_no_date, :start_time_no_date, :date)
     end
 end

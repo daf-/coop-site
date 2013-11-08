@@ -12,28 +12,25 @@ class CoopsController < ApplicationController
   # GET /coops/1
   # GET /coops/1.json
   def show
-    bs = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7))
-    ls = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7))
-    ds = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7))
+    bs = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7)).order('start_time asc')
+    ls = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7)).order('start_time asc')
+    ds = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7)).order('start_time asc')
     @days = weekFromToday;
-    @breakfasts = []
-    @lunches = []
-    @dinners = []
+    @breakfasts = {}
+    @lunches = {}
+    @dinners = {}
     @days.each do |day|
-      if bs[0] && bs[0].day == day
-        @breakfasts << bs.shift
-      else
-        @breakfasts << nil
+      @breakfasts[day] = []
+      while bs[0] && bs[0].day == day
+        @breakfasts[day] << bs.shift
       end
-      if ls[0] && ls[0].day == day
-        @lunches << ls.shift
-      else
-        @lunches << nil
+      @lunches[day] = []
+      while ls[0] && ls[0].day == day
+        @lunches[day] << ls.shift
       end
-      if ds[0] && ds[0].day == day
-        @dinners << ds.shift
-      else
-        @dinners << nil
+      @dinners[day] = []
+      while ds[0] && ds[0].day == day
+        @dinners[day] << ds.shift
       end
     end
   end

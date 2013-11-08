@@ -7,6 +7,42 @@ class Meal < ActiveRecord::Base
     days[start_time.to_date.wday]
   end
 
+  def date
+    self.start_time.to_date
+  end
+
+  def date=(a_date)
+    a_date = Date.parse(a_date)
+    oldstart = self.start_time
+    oldend = self.end_time
+    self.start_time = DateTime.new(a_date.year, a_date.month, a_date.day, oldstart.hour, oldstart.min)
+    self.end_time = DateTime.new(a_date.year, a_date.month, a_date.day, oldend.hour, oldend.min)
+  end
+
+  def start_time_no_date
+    self.start_time.to_time
+  end
+
+  def start_time_no_date=(time)
+    time = Time.parse(time).utc
+    unless self.start_time
+      self.start_time = DateTime.now
+    end
+    self.start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, time.hour, time.min)
+  end
+
+  def end_time_no_date
+    self.end_time.to_time
+  end
+
+  def end_time_no_date=(time)
+    time = Time.parse(time).utc
+    unless self.end_time
+      self.end_time = DateTime.now
+    end
+    self.end_time = DateTime.new(self.end_time.year, self.end_time.month, self.end_time.day, time.hour, time.min)
+  end
+
   def self.update_meals_for_coop(coop_params, coop)
     end_of_fall = Date.new(Date.today.year, 12, 31)
     end_of_spring = Date.new(Date.today.year, 5, 30)
@@ -179,12 +215,12 @@ class Meal < ActiveRecord::Base
 
   private
     def self.create_meal(curdate, start_time, meal_type, coop)
-      start_time = Time.parse(start_time)
+      start_time = Time.parse(start_time).utc
       time = DateTime.new(curdate.year, curdate.month, curdate.day, start_time.hour, start_time.min)
       Meal.create start_time: time, meal_type: meal_type, isSpecial: false, end_time: time + Rational(1, 24), coop: coop
     end
     def self.update_meal(curdate, start_time, meal_type, coop)
-      start_time = Time.parse(start_time)
+      start_time = Time.parse(start_time).utc
       time = DateTime.new(curdate.year, curdate.month, curdate.day, start_time.hour, start_time.min)
       old_date_bod = DateTime.new(curdate.year, curdate.month, curdate.day,0,0,0)
       old_date_eod = DateTime.new(curdate.year, curdate.month, curdate.day,23,59,59)

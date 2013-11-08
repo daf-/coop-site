@@ -4,9 +4,10 @@ class UsersController < ApplicationController
 
   def home
     unless current_user
-      redirect_to 'index'
+      render action: 'index'
+    else
+      redirect_to coop_path(current_user.coop_id)
     end
-    redirect_to coop_path(current_user.coop_id)
   end
   # GET /users
   # GET /users.json

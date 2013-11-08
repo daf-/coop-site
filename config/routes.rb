@@ -11,6 +11,10 @@ CoopSite::Application.routes.draw do
 
   resources :coops do
     resources :meals
+
+    member do
+      get 'generate_join_link'
+    end
   end
   resources :users
 

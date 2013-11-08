@@ -2,6 +2,10 @@ class Coop < ActiveRecord::Base
 
   has_many :meals
 
+  def update_join_hash
+    self.join_hash = SecureRandom.hex
+  end
+
 # breakfast!!
   def monday_breakfast
   	return self.monday && self.monday.count('b')

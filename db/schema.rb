@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108030230) do
+ActiveRecord::Schema.define(version: 20131108200435) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20131108030230) do
     t.string   "friday",      default: ""
     t.string   "saturday",    default: ""
     t.string   "sunday",      default: ""
+    t.string   "join_hash"
   end
 
   create_table "meals", force: true do |t|

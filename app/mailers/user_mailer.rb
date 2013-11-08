@@ -7,9 +7,9 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Welcome to the coop hub site thing")
   end
 
-  def coop_join_info_email(user)
+  def coop_join_info_email(user, coop)
     @user = user
-    @url = 'http://localhost:3000/' + user.coop.join_hash
+    @url = 'http://localhost:3000/' + coop.join_hash
     mail(to: @user.email, subject: "Get your coop involved!")
   end
 end

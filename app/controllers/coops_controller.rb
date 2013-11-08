@@ -1,6 +1,6 @@
 class CoopsController < ApplicationController
-  before_action :set_coop, only: [:show, :edit, :update, :destroy]
-  before_action :force_admin, only: [:edit, :update, :destroy]
+  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link]
+  before_action :force_admin, only: [:edit, :update, :destroy, :generate_join_link]
 
   include CoopsHelper
 
@@ -86,6 +86,20 @@ class CoopsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to coops_url }
       format.json { head :no_content }
+    end
+  end
+
+  def generate_join_link
+    respond_to do |format|
+      @coop.update_join_hash
+      if @coop.save
+        UserMailer.coop_join_info_email(current_user, @coop).deliver
+        format.html { render action: 'edit', notice: 'Email sent!' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', notice: 'Something went wrong' }
+        format.json { render json: @coop.errors, status: :unprocessable_entity }
+      end
     end
   end
 

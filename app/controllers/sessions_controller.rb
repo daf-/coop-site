@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
     url = root_path if url.eql?('/logout')
 
     unless user.id
-      # the user is new, direct them to the form to edit profile
+      # the user is new, direct them to the form to edit profile and send an email
+      UserMailer.welcome_email(user).deliver
       url = nil
     end
 

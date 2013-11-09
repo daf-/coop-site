@@ -26,7 +26,8 @@ class MealsController < ApplicationController
   # POST /meals
   # POST /meals.json
   def create
-    @meal = Meal.new(meal_params)
+    @meal = Meal.new
+    @meal.update(@meal.from_params(meal_params))
     @meal.coop = @coop
     respond_to do |format|
       if @meal.save
@@ -43,7 +44,7 @@ class MealsController < ApplicationController
   # PATCH/PUT /meals/1.json
   def update
     respond_to do |format|
-      if @meal.update(meal_params)
+      if @meal.update(@meal.from_params(meal_params))
         format.html { redirect_to coop_path(@meal.coop), notice: 'Meal was successfully updated.' }
         format.json { head :no_content }
       else

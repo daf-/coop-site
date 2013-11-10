@@ -14,6 +14,7 @@ CoopSite::Application.routes.draw do
 
     member do
       get 'generate_join_link'
+      get 'join_link/:join_hash', action: 'join_coop_page'
     end
   end
   resources :users

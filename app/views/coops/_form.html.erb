@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= f.label :bfast_time %><br>
-    <%= f.time_field :bfast_time %>
+    <%= f.time_select :bfast_time, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
   <div class="field">
     <%= f.label :lunch_time %><br>
-    <%= f.time_field :lunch_time %>
+    <%= f.time_select :lunch_time, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
   <div class="field">
     <%= f.label :dinner_time %><br>
-    <%= f.time_field :dinner_time %>
+    <%= f.time_select :dinner_time, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
   <table>
     <tr>

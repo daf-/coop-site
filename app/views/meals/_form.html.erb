@@ -21,11 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :start_time_no_date %><br>
-    <%= f.time_field :start_time_no_date, {ampm: true} %>
+    <%= f.time_select :start_time_no_date, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
   <div class="field">
     <%= f.label :end_time_no_date %><br>
-    <%= f.time_field :end_time_no_date %>
+    <%= f.time_select :end_time_no_date, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
   <div class="field">
     <%= f.label :name %><br>

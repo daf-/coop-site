@@ -1,5 +1,5 @@
 class CoopsController < ApplicationController
-  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link]
+  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link, :join_coop_page]
   before_action :force_admin, only: [:edit, :update, :destroy, :generate_join_link]
 
   include CoopsHelper
@@ -101,6 +101,13 @@ class CoopsController < ApplicationController
         format.json { render json: @coop.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def join_coop_page
+    unless params[:join_hash] == @coop.join_hash
+      redirect_to root_path
+    end
+    @user = User.new(coopName: @coop.name)
   end
 
   private

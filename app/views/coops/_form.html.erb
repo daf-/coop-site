@@ -12,9 +12,96 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :bfast_time %><br>
+    <%= f.time_select :bfast_time, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
+  <div class="field">
+    <%= f.label :lunch_time %><br>
+    <%= f.time_select :lunch_time, {ampm: true, minute_step: 5, ignore_date: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :dinner_time %><br>
+    <%= f.time_select :dinner_time, {ampm: true, minute_step: 5, ignore_date: true} %>
+  </div>
+  <table>
+    <tr>
+      <th>Meal</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
+    </tr>
+    <tr>
+      <td>Breakfast</td>
+
+
+      <td class="field">
+        <%= f.check_box :monday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :tuesday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :wednesday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :thursday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :friday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :saturday_breakfast %>
+      </td>
+      <td class="field">
+        <%= f.check_box :sunday_breakfast %>
+      </td> 
+    </tr>
+     <tr>
+      <td>Lunch</td>
+      <td class="field">
+        <%= f.check_box :monday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :tuesday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :wednesday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :thursday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :friday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :saturday_lunch %>
+      </td>
+      <td class="field">
+        <%= f.check_box :sunday_lunch %>
+      </td>
+    </tr>
+     <tr>
+      <td>Dinner</td>
+      <td class="field">
+        <%= f.check_box :monday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :tuesday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :wednesday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :thursday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :friday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :saturday_dinner %>
+      </td>
+      <td class="field">
+        <%= f.check_box :sunday_dinner %>
+      </td>
+    </tr>
+  </table>
   <div class="actions">
     <%= f.submit %>
   </div>

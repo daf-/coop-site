@@ -26,6 +26,12 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(shift_params)
     @shift.coop_id = current_user.coop_id
+    # Set the shift's leader
+    if shift_params[:isLeader] == "yes"
+      @shift.leader = current_user.id
+    else
+      @shift.leader = nil
+    end
 
     respond_to do |format|
       if @shift.save
@@ -41,6 +47,13 @@ class ShiftsController < ApplicationController
   # PATCH/PUT /shifts/1
   # PATCH/PUT /shifts/1.json
   def update
+    # Set the shift's leader
+    if shift_params[:isLeader] == "yes"
+      @shift.leader = current_user.id
+    else
+      @shift.leader = nil
+    end
+
     respond_to do |format|
       if @shift.update(shift_params)
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -70,6 +83,6 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.require(:shift).permit(:coop_id, :start_time, :end_time, :activity, :leader)
+      params.require(:shift).permit(:coop_id, :start_time, :end_time, :activity, :isLeader)
     end
 end

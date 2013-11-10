@@ -21,8 +21,11 @@
 </p>
 
 <p>
-  <strong>Leader:</strong>
-  <%= @shift.leader %>
+  <!--TODO: privay -->
+  <% if @shift.leader %>
+    <strong>Leader:</strong>
+    <%= User.find(@shift.leader).username %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_shift_path(@shift) %> |

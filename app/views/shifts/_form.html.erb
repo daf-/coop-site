@@ -25,8 +25,8 @@
     <%= f.select :activity, [['Cooking', 'Cooking'], ['Crew', 'Crew'], ['Super Commando', 'Super Commando']] %>
   </div>
   <div class="field">
-    <%= f.label :leader %><br>
-    <%= f.number_field :leader %>
+    <%= f.radio_button :isLeader, "yes", { checked: true } %> I'm the head cook/PIC! <br>
+    <%= f.radio_button :isLeader, "no", { checked: true } %> I'm not a head cook or PIC. <br>
   </div>
   <div class="actions">
     <%= f.submit %>

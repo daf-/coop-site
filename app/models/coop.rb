@@ -2,6 +2,8 @@ class Coop < ActiveRecord::Base
 
   has_many :meals
   has_many :users
+  has_many :shifts
+  has_many :swap_requests
 
   before_create :update_admin_join_hash
   before_create :update_member_join_hash

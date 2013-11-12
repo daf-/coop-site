@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108200435) do
+ActiveRecord::Schema.define(version: 20131112185918) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -20,14 +20,15 @@ ActiveRecord::Schema.define(version: 20131108200435) do
     t.time     "bfast_time"
     t.time     "lunch_time"
     t.time     "dinner_time"
-    t.string   "monday",      default: ""
-    t.string   "tuesday",     default: ""
-    t.string   "wednesday",   default: ""
-    t.string   "thursday",    default: ""
-    t.string   "friday",      default: ""
-    t.string   "saturday",    default: ""
-    t.string   "sunday",      default: ""
-    t.string   "join_hash"
+    t.string   "monday",           default: ""
+    t.string   "tuesday",          default: ""
+    t.string   "wednesday",        default: ""
+    t.string   "thursday",         default: ""
+    t.string   "friday",           default: ""
+    t.string   "saturday",         default: ""
+    t.string   "sunday",           default: ""
+    t.string   "admin_join_hash"
+    t.string   "member_join_hash"
   end
 
   create_table "meals", force: true do |t|
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 20131108200435) do
     t.datetime "updated_at"
     t.integer  "coop_id"
     t.boolean  "admin"
+    t.string   "phone"
   end
 
   add_index "users", ["coop_id"], name: "index_users_on_coop_id"

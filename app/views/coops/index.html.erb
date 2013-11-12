@@ -1,11 +1,11 @@
-<h1>Listing coops</h1>
+<h2>View a Coop Calendar or <%= link_to 'sign in to your account', "/auth/google_login" %></h2>
+
+<p id="notice"><%= notice %></p>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -15,13 +15,7 @@
       <tr>
         <td><%= coop.name %></td>
         <td><%= link_to 'Show', coop %></td>
-        <td><%= link_to 'Edit', edit_coop_path(coop) %></td>
-        <td><%= link_to 'Destroy', coop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Coop', new_coop_path %>

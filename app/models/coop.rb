@@ -1,9 +1,14 @@
 class Coop < ActiveRecord::Base
 
   has_many :meals
+  has_many :users
 
-  def update_join_hash
-    self.join_hash = SecureRandom.hex
+  def update_admin_join_hash
+    self.admin_join_hash = SecureRandom.hex
+  end
+
+  def update_member_join_hash
+    self.member_join_hash = SecureRandom.hex
   end
 
 # breakfast!!

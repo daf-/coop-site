@@ -1,5 +1,5 @@
 class CoopsController < ApplicationController
-  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link, :join_coop_page]
+  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link, :join_coop_page, :member_join, :admin_join]
   before_action :force_admin, only: [:edit, :update, :destroy, :generate_join_link]
 
   include CoopsHelper
@@ -7,6 +7,9 @@ class CoopsController < ApplicationController
   # GET /coops
   # GET /coops.json
   def index
+    if current_user
+      redirect_to coop_path(current_user.coop)
+    end
     @coops = Coop.all
   end
 
@@ -89,9 +92,9 @@ class CoopsController < ApplicationController
     end
   end
 
-  def generate_join_link
+  def generate_member_join_link
     respond_to do |format|
-      @coop.update_join_hash
+      @coop.update_member_join_hash
       if @coop.save
         UserMailer.coop_join_info_email(current_user, @coop).deliver
         format.html { render action: 'edit', notice: 'Email sent!' }
@@ -103,11 +106,25 @@ class CoopsController < ApplicationController
     end
   end
 
-  def join_coop_page
-    unless params[:join_hash] == @coop.join_hash
+  def member_join
+    unless params[:member_join_hash] == @coop.member_join_hash
       redirect_to root_path
+      return
     end
-    @user = User.new(coopName: @coop.name)
+    session[:coop_id] = @coop.id
+    session[:return_to] = 'new member'
+    puts session[:return_to]
+    redirect_to "/auth/google_login"
+  end
+
+  def admin_join
+    unless params[:admin_join_hash] == @coop.admin_join_hash
+      redirect_to root_path
+      return
+    end
+    session[:coop_id] = @coop.id
+    session[:return_to] = 'new admin'
+    redirect_to "/auth/google_login"
   end
 
   private

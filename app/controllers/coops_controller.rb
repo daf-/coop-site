@@ -37,6 +37,7 @@ class CoopsController < ApplicationController
         @dinners[day] << ds.shift
       end
     end
+    @user = current_user
   end
 
   # GET /coops/new

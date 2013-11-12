@@ -1,5 +1,6 @@
 class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
+  before_action :check_for_user, only: [:edit, :update, :destroy]
   before_action :set_coop, only: [:new, :create, :edit]
 
   # GET /meals
@@ -73,6 +74,12 @@ class MealsController < ApplicationController
 
     def set_coop
       @coop = Coop.find(params[:coop_id]);
+    end
+
+    def check_for_user
+      unless current_user
+        redirect_to @coop, notice: 'Must be signed in to do that'
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

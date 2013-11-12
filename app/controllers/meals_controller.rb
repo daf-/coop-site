@@ -29,7 +29,6 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new
     @meal.update(@meal.from_params(meal_params))
-    puts @meal.inspect
     @meal.coop = @coop
     respond_to do |format|
       if @meal.save

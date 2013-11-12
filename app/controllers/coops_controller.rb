@@ -1,6 +1,6 @@
 class CoopsController < ApplicationController
-  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_join_link, :join_coop_page, :member_join, :admin_join]
-  before_action :force_admin, only: [:edit, :update, :destroy, :generate_join_link]
+  before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link, :join_coop_page, :member_join, :admin_join]
+  before_action :force_admin, only: [:edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link]
 
   include CoopsHelper
 
@@ -97,10 +97,24 @@ class CoopsController < ApplicationController
       @coop.update_member_join_hash
       if @coop.save
         UserMailer.coop_join_info_email(current_user, @coop).deliver
-        format.html { render action: 'edit', notice: 'Email sent!' }
+        format.html { redirect_to edit_coop_path(@coop), notice: 'Email sent!' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', notice: 'Something went wrong' }
+        format.html { redirect_to edit_coop_path(@coop), notice: 'Something went wrong' }
+        format.json { render json: @coop.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def generate_admin_join_link
+    respond_to do |format|
+      @coop.update_admin_join_hash
+      if @coop.save
+        UserMailer.coop_admin_email(current_user, @coop).deliver
+        format.html { redirect_to edit_coop_path(@coop), notice: 'Email sent!' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to edit_coop_path(@coop), notice: 'Something went wrong' }
         format.json { render json: @coop.errors, status: :unprocessable_entity }
       end
     end

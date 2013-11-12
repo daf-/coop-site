@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_coop, only: [:show, :edit]
+  before_action :is_same_user, only: [:edit, :update]
+  before_action :is_admin, only: [:destroy]
 
   def home
     unless current_user
@@ -79,9 +81,15 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def isSameUser
+    def is_same_user
       unless @user.id == current_user.id
         redirect_to root_path, notice: 'Cannot edit other users'
+      end
+    end
+
+    def is_admin
+      unless current_user.admin?
+        redirect_to root_path, notice: 'Must be admin to do that!'
       end
     end
 

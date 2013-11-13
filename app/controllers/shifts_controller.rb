@@ -1,5 +1,33 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy, :add_user, :remove_user]
+
+  # adds the current user to this shift
+  def add_user
+    unless @shift.users.include?(current_user)
+      @shift.users << current_user
+      redirect_to shifts_path, notice: 'Successfully joined shift.'
+    else
+      redirect_to shifts_path, notice: 'You\'re already on this shift.'
+    end
+  end
+
+  # remove the current user from this shift
+  def remove_user
+    if @shift.users.include?(current_user)
+      # remove us and make sure we're no longer the leader
+      @shift.users.delete(current_user)
+      if @shift.leader == current_user.id
+        @shift.leader = nil
+        if @shift.save
+          redirect_to shifts_path, notice: 'Successfully removed from shift.'
+        else
+          redirect_to shifts_path, notice: "Couldn't remove you"
+        end
+      end
+    else
+      redirect_to shifts_path, notice: 'You were never on this shift.'
+    end
+  end
 
   # GET /shifts
   # GET /shifts.json
@@ -25,8 +53,9 @@ class ShiftsController < ApplicationController
   # POST /shifts.json
   def create
     @shift = Shift.new(shift_params)
+    # Set user, coop, leader
+    @shift.users << current_user
     @shift.coop_id = current_user.coop_id
-    # Set the shift's leader
     if shift_params[:isLeader] == "yes"
       @shift.leader = current_user.id
     else

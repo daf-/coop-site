@@ -1,6 +1,11 @@
 CoopSite::Application.routes.draw do
 
-  resources :shifts
+  resources :shifts do
+    member do
+      get "add_user"
+      get "remove_user"
+    end
+  end
 
   resources :swap_requests
 
@@ -60,7 +65,7 @@ CoopSite::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

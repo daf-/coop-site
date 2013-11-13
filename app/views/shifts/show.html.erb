@@ -21,7 +21,7 @@
 </p>
 
 <p>
-  <!--TODO: privay -->
+  <!--TODO: privacy -->
   <% if @shift.leader %>
     <strong>Leader:</strong>
     <%= User.find(@shift.leader).username %>
@@ -29,4 +29,9 @@
 </p>
 
 <%= link_to 'Edit', edit_shift_path(@shift) %> |
+<% if @shift.users.include?(current_user) %>
+  <%= link_to 'Remove from my shifts', remove_user_shift_path %> |
+<% else %>
+  <%= link_to 'Add to my shifts', add_user_shift_path %> |
+<% end %>
 <%= link_to 'Back', shifts_path %>

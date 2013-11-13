@@ -11,10 +11,18 @@
 		<div>Cancelled</div>
 	<% end %>
 	<div class='mouseover'>
-		<h3>Meal Info</h3>
-		<p><%= meal.meal_info %></p>
-		<h3>Discussion Info</h3>
-		<p><%= meal.discussion_info %></p>
+		<% if meal.meal_info %>
+			<h3>Meal Info</h3>
+			<p><%= meal.meal_info %></p>
+		<% end %>
+		<% if meal.discussion_info %>
+			<h3>Discussion Info</h3>
+			<p><%= meal.discussion_info %></p>
+		<% end %>
+		<% if meal.user %>
+			<h3>Last Edited By:</h3>
+			<p><%= meal.user.username %></p>
+		<% end %>
 	</div>
 	<% if @user %>
 		<%= link_to 'Edit meal', edit_coop_meal_path(@coop, meal) %>

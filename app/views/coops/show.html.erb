@@ -13,9 +13,9 @@
 		<% end %>
 	</tr>
 	<tr>
-		<td class='meal breakfast'>Breakfast</td>
+		<td class='breakfast'>Breakfast</td>
 		<% @days.each do |day| %>
-			<td>
+			<td class='meal'>
 				<% @breakfasts[day].each do |meal| %>
 					<% if meal %>
 						<%= render 'meals/table_show', meal: meal, coop: @coop %>
@@ -25,9 +25,9 @@
 		<% end %>
 	</tr>
 	<tr>
-		<td class='meal lunch'>Lunch</td>
+		<td class='lunch'>Lunch</td>
 		<% @days.each do |day| %>
-			<td>
+			<td class='meal'>
 				<% @lunches[day].each do |meal| %>
 					<% if meal %>
 						<%= render 'meals/table_show', meal: meal, coop: @coop %>
@@ -37,9 +37,9 @@
 		<% end %>
 	</tr>
 	<tr>
-		<td class='meal dinner'>Dinner</td>
+		<td class='dinner'>Dinner</td>
 		<% @days.each do |day| %>
-			<td>
+			<td class='meal'>
 				<% @dinners[day].each do |meal| %>
 					<% if meal %>
 						<%= render 'meals/table_show', meal: meal, coop: @coop %>

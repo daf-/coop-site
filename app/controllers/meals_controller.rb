@@ -45,7 +45,9 @@ class MealsController < ApplicationController
   # PATCH/PUT /meals/1.json
   def update
     respond_to do |format|
-      if @meal.update(@meal.from_params(meal_params))
+      @meal.user = current_user
+      if @meal.update(@meal.from_params(meal_params)) && @meal.save
+        puts @meal.user
         format.html { redirect_to coop_path(@meal.coop), notice: 'Meal was successfully updated.' }
         format.json { head :no_content }
       else

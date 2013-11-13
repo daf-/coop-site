@@ -1,15 +1,11 @@
 class User < ActiveRecord::Base
+  belongs_to :coop
   has_many :swap_requests
 	validates_uniqueness_of :email
 
-  def coopName
-    if self.coop_id
-      Coop.find(self.coop_id).name
-    end
-  end
+  after_create :send_account_create_email
 
-  def coopName=(name)
-    @coop = Coop.find_by_name name
-    self.coop_id = @coop.id
+  def send_account_create_email
+    UserMailer.welcome_email(self).deliver
   end
 end

@@ -16,4 +16,6 @@
 		<h3>Discussion Info</h3>
 		<p><%= meal.discussion_info %></p>
 	</div>
-	<%= link_to 'Edit meal', edit_coop_meal_path(@coop, meal) %>
+	<% if @user %>
+		<%= link_to 'Edit meal', edit_coop_meal_path(@coop, meal) %>
+	<% end %>

@@ -102,6 +102,16 @@
       </td>
     </tr>
   </table>
+  <% unless @coop.new_record? %>
+    <div class='links'>
+      <div>
+        <%= link_to 'Send a new member link for coop', generate_member_join_link_coop_path(@coop) %>
+      </div>
+      <div>
+        <%= link_to 'Send a new admin link for coop', generate_admin_join_link_coop_path(@coop) %>
+      </div>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

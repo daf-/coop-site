@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_coop, only: [:show, :edit]
+  before_action :is_same_user, only: [:edit, :update]
+  before_action :is_admin, only: [:destroy]
 
   def home
     unless current_user
@@ -9,6 +11,7 @@ class UsersController < ApplicationController
       redirect_to coop_path(current_user.coop_id)
     end
   end
+
   # GET /users
   # GET /users.json
   def index
@@ -26,7 +29,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @coops = Coop.all
   end
 
   # POST /users
@@ -72,17 +74,27 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_coop
-      if @user.coop_id
-        @coop = Coop.find(@user.coop_id)
-      end
+      @coop = @user.coop
     end
 
     def set_user
       @user = User.find(params[:id])
     end
 
+    def is_same_user
+      unless @user.id == current_user.id
+        redirect_to root_path, notice: 'Cannot edit other users'
+      end
+    end
+
+    def is_admin
+      unless current_user.admin?
+        redirect_to root_path, notice: 'Must be admin to do that!'
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :username, :coop_id)
+      params.require(:user).permit(:email, :username, :phone)
     end
 end

@@ -1,9 +1,10 @@
 <h1>Welcome to Co-op site thing</h1>
 
+<p id="notice"><%= notice %></p>
+
 <% if current_user %>
   <p>Welcome <%= current_user.email %></p>
   <%= link_to 'Sign out', signout_path %>
 <% else %>
   <p><%= link_to 'Sign in!', "/auth/google_login" %></p>
 <% end %>
-

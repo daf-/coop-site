@@ -4,13 +4,20 @@ CoopSite::Application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  root 'users#home'
+  root 'coops#index'
 
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
   resources :coops do
     resources :meals
+
+    member do
+      get 'generate_member_join_link'
+      get 'generate_admin_join_link'
+      get 'member_join_link/:member_join_hash', action: 'member_join'
+      get 'admin_join_link/:admin_join_hash', action: 'admin_join'
+    end
   end
   resources :users
 

@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :coop
   has_many :swap_requests
-  has_one :coop
   has_and_belongs_to_many :shifts
   validates_uniqueness_of :email
 

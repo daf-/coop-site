@@ -14,8 +14,8 @@ class ShiftsController < ApplicationController
   # remove the current user from this shift
   def remove_user
     if @shift.users.include?(current_user)
-      # remove us and make sure we're no longer the leader
       @shift.users.delete(current_user)
+      # make sure we're no longer the leader
       if @shift.leader == current_user.id
         @shift.leader = nil
         if @shift.save
@@ -23,6 +23,8 @@ class ShiftsController < ApplicationController
         else
           redirect_to shifts_path, notice: "Couldn't remove you"
         end
+      else
+        redirect_to shifts_path, notice: 'Successfully removed from shift.'
       end
     else
       redirect_to shifts_path, notice: 'You were never on this shift.'

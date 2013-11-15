@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131114051543) do
+ActiveRecord::Schema.define(version: 20131115202204) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -51,13 +51,14 @@ ActiveRecord::Schema.define(version: 20131114051543) do
 
   create_table "shifts", force: true do |t|
     t.integer  "coop_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
     t.string   "activity"
     t.integer  "leader"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "meal_id"
+    t.string   "day"
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   add_index "shifts", ["meal_id"], name: "index_shifts_on_meal_id"

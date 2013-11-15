@@ -63,6 +63,7 @@
   <table>
     <thead>
       <tr>
+        <th>Day</th>
         <th>Start time</th>
         <th>End time</th>
         <th>Activity</th>
@@ -76,7 +77,7 @@
     <tbody>
       <% @user.shifts.each do |shift| %>
         <tr>
-          <td><%= Coop.find(shift.coop_id).name %></td>
+          <td><%= shift.day %> </td>
           <td><%= shift.start_time %></td>
           <td><%= shift.end_time %></td>
           <td><%= shift.activity %></td>

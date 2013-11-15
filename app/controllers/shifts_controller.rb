@@ -114,6 +114,6 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.require(:shift).permit(:coop_id, :start_time, :end_time, :activity, :isLeader)
+      params.require(:shift).permit(:coop_id, :day, :start_time, :end_time, :activity, :isLeader)
     end
 end

@@ -1,12 +1,5 @@
 CoopSite::Application.routes.draw do
 
-  resources :shifts do
-    member do
-      get "add_user"
-      get "remove_user"
-    end
-  end
-
   resources :swap_requests
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -17,7 +10,24 @@ CoopSite::Application.routes.draw do
   get "/signout" => "sessions#destroy", :as => :signout
 
   resources :coops do
-    resources :meals
+    resources :meals do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+    end
+
+    resources :shifts do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+
+      member do
+        get "add_user"
+        get "remove_user"
+      end
+    end
 
     member do
       get 'generate_member_join_link'

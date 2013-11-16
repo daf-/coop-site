@@ -1,5 +1,12 @@
 CoopSite::Application.routes.draw do
 
+  resources :shifts do
+    member do
+      get "add_user"
+      get "remove_user"
+    end
+  end
+
   resources :swap_requests
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -58,7 +65,7 @@ CoopSite::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

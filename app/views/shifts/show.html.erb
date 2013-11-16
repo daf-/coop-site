@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Coop:</strong>
+  <%= Coop.find(@shift.coop_id).name %>
+</p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @shift.day %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @shift.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @shift.end_time %>
+</p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @shift.activity %>
+</p>
+
+<p>
+  <!--TODO: privacy -->
+  <% if @shift.leader %>
+    <strong>Leader:</strong>
+    <%= User.find(@shift.leader).username %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_shift_path(@shift) %> |
+<% if @shift.users.include?(current_user) %>
+  <%= link_to 'Remove from my shifts', remove_user_shift_path %> |
+<% else %>
+  <%= link_to 'Add to my shifts', add_user_shift_path %> |
+<% end %>
+<%= link_to 'Back', shifts_path %>

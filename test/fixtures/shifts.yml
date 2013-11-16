@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  coop_id: 1
+  start_time: 2013-11-03 20:51:05
+  end_time: 2013-11-03 20:51:05
+  activity: MyString
+  leader: 1
+
+two:
+  coop_id: 1
+  start_time: 2013-11-03 20:51:05
+  end_time: 2013-11-03 20:51:05
+  activity: MyString
+  leader: 1

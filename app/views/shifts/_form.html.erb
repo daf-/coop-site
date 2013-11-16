@@ -1,0 +1,38 @@
+<%= form_for(@shift) do |f| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :day %><br>
+    <%= f.select :day, Date::DAYNAMES.zip(Date::DAYNAMES)%>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_select :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :activity %><br>
+    <%# f.text_field :activity %>
+    <%= f.select :activity, [['Cooking', 'Cooking'], ['Crew', 'Crew'], ['Commando', 'Commando']] %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :isLeader, "yes", { checked: true } %> I'm the head cook/PIC! <br>
+    <%= f.radio_button :isLeader, "no", { checked: true } %> I'm not a head cook or PIC. <br>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

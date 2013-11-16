@@ -1,7 +1,8 @@
 class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
-  before_action :check_for_user, only: [:edit, :update, :destroy]
-  before_action :set_coop, only: [:new, :create, :edit]
+  before_action :check_for_user, only: [:edit, :update, :destroy, :edit_mult]
+  before_action :set_coop, only: [:new, :create, :edit, :edit_mult]
+  before_action :is_admin, only: [:edit_mult, :update_mult]
 
   # GET /meals
   # GET /meals.json
@@ -22,6 +23,12 @@ class MealsController < ApplicationController
 
   # GET /meals/1/edit
   def edit
+  end
+
+  def edit_mult
+  end
+
+  def update_mult
   end
 
   # POST /meals
@@ -78,6 +85,12 @@ class MealsController < ApplicationController
     def check_for_user
       unless current_user
         redirect_to @coop, notice: 'Must be signed in to do that'
+      end
+    end
+
+    def is_admin
+      unless current_user.admin?
+        redirect_to root_path, notice: 'Must be admin to do that!'
       end
     end
 

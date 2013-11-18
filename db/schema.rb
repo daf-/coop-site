@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118173913) do
+ActiveRecord::Schema.define(version: 20131118223237) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -62,6 +62,11 @@ ActiveRecord::Schema.define(version: 20131118173913) do
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
   add_index "meals", ["user_id"], name: "index_meals_on_user_id"
+
+  create_table "meals_shifts", id: false, force: true do |t|
+    t.integer "shift_id", null: false
+    t.integer "meal_id",  null: false
+  end
 
   create_table "shifts", force: true do |t|
     t.integer  "coop_id"

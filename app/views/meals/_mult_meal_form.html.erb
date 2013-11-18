@@ -1,0 +1,21 @@
+<p>You're editing your co-op's meal and shift times.</p>
+
+<div id='breakfast_form'>
+  <%= form_tag update_mult_coop_meals_path(@coop), method: :post %>
+  <%= check_box_tag "breakfast", "time", @coop.breakfast? %>
+  <%= label_tag "Breakfast?" %>
+  <div id='breakfast_details'>
+    <div class='time'>
+      <%= label_tag "Meal time?" %><br>
+      <%= select_tag "breakfast_hour", tag_hours.html_safe %>:
+      <%= select_tag "breakfast_min", tag_minutes.html_safe %>
+      <%= select_tag "breakfast_ampm", "<option>AM</option><option>PM</option>".html_safe %>
+    </div>
+
+    <div class='days'>
+      <%= label_tag "Monday" %>
+      <%= check_box_tag "monday_breakfast", @coop.monday_breakfast? %>
+    </div>
+  </div>
+  <%= submit_tag "Upadate Coop Schedule" %>
+</div>

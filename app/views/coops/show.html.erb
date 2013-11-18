@@ -53,10 +53,10 @@
 <!-- The box that will follow the mouse holding the meal info -->
 <div id='mealInfo'></div>
 
-<% if @user %>
+<% if @user && @user.coop == @coop %>
   <p>
     <%= link_to "Add New Meal", new_coop_meal_path(@coop) %>
-    <%= link_to "Edit #{@coop.name}", edit_coop_path(@coop) if @user.admin?%>
+    <%= link_to "Edit #{@coop.name}", edit_coop_path(@coop) if @user.admin? %>
   </p>
 
   <strong>Shifts</strong>

@@ -29,6 +29,7 @@ class MealsController < ApplicationController
   end
 
   def update_mult
+    puts lunch_params
   end
 
   # POST /meals
@@ -92,6 +93,27 @@ class MealsController < ApplicationController
       unless current_user.admin?
         redirect_to root_path, notice: 'Must be admin to do that!'
       end
+    end
+
+    def breakfast_params
+      unless params[:breakfast]
+        return nil
+      end
+      params.permit(:breakfast_hour, :breakfast_min, :breakfast_ampm, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1, :cook_2, :pre_crew, :crew, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b)
+    end
+
+    def lunch_params
+      unless params[:lunch]
+        return nil
+      end
+      params.permit(:lunch_hour, :lunch_min, :lunch_ampm, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_breakfast, :cook_1, :cook_2, :pre_crew, :crew, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l)
+    end
+
+    def dinner_params
+      unless params[:dinner]
+        return nil
+      end
+      params.permit(:dinner_hour, :dinner_min, :dinner_ampm, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner, :kp_breakfast, :cook_1, :cook_2, :pre_crew, :crew, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

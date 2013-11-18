@@ -1,9 +1,9 @@
 <p>You're editing your co-op's meal and shift times.</p>
 
-<%= form_tag update_mult_coop_meals_path(@coop), method: :post %>
+<%= form_tag update_mult_coop_meals_path(@coop), method: :put %>
 
 <div id='breakfast_form' class='meal_form'>
-  <%= check_box_tag "breakfast", "time", @coop.breakfast?, class: 'meal_type' %>
+  <%= check_box_tag "breakfast", "yes", @coop.breakfast?, class: 'meal_type' %>
   <%= label_tag "Breakfast?" %>
   <div id='breakfast_details' class='meal_form_details'>
     <div class='time'>
@@ -84,7 +84,7 @@
 </div>
 
 <div id='lunch_form' class='meal_form'>
-  <%= check_box_tag "lunch", "time", @coop.lunch?, class: 'meal_type' %>
+  <%= check_box_tag "lunch", "yes", @coop.lunch?, class: 'meal_type' %>
   <%= label_tag "Lunch?" %>
   <div id='lunch_details' class='meal_form_details'>
     <div class='time'>
@@ -166,7 +166,7 @@
 
 
   <div id='dinner_form' class='meal_form'>
-  <%= check_box_tag "dinner", "time", @coop.dinner?, class: 'meal_type' %>
+  <%= check_box_tag "dinner", "yes", @coop.dinner?, class: 'meal_type' %>
   <%= label_tag "Dinner?" %>
   <div id='dinner_details' class='meal_form_details'>
     <div class='time'>

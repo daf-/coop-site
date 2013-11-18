@@ -16,6 +16,66 @@ class Coop < ActiveRecord::Base
     self.member_join_hash = SecureRandom.hex
   end
 
+  def kp_breakfast?
+    return self.kp && self.kp.count('b')
+  end
+
+  def kp_lunch?
+    return self.kp && self.kp.count('l')
+  end
+
+  def kp_dinner?
+    return self.kp && self.kp.count('d')
+  end
+
+  def cook_1_breakfast?
+    return self.cook_1 && self.cook_1.count('b')
+  end
+
+  def cook_1_lunch?
+    return self.cook_1 && self.cook_1.count('l')
+  end
+
+  def cook_1_dinner?
+    return self.cook_1 && self.cook_1.count('d')
+  end
+
+  def cook_2_breakfast?
+    return self.cook_2 && self.cook_2.count('b')
+  end
+
+  def cook_2_lunch?
+    return self.cook_2 && self.cook_2.count('l')
+  end
+
+  def cook_2_dinner?
+    return self.cook_2 && self.cook_2.count('d')
+  end
+
+  def pre_crew_breakfast?
+    return self.pre_crew && self.pre_crew.count('b')
+  end
+
+  def pre_crew_lunch?
+    return self.pre_crew && self.pre_crew.count('l')
+  end
+
+  def pre_crew_dinner?
+    return self.pre_crew && self.pre_crew.count('d')
+  end
+
+  def crew_breakfast?
+    return self.crew && self.crew.count('b')
+  end
+
+  def crew_lunch?
+    return self.crew && self.crew.count('l')
+  end
+
+  def crew_dinner?
+    return self.crew && self.crew.count('d')
+  end
+
 # breakfast!!
   def breakfast?
     return self.monday_breakfast? || self.tuesday_breakfast? || self.wednesday_breakfast? || self.thursday_breakfast? || self.friday_breakfast? || self.saturday_breakfast? || self.sunday_breakfast?

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_coop, only: [:show, :edit]
-  before_action :is_same_user, only: [:edit, :update]
+  before_action :is_same_user, only: [:edit, :update, :show]
   before_action :is_admin, only: [:destroy]
 
   def home
@@ -20,6 +20,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @swap_requests = @coop.swap_requests
+  end
+
+  def edit_shifts
+    @user = User.find(params[:user_id])
+    @coop = @user.coop
+    @shifts = Shift.where(coop: @coop)
   end
 
   # GET /users/new

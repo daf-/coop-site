@@ -1,0 +1,7 @@
+<div class='my_shifts'>
+  <% @user.shifts.each do |shift| %>
+    <%= shift %>
+  <% end %>
+
+  <%= link_to 'Edit my shifts', user_edit_shifts_path(@user) %>
+</div>

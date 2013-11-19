@@ -1,18 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<h2>Your Shifts</h2>
+<%= render 'my_shifts' %>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<h2>Add a Shift Swap Request</h2>
 
-<p>
-	<strong>Coop:</strong><span><%= @coop.name %></span>
-</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h2>Swapportunities</h2>

@@ -111,8 +111,8 @@ class MealsController < ApplicationController
       unless params[:breakfast]
         return nil
       end
-      params.permit(:breakfast_hour, :breakfast_min, :breakfast_ampm, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1_breakfast, :cook_2_breakfast, :pre_crew_breakfast, :crew_breakfast, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b)
-      bp['time'] = time_from_select(dp[:breakfast_hour], dp[:breakfast_min], dp[:breakfast_ampm])
+      bp = params.permit(:breakfast_hour, :breakfast_min, :breakfast_ampm, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1_breakfast, :cook_2_breakfast, :pre_crew_breakfast, :crew_breakfast, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b)
+      bp['time'] = time_from_select(bp[:breakfast_hour], bp[:breakfast_min], bp[:breakfast_ampm])
       bp
     end
 
@@ -120,8 +120,8 @@ class MealsController < ApplicationController
       unless params[:lunch]
         return nil
       end
-      params.permit(:lunch_hour, :lunch_min, :lunch_ampm, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_lunch, :cook_1_lunch, :cook_2_lunch, :pre_crew_lunch, :crew_lunch, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l)
-      lp['time'] = time_from_select(dp[:lunch_hour], dp[:lunch_min], dp[:lunch_ampm])
+      lp = params.permit(:lunch_hour, :lunch_min, :lunch_ampm, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_lunch, :cook_1_lunch, :cook_2_lunch, :pre_crew_lunch, :crew_lunch, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l)
+      lp['time'] = time_from_select(lp[:lunch_hour], lp[:lunch_min], lp[:lunch_ampm])
       lp
     end
 

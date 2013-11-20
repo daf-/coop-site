@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  include ActionView::Helpers::NumberHelper
+
   belongs_to :coop
   has_many :swap_requests
   has_and_belongs_to_many :shifts
@@ -6,6 +9,22 @@ class User < ActiveRecord::Base
 
   after_create :send_account_create_email
   before_save :clean_phone
+
+  def allowed_phone
+    ap = nil
+    if self.phone && self.display_phone
+      ap = self.phone_pretty
+    end
+    ap
+  end
+
+  def allowed_email
+    ae = nil
+    if self.email && self.display_email
+      ae = self.email
+    end
+    ae
+  end
 
   def phone_pretty
     number_to_phone(self.phone, area_code: true)

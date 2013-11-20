@@ -9,6 +9,35 @@ class Shift < ActiveRecord::Base
   def isLeader=(checkbox)
   end
 
+  def headCook
+    hc = nil
+    if self.leader && (self.activity == 'cook_1' || self.activity == 'cook_2' || self.activity == 'cook')
+      hc = User.find(self.leader)
+    end
+    hc
+  end
+
+  def pic
+    pic = nil
+    if self.leader && !self.headCook?
+      pic = User.find(self.leader)
+    end
+    pic
+  end
+
+  def niceTitle
+    activities = {'kp' => 'Kitchen Prep', 'cook_1' => 'First Hour Cook', 'cook_2' => 'Second Hour Cook', 'pre_crew' => 'Pre-Crew', 'crew' => 'Crew'}
+    puts self.activity
+    puts activities
+    puts activities.has_key?self.activity
+    title = self.day.capitalize
+    if self.meals && self.meals.first
+      title << ' ' + self.meals.first.meal_type.capitalize
+    end
+    title << ' ' + (activities[self.activity] ? activities[self.activity] : self.activity.capitalize)
+    title
+  end
+
   def self.makeForMealsOnDay(daynum, meals, params, coop, old_shifts)
     meal = meals.first.meal_type
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']

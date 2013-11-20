@@ -16,8 +16,72 @@ class Coop < ActiveRecord::Base
     self.member_join_hash = SecureRandom.hex
   end
 
+  def kp_breakfast?
+    return self.kp && self.kp.count('b')
+  end
+
+  def kp_lunch?
+    return self.kp && self.kp.count('l')
+  end
+
+  def kp_dinner?
+    return self.kp && self.kp.count('d')
+  end
+
+  def cook_1_breakfast?
+    return self.cook_1 && self.cook_1.count('b')
+  end
+
+  def cook_1_lunch?
+    return self.cook_1 && self.cook_1.count('l')
+  end
+
+  def cook_1_dinner?
+    return self.cook_1 && self.cook_1.count('d')
+  end
+
+  def cook_2_breakfast?
+    return self.cook_2 && self.cook_2.count('b')
+  end
+
+  def cook_2_lunch?
+    return self.cook_2 && self.cook_2.count('l')
+  end
+
+  def cook_2_dinner?
+    return self.cook_2 && self.cook_2.count('d')
+  end
+
+  def pre_crew_breakfast?
+    return self.pre_crew && self.pre_crew.count('b')
+  end
+
+  def pre_crew_lunch?
+    return self.pre_crew && self.pre_crew.count('l')
+  end
+
+  def pre_crew_dinner?
+    return self.pre_crew && self.pre_crew.count('d')
+  end
+
+  def crew_breakfast?
+    return self.crew && self.crew.count('b')
+  end
+
+  def crew_lunch?
+    return self.crew && self.crew.count('l')
+  end
+
+  def crew_dinner?
+    return self.crew && self.crew.count('d')
+  end
+
 # breakfast!!
-  def monday_breakfast
+  def breakfast?
+    return self.monday_breakfast? || self.tuesday_breakfast? || self.wednesday_breakfast? || self.thursday_breakfast? || self.friday_breakfast? || self.saturday_breakfast? || self.sunday_breakfast?
+  end
+
+  def monday_breakfast?
   	return self.monday && self.monday.count('b')
   end
   def monday_breakfast=(on)
@@ -26,7 +90,7 @@ class Coop < ActiveRecord::Base
   	end
   end
 
-  def tuesday_breakfast
+  def tuesday_breakfast?
     return self.tuesday && self.tuesday.count('b')
   end
   def tuesday_breakfast=(on)
@@ -35,7 +99,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def wednesday_breakfast
+  def wednesday_breakfast?
     return self.wednesday && self.wednesday.count('b')
   end
   def wednesday_breakfast=(on)
@@ -44,7 +108,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def thursday_breakfast
+  def thursday_breakfast?
     return self.thursday && self.thursday.count('b')
   end
   def thursday_breakfast=(on)
@@ -53,7 +117,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def friday_breakfast
+  def friday_breakfast?
     return self.friday && self.friday.count('b')
   end
   def friday_breakfast=(on)
@@ -62,7 +126,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def saturday_breakfast
+  def saturday_breakfast?
     return self.saturday && self.saturday.count('b')
   end
   def saturday_breakfast=(on)
@@ -71,7 +135,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def sunday_breakfast
+  def sunday_breakfast?
     return self.sunday && self.sunday.count('b')
   end
   def sunday_breakfast=(on)
@@ -81,7 +145,11 @@ class Coop < ActiveRecord::Base
   end
 
   # lunch!!
-  def monday_lunch
+  def lunch?
+    return self.monday_lunch? || self.tuesday_lunch? || self.wednesday_lunch? || self.thursday_lunch? || self.friday_lunch? || self.saturday_lunch? || self.sunday_lunch?
+  end
+
+  def monday_lunch?
     return self.monday && self.monday.count('l')
   end
   def monday_lunch=(on)
@@ -90,7 +158,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def tuesday_lunch
+  def tuesday_lunch?
     return self.tuesday && self.tuesday.count('l')
   end
   def tuesday_lunch=(on)
@@ -99,7 +167,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def wednesday_lunch
+  def wednesday_lunch?
     return self.wednesday && self.wednesday.count('l')
   end
   def wednesday_lunch=(on)
@@ -108,7 +176,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def thursday_lunch
+  def thursday_lunch?
     return self.thursday && self.thursday.count('l')
   end
   def thursday_lunch=(on)
@@ -117,7 +185,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def friday_lunch
+  def friday_lunch?
     return self.friday && self.friday.count('l')
   end
   def friday_lunch=(on)
@@ -126,7 +194,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def saturday_lunch
+  def saturday_lunch?
     return self.tuesday && self.saturday.count('l')
   end
   def saturday_lunch=(on)
@@ -135,7 +203,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def sunday_lunch
+  def sunday_lunch?
     return self.saturday && self.sunday.count('l')
   end
   def sunday_lunch=(on)
@@ -145,7 +213,11 @@ class Coop < ActiveRecord::Base
   end
 
   # dinner!!
-  def monday_dinner
+  def dinner?
+    return self.monday_dinner? || self.tuesday_dinner? || self.wednesday_dinner? || self.thursday_dinner? || self.friday_dinner? || self.saturday_dinner? || self.sunday_dinner?
+  end
+
+  def monday_dinner?
     return self.monday && self.monday.count('d')
   end
   def monday_dinner=(on)
@@ -154,7 +226,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def tuesday_dinner
+  def tuesday_dinner?
     return self.tuesday && self.tuesday.count('d')
   end
   def tuesday_dinner=(on)
@@ -163,7 +235,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def wednesday_dinner
+  def wednesday_dinner?
     return self.wednesday && self.wednesday.count('d')
   end
   def wednesday_dinner=(on)
@@ -172,7 +244,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def thursday_dinner
+  def thursday_dinner?
     return self.thursday && self.thursday.count('d')
   end
   def thursday_dinner=(on)
@@ -181,7 +253,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def friday_dinner
+  def friday_dinner?
     return self.friday && self.friday.count('d')
   end
   def friday_dinner=(on)
@@ -190,7 +262,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def saturday_dinner
+  def saturday_dinner?
     return self.saturday && self.saturday.count('d')
   end
   def saturday_dinner=(on)
@@ -199,7 +271,7 @@ class Coop < ActiveRecord::Base
     end
   end
 
-  def sunday_dinner
+  def sunday_dinner?
     return self.sunday && self.sunday.count('d')
   end
   def sunday_dinner=(on)

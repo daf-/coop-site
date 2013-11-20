@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131115202204) do
+ActiveRecord::Schema.define(version: 20131118223237) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(version: 20131115202204) do
     t.string   "sunday",           default: ""
     t.string   "admin_join_hash"
     t.string   "member_join_hash"
+    t.string   "kp"
+    t.string   "cook_1"
+    t.string   "cook_2"
+    t.string   "pre_crew"
+    t.string   "crew"
+    t.string   "custom_shift_1_b"
+    t.string   "custom_shift_1_l"
+    t.string   "custom_shift_1_d"
+    t.string   "custom_shift_2_b"
+    t.string   "custom_shift_2_l"
+    t.string   "custom_shift_2_d"
+    t.string   "custom_shift_3_b"
+    t.string   "custom_shift_3_l"
+    t.string   "custom_shift_3_d"
   end
 
   create_table "meals", force: true do |t|
@@ -43,11 +57,16 @@ ActiveRecord::Schema.define(version: 20131115202204) do
     t.string   "discussion_info"
     t.integer  "coop_id"
     t.boolean  "cancelled"
-    t.integer  "shift_id"
+    t.integer  "user_id"
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
-  add_index "meals", ["shift_id"], name: "index_meals_on_shift_id"
+  add_index "meals", ["user_id"], name: "index_meals_on_user_id"
+
+  create_table "meals_shifts", id: false, force: true do |t|
+    t.integer "shift_id", null: false
+    t.integer "meal_id",  null: false
+  end
 
   create_table "shifts", force: true do |t|
     t.integer  "coop_id"
@@ -55,13 +74,10 @@ ActiveRecord::Schema.define(version: 20131115202204) do
     t.integer  "leader"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "meal_id"
     t.string   "day"
     t.time     "start_time"
     t.time     "end_time"
   end
-
-  add_index "shifts", ["meal_id"], name: "index_shifts_on_meal_id"
 
   create_table "shifts_users", id: false, force: true do |t|
     t.integer "shift_id", null: false

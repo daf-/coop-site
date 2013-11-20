@@ -55,8 +55,11 @@
 
 <% if @user && @user.coop == @coop %>
   <p>
-    <%= link_to "Add New Meal", new_coop_meal_path(@coop) %>
-    <%= link_to "Edit #{@coop.name}", edit_coop_path(@coop) if @user.admin? %>
+    <%= link_to "Add New Meal", new_coop_meal_path(@coop) %>s
+    <% if @user.admin? %>
+      <%= link_to "Add recurring meals for #{@coop.name}", edit_mult_coop_meals_path(@coop) %>
+      <%= link_to "Edit recurring shifts for #{@coop.name}", edit_mult_coop_shifts_path(@coop) %>
+    <% end %>
   </p>
 <% end %>
 
@@ -90,11 +93,11 @@
           <% end %>
           <td><%= link_to 'Show', shift %></td>
           <% if shift.users.include?(current_user) %>
-            <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+            <td><%= link_to 'Edit', edit_coop_shift_path(@coop, shift) %></td>
             <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <td><%= link_to 'Remove from my shifts', remove_user_shift_path(shift) %></td>
+            <td><%= link_to 'Remove from my shifts', remove_user_coop_shift_path(@coop, shift) %></td>
           <% else %>
-            <td><%= link_to 'Add to my shifts', add_user_shift_path(shift) %></td>
+            <td><%= link_to 'Add to my shifts', add_user_coop_shift_path(@coop, shift) %></td>
           <% end %>
         </tr>
       <% end %>
@@ -103,6 +106,6 @@
 
   <br>
 
-  <%= link_to 'New Shift', new_shift_path %>
+  <%= link_to 'New Shift', new_coop_shift_path(@coop) %>
 
 <% end %>

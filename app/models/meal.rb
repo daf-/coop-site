@@ -1,10 +1,51 @@
 class Meal < ActiveRecord::Base
 
   belongs_to :coop
+  has_and_belongs_to_many :shifts
 
   def day
     days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     days[start_time.to_date.wday]
+  end
+
+
+  def self.makeMeals(type, params, coop)
+    end_of_fall = Date.new(Date.today.year, 12, 31)
+    end_of_spring = Date.new(Date.today.year, 5, 30)
+    days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    curdate = Date.today
+    curdate < end_of_spring ? end_date = end_of_spring : end_date = end_of_fall
+    meals = {}
+    shifts = {}
+    (0..6).each do |daynum|
+      meals[daynum] = []
+      shifts[daynum] = []
+    end
+
+    while curdate < end_date
+      if (params[days[curdate.wday]+'_'+type])
+        meal = Meal.update_meal(curdate, params['time'], type, coop)
+        meals[curdate.wday] << meal
+        shifts[curdate.wday] = meal.shifts
+      end
+      curdate = curdate.next_day
+    end
+
+    (0..6).each do |daynum|
+      if meals[daynum].length > 0
+        Shift.makeForMeals(meals[daynum], params, coop, shifts[daynum])
+      else
+        Meal.deleteMealsForDay(type, daynum)
+      end
+    end
+  end
+
+  def self.deleteMealsForDay(type, daynum)
+    Meal.where(meal_type: type).each do |meal|
+      if (meal.start_time.strftime('%w') == daynum.to_s)
+        meal.destroy
+      end
+    end
   end
 
   def date
@@ -54,176 +95,6 @@ class Meal < ActiveRecord::Base
     new_params
   end
 
-  def self.update_meals_for_coop(coop_params, coop)
-    end_of_fall = Date.new(Date.today.year, 12, 31)
-    end_of_spring = Date.new(Date.today.year, 5, 30)
-    curdate = Date.today
-    curdate < end_of_spring ? end_date = end_of_spring : end_date = end_of_fall
-    # iterate through each day until end_date
-    while curdate < end_date
-      case curdate.wday
-      when 0
-        if coop_params[:sunday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:sunday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:sunday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 1
-        if coop_params[:monday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:monday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:monday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 2
-        if coop_params[:tuesday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:tuesday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:tuesday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 3
-        if coop_params[:wednesday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:wednesday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:wednesday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 4
-        if coop_params[:thursday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:thursday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:thursday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 5
-        if coop_params[:friday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:friday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:friday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 6
-        if coop_params[:saturday_breakfast] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:saturday_lunch] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:saturday_dinner] == '1'
-          Meal.update_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      else
-        # wut
-      end
-      curdate = curdate.next_day
-    end
-  end
-
-  def self.generate_meals_for_coop(coop_params, coop)
-    end_of_fall = Date.new(Date.today.year, 12, 31)
-    end_of_spring = Date.new(Date.today.year, 5, 30)
-    curdate = Date.today
-    curdate < end_of_spring ? end_date = end_of_spring : end_date = end_of_fall
-    # iterate through each day until end_date
-    while curdate < end_date
-      case curdate.wday
-      when 0
-        if coop_params[:sunday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:sunday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:sunday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 1
-        if coop_params[:monday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:monday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:monday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 2
-        if coop_params[:tuesday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:tuesday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:tuesday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 3
-        if coop_params[:wednesday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:wednesday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:wednesday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 4
-        if coop_params[:thursday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:thursday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:thursday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 5
-        if coop_params[:friday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:friday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:friday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      when 6
-        if coop_params[:saturday_breakfast] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['bfast_time(4i)'], coop_params['bfast_time(5i)']), 'breakfast', coop)
-        end
-        if coop_params[:saturday_lunch] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['lunch_time(4i)'], coop_params['lunch_time(5i)']), 'lunch', coop)
-        end
-        if coop_params[:saturday_dinner] == '1'
-          Meal.create_meal(curdate, Meal.time_from_select(coop_params['dinner_time(4i)'], coop_params['dinner_time(5i)']), 'dinner', coop)
-        end
-      else
-        # wut
-      end
-      curdate = curdate.next_day
-    end
-  end
-
   private
 
     def self.time_from_select(hours, mins)
@@ -238,14 +109,16 @@ class Meal < ActiveRecord::Base
       time = DateTime.new(curdate.year, curdate.month, curdate.day, start_time.hour, start_time.min)
       old_date_bod = DateTime.new(curdate.year, curdate.month, curdate.day,0,0,0)
       old_date_eod = DateTime.new(curdate.year, curdate.month, curdate.day,23,59,59)
+      new_meal = {}
       old_meal = Meal.where(meal_type: meal_type, isSpecial: false, coop: coop, start_time: old_date_bod..old_date_eod).first
       if old_meal
-        old_meal = old_meal
+        new_meal = old_meal
         old_meal[:start_time] = time
         old_meal[:end_time] = time + Rational(1, 24)
         old_meal.save
       else
-        Meal.create start_time: time, meal_type: meal_type, isSpecial: false, end_time: time + Rational(1, 24), coop: coop
+        new_meal = Meal.create start_time: time, meal_type: meal_type, isSpecial: false, end_time: time + Rational(1, 24), coop: coop
       end
+      new_meal
     end
 end

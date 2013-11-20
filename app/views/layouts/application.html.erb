@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<% if current_user %>
+<% if current_user && !@hide_nav_links %>
 	Signed in as: <%= current_user.email %>
 	<%= link_to 'Sign out', signout_path %>
   <div class='site_nav'>

@@ -64,6 +64,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @hide_nav_links = (@user.username == nil || @user.username == '')
   end
 
   # POST /users

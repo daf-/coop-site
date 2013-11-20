@@ -2,8 +2,8 @@
 $(document).ready(function() {
 	var $mealInfoArea = $('#mealInfo');
 
-	$('.meal').mouseover(function(e) {
-		var info = $(e.target).find('.mouseover').html();
+	$('.meal').click(function(e) {
+		var info = $(e.currentTarget).find('.mouseover').html();
 		$mealInfoArea.html(info);
 	});
 

@@ -2,5 +2,9 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<div class='account_destroy'>
+  <span class='info'>No longer in harkness?</span>
+  <%= link_to 'Delete your account', @user, method: :delete %>
+</div>
+
+<%= link_to 'Back to shifts', @user %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118223237) do
+ActiveRecord::Schema.define(version: 20131120021838) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -104,6 +104,9 @@ ActiveRecord::Schema.define(version: 20131118223237) do
     t.integer  "coop_id"
     t.boolean  "admin"
     t.string   "phone"
+    t.boolean  "display_email"
+    t.boolean  "display_phone"
+    t.boolean  "pic"
   end
 
   add_index "users", ["coop_id"], name: "index_users_on_coop_id"

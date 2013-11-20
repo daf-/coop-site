@@ -101,7 +101,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to signout_path }
       format.json { head :no_content }
     end
   end
@@ -130,6 +130,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :username, :phone)
+      params.require(:user).permit(:email, :username, :phone, :display_email, :display_phone)
     end
 end

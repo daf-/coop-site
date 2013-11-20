@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var ready = function() {
 
   $('.shift_toggle').click(function(e) {
     e.preventDefault();
@@ -12,4 +12,7 @@ $(document).ready(function() {
     });
   });
 
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

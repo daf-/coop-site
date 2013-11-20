@@ -1,5 +1,5 @@
 // wait for all elements to be in page!
-$(document).ready(function() {
+var ready = function() {
 	var $mealInfoArea = $('#mealInfo');
 
 	$('.meal').click(function(e) {
@@ -28,4 +28,7 @@ $(document).ready(function() {
 			$('#'+$(e.target).attr('id')+'_details').hide();
 		}
 	});
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

@@ -23,4 +23,8 @@ module TimeHelper
   def time_from_select(hour, min, ampm)
     Time.parse(hour+':'+min+ampm).utc
   end
+
+  def normal_week_lowercase
+    nwl ||= ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  end
 end

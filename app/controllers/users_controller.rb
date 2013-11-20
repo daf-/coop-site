@@ -25,8 +25,36 @@ class UsersController < ApplicationController
 
   def edit_shifts
     @user = User.find(params[:user_id])
+    is_same_user
     @coop = @user.coop
-    @shifts = Shift.where(coop: @coop)
+    @days = normal_week_lowercase;
+    @breakfasts = {}
+    @lunches = {}
+    @dinners = {}
+    @others = {}
+    @days.each do |day|
+      @breakfasts[day] = []
+      @lunches[day] = []
+      @dinners[day] = []
+      @others[day] = []
+      shifts = Shift.where(coop: @coop, day: day)
+      shifts.each do |shift|
+        if shift.meals && shift.meals.first
+          meal_type = shift.meals.first.meal_type
+          if meal_type == 'breakfast'
+            @breakfasts[day] << shift
+          elsif meal_type == 'lunch'
+            @lunches[day] << shift
+          elsif meal_type == 'dinner'
+            @dinners[day] << shift
+          else
+            @others[day] << shift
+          end
+        else
+          @others[day] << shift
+        end
+      end
+    end
   end
 
   # GET /users/new

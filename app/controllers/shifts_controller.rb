@@ -1,33 +1,36 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy, :add_user, :remove_user]
+  before_action :set_coop, only: [:add_user, :remove_user]
 
   # adds the current user to this shift
   def add_user
-    unless @shift.users.include?(current_user)
-      @shift.users << current_user
-      redirect_to shifts_path, notice: 'Successfully joined shift.'
+    @user = current_user
+    unless @shift.users.include?(@user)
+      @shift.users << @user
+      render partial: 'add_remove_show', shift: @shift, notice: 'Successfully joined shift.'
     else
-      redirect_to shifts_path, notice: 'You\'re already on this shift.'
+      render partial: 'add_remove_show', shift: @shift, notice: 'You\'re already on this shift.'
     end
   end
 
   # remove the current user from this shift
   def remove_user
-    if @shift.users.include?(current_user)
-      @shift.users.delete(current_user)
+    @user = current_user
+    if @shift.users.include?(@user)
+      @shift.users.delete(@user)
       # make sure we're no longer the leader
-      if @shift.leader == current_user.id
+      if @shift.leader == @user.id
         @shift.leader = nil
         if @shift.save
-          redirect_to shifts_path, notice: 'Successfully removed from shift.'
+          render partial: 'add_remove_show', shift: @shift, notice: 'Successfully removed from shift.'
         else
-          redirect_to shifts_path, notice: "Couldn't remove you"
+          render partial: 'add_remove_show', shift: @shift, notice: "Couldn't remove you"
         end
       else
-        redirect_to shifts_path, notice: 'Successfully removed from shift.'
+        render partial: 'add_remove_show', shift: @shift, notice: "Successfully removed from shift."
       end
     else
-      redirect_to shifts_path, notice: 'You were never on this shift.'
+      render partial: 'add_remove_show', shift: @shift, notice: "You were never on this shift."
     end
   end
 
@@ -110,6 +113,10 @@ class ShiftsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_shift
       @shift = Shift.find(params[:id])
+    end
+
+    def set_coop
+      @coop = Coop.find(params[:coop_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

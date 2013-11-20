@@ -15,6 +15,10 @@
 		<p><%= meal.meal_info %></p>
 		<h3>Discussion Info</h3>
 		<p><%= meal.discussion_info %></p>
+		<% if meal.user %>
+			<h3>Last Edited By:</h3>
+			<p><%= meal.user.username %></p>
+		<% end %>
 	</div>
 	<% if @user %>
 		<%= link_to 'Edit meal', edit_coop_meal_path(@coop, meal) %>

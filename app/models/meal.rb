@@ -2,6 +2,7 @@ class Meal < ActiveRecord::Base
 
   belongs_to :coop
   has_and_belongs_to_many :shifts
+  belongs_to :user
 
   def day
     days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']

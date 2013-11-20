@@ -9,20 +9,45 @@ class Shift < ActiveRecord::Base
   def isLeader=(checkbox)
   end
 
-  def self.makeForMeals(meals, params, coop, old_shifts)
+  def headCook
+    hc = nil
+    if self.leader && (self.activity == 'cook_1' || self.activity == 'cook_2' || self.activity == 'cook')
+      hc = User.find(self.leader)
+    end
+    hc
+  end
+
+  def pic
+    pic = nil
+    if self.leader && !self.headCook?
+      pic = User.find(self.leader)
+    end
+    pic
+  end
+
+  def niceTitle
+    activities = {'kp' => 'Kitchen Prep', 'cook_1' => 'First Hour Cook', 'cook_2' => 'Second Hour Cook', 'pre_crew' => 'Pre-Crew', 'crew' => 'Crew'}
+    puts self.activity
+    puts activities
+    puts activities.has_key?self.activity
+    title = self.day.capitalize
+    if self.meals && self.meals.first
+      title << ' ' + self.meals.first.meal_type.capitalize
+    end
+    title << ' ' + (activities[self.activity] ? activities[self.activity] : self.activity.capitalize)
+    title
+  end
+
+  def self.makeForMealsOnDay(daynum, meals, params, coop, old_shifts)
     meal = meals.first.meal_type
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    day = days[daynum]
     activities = {}
     params.each_key do |key|
       if key.include? "_#{meal}"
         act = key.gsub("_#{meal}", "")
         unless days.include? act
-          activities[act] = {}
-          days.each do |day|
-            if (params[day+'_'+meal])
-              activities[key.gsub("_#{meal}", "")][day] = false
-            end
-          end
+          activities[act] = false
         end
       end
     end
@@ -31,9 +56,9 @@ class Shift < ActiveRecord::Base
     destroy_shifts = []
     if (old_shifts)
       old_shifts.each do |shift|
-        if activities[shift.activity] && activities[shift.activity][shift.day]
+        if activities[shift.activity]
           new_shifts << shift
-          activities[shift.activity][day] = true
+          activities[shift.activity] = true
         else
           destroy_shifts << shift
         end
@@ -48,13 +73,15 @@ class Shift < ActiveRecord::Base
       shift.meals = meals
     end
 
-    activities.each_pair do |activity, hash_days|
-      hash_days.each_pair do |day, exists|
-        unless exists
-          shift = Shift.create(day: day, coop: coop, activity: activity)
-          shift.meals = meals
-        end
+    out = []
+    activities.each_pair do |activity, exists|
+      out << activity
+      unless exists
+        shift = Shift.create(day: day, coop: coop, activity: activity)
+        out << shift
+        shift.meals = meals
       end
     end
+    puts out.inspect
   end
 end

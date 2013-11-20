@@ -13,9 +13,9 @@
     <% end %>
   </tr>
   <tr>
-    <td class='meal breakfast'>Breakfast</td>
+    <td class='breakfast'>Breakfast</td>
     <% @days.each do |day| %>
-      <td>
+      <td class='meal'>
 	<% @breakfasts[day].each do |meal| %>
 	  <% if meal %>
 	    <%= render 'meals/table_show', meal: meal, coop: @coop %>
@@ -27,7 +27,7 @@
   <tr>
     <td class='meal lunch'>Lunch</td>
     <% @days.each do |day| %>
-      <td>
+      <td class='meal'>
 	<% @lunches[day].each do |meal| %>
 	  <% if meal %>
 	    <%= render 'meals/table_show', meal: meal, coop: @coop %>
@@ -39,7 +39,7 @@
   <tr>
     <td class='meal dinner'>Dinner</td>
     <% @days.each do |day| %>
-      <td>
+      <td class='meal'>
 	<% @dinners[day].each do |meal| %>
 	  <% if meal %>
 	    <%= render 'meals/table_show', meal: meal, coop: @coop %>
@@ -91,14 +91,8 @@
           <% else %>
             <td>None</td>
           <% end %>
-          <td><%= link_to 'Show', shift %></td>
-          <% if shift.users.include?(current_user) %>
-            <td><%= link_to 'Edit', edit_coop_shift_path(@coop, shift) %></td>
-            <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <td><%= link_to 'Remove from my shifts', remove_user_coop_shift_path(@coop, shift) %></td>
-          <% else %>
-            <td><%= link_to 'Add to my shifts', add_user_coop_shift_path(@coop, shift) %></td>
-          <% end %>
+          <td><%= link_to 'Show', coop_shift_path(@coop, shift) %></td>
+          <td><%= link_to 'Remove from my shifts', remove_user_coop_shift_path(@coop, shift) %></td>
         </tr>
       <% end %>
     </tbody>

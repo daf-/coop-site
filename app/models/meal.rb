@@ -2,6 +2,7 @@ class Meal < ActiveRecord::Base
 
   belongs_to :coop
   has_and_belongs_to_many :shifts
+  belongs_to :user
 
   def day
     days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -33,7 +34,7 @@ class Meal < ActiveRecord::Base
 
     (0..6).each do |daynum|
       if meals[daynum].length > 0
-        Shift.makeForMeals(meals[daynum], params, coop, shifts[daynum])
+        Shift.makeForMealsOnDay(daynum, meals[daynum], params, coop, shifts[daynum])
       else
         Meal.deleteMealsForDay(type, daynum)
       end
@@ -43,6 +44,11 @@ class Meal < ActiveRecord::Base
   def self.deleteMealsForDay(type, daynum)
     Meal.where(meal_type: type).each do |meal|
       if (meal.start_time.strftime('%w') == daynum.to_s)
+        if meal.shifts
+          meal.shifts.each do |shift|
+            shift.destroy
+          end
+        end
         meal.destroy
       end
     end

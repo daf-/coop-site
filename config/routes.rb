@@ -36,7 +36,10 @@ CoopSite::Application.routes.draw do
       get 'admin_join_link/:admin_join_hash', action: 'admin_join'
     end
   end
-  resources :users
+
+  resources :users do
+    get 'edit_shifts'
+  end
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

@@ -1,9 +1,9 @@
 // wait for all elements to be in page!
-$(document).ready(function() {
+var ready = function() {
 	var $mealInfoArea = $('#mealInfo');
 
-	$('.meal').mouseover(function(e) {
-		var info = $(e.target).find('.mouseover').html();
+	$('.meal').click(function(e) {
+		var info = $(e.currentTarget).find('.mouseover').html();
 		$mealInfoArea.html(info);
 	});
 
@@ -28,4 +28,7 @@ $(document).ready(function() {
 			$('#'+$(e.target).attr('id')+'_details').hide();
 		}
 	});
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

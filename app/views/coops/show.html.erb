@@ -91,14 +91,9 @@
           <% else %>
             <td>None</td>
           <% end %>
-          <td><%= link_to 'Show', shift %></td>
-          <% if shift.users.include?(current_user) %>
-            <td><%= link_to 'Edit', edit_coop_shift_path(@coop, shift) %></td>
-            <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <td><%= link_to 'Remove from my shifts', remove_user_coop_shift_path(@coop, shift) %></td>
-          <% else %>
-            <td><%= link_to 'Add to my shifts', add_user_coop_shift_path(@coop, shift) %></td>
-          <% end %>
+          <td><%= link_to 'Show', coop_shift_path(@coop, shift) %></td>
+          <td><%= link_to 'Edit', edit_coop_shift_path(@coop, shift) %></td>
+          <td><%= link_to 'Remove from my shifts', remove_user_coop_shift_path(@coop, shift) %></td>
         </tr>
       <% end %>
     </tbody>

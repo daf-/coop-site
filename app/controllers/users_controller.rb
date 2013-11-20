@@ -20,10 +20,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @selected = 'shifts'
     @swap_requests = @coop.swap_requests
   end
 
   def edit_shifts
+    @selected = 'shifts'
     @user = User.find(params[:user_id])
     is_same_user
     @coop = @user.coop
@@ -64,6 +66,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @selected = 'edit_user'
     @hide_nav_links = (@user.username == nil || @user.username == '')
   end
 

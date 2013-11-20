@@ -12,9 +12,9 @@
 	Signed in as: <%= current_user.email %>
 	<%= link_to 'Sign out', signout_path %>
   <div class='site_nav'>
-    <%= link_to 'shifts', user_path(current_user) %>
-    <%= link_to current_user.coop.name+' calendar', coop_path(current_user.coop) %>
-    <%= link_to 'me', edit_user_path(current_user) %>
+    <%= link_to 'shifts', user_path(current_user), class: (@selected == 'shifts') ? 'selected tab' : 'tab' %>
+    <%= link_to current_user.coop.name+' calendar', coop_path(current_user.coop), class: (@selected == 'calendar') ? 'selected tab' : 'tab' %>
+    <%= link_to 'me', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab' %>
   </div>
 <% else %>
 	<%= link_to 'Sign in to your account', "/auth/google_login" %>

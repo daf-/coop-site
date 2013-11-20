@@ -1,6 +1,7 @@
 class CoopsController < ApplicationController
   before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link, :join_coop_page, :member_join, :admin_join]
   before_action :force_admin, only: [:edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link]
+  before_action :set_selected
 
   include CoopsHelper
 
@@ -152,6 +153,10 @@ class CoopsController < ApplicationController
       unless current_user && current_user.admin?
         redirect_to @coop, notice: 'Must be a coop admin to modify coop'
       end
+    end
+
+    def set_selected
+      @selected = 'calendar'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

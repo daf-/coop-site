@@ -2,81 +2,98 @@
 
 <%= form_tag update_mult_coop_meals_path(@coop), method: :put %>
 
+
+<div class='member_descrip field_info'>
+  Write something to display to members of your coop when they look at your calendar:
+  <span class='example'>welcome message, inside joke, fun news, etc.</span>
+</div>
+<div class="field">
+  <%= text_area_tag 'member_descrip', @coop.member_descrip %>
+</div>
+
+<div class='public_descrip field_info'>
+  Write something to display to to people viewing your calendar that are not in your coop:
+  <span class='example'>your guest policy, your co-op's address, etc.</span>
+</div>
+<div class="field">
+  <%= text_area_tag 'public_descrip', @coop.public_descrip %>
+</div>
+
 <div id='breakfast_form' class='meal_form'>
   <%= check_box_tag "breakfast", "yes", @coop.breakfast?, class: 'meal_type' %>
   <%= label_tag "Breakfast?" %>
   <div id='breakfast_details' class='meal_form_details'>
     <div class='time'>
       <h3>Meal Time?</h3>
-      <%= select_tag "breakfast_hour", tag_hours.html_safe %>:
-      <%= select_tag "breakfast_min", tag_minutes.html_safe %>
-      <%= select_tag "breakfast_ampm", "<option>AM</option><option>PM</option>".html_safe %>
+      <%= select_tag "breakfast_hour", tag_hours(@coop.bfast_time).html_safe %>:
+      <%= select_tag "breakfast_min", tag_minutes(@coop.bfast_time).html_safe %>
+      <%= select_tag "breakfast_ampm", am_pm(@coop.bfast_time).html_safe %>
     </div>
 
     <div class='days'>
       <h3>Days?</h3>
       <span class='day'>
         <%= label_tag "Monday" %>
-        <%= check_box_tag "monday_breakfast", @coop.monday_breakfast? %>
+        <%= check_box_tag "monday_breakfast", true, (@coop.monday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Tuesday" %>
-        <%= check_box_tag "tuesday_breakfast", @coop.tuesday_breakfast? %>
+        <%= check_box_tag "tuesday_breakfast", true, (@coop.tuesday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Wednesday" %>
-        <%= check_box_tag "wednesday_breakfast", @coop.wednesday_breakfast? %>
+        <%= check_box_tag "wednesday_breakfast", true, (@coop.wednesday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Thursday" %>
-        <%= check_box_tag "thursday_breakfast", @coop.thursday_breakfast? %>
+        <%= check_box_tag "thursday_breakfast", true, (@coop.thursday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Friday" %>
-        <%= check_box_tag "friday_breakfast", @coop.friday_breakfast? %>
+        <%= check_box_tag "friday_breakfast", true, (@coop.friday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Saturday" %>
-        <%= check_box_tag "saturday_breakfast", @coop.saturday_breakfast? %>
+        <%= check_box_tag "saturday_breakfast", true, (@coop.saturday_breakfast.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Sunday" %>
-        <%= check_box_tag "sunday_breakfast", @coop.sunday_breakfast? %>
+        <%= check_box_tag "sunday_breakfast", true, (@coop.sunday_breakfast.to_i > 0) %>
       </span>
     </div>
 
     <div class='shifts'>
       <h3>Associated Shifts</h3>
       <span class='shift'>
-        <%= check_box_tag "kp_breakfast", "yes", @coop.kp_breakfast? %>
+        <%= check_box_tag "kp_breakfast", true, (@coop.kp_breakfast.to_i > 0) %>
         <%= label_tag "Kitchen Prep (KP)" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_1_breakfast", "yes", @coop.cook_1_breakfast? %>
+        <%= check_box_tag "cook_1_breakfast", true, (@coop.cook_1_breakfast.to_i > 0) %>
         <%= label_tag "1st Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_2_breakfast", "yes", @coop.cook_2_breakfast? %>
+        <%= check_box_tag "cook_2_breakfast", true, (@coop.cook_2_breakfast.to_i > 0) %>
         <%= label_tag "2nd Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "pre_crew_breakfast", "yes", @coop.pre_crew_breakfast? %>
+        <%= check_box_tag "pre_crew_breakfast", true, (@coop.pre_crew_breakfast.to_i > 0) %>
         <%= label_tag "Pre-Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "crew_breakfast", "yes", @coop.crew_breakfast? %>
+        <%= check_box_tag "crew_breakfast", true, (@coop.crew_breakfast.to_i > 0) %>
         <%= label_tag "Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_1_b", "yes", @custom_shift_1_b %>
+        <%= check_box_tag "custom_shift_1_b", true, (@coop.custom_shift_1_b && @coop.custom_shift_1_b.length > 0) %>
         <%= text_field_tag "custom_shift_1_b", @coop.custom_shift_1_b, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_2_b", "yes", @custom_shift_2_b %>
+        <%= check_box_tag "custom_shift_2_b", true, (@coop.custom_shift_2_b && @coop.custom_shift_2_b.length > 0) %>
         <%= text_field_tag "custom_shift_2_b", @coop.custom_shift_2_b, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_3_b", "yes", @custom_shift_3_b %>
+        <%= check_box_tag "custom_shift_3_b", true, (@coop.custom_shift_3_b && @coop.custom_shift_3_b.length > 0) %>
         <%= text_field_tag "custom_shift_3_b", @coop.custom_shift_3_b, placeholder: 'other' %>
       </span>
     </div>
@@ -89,76 +106,76 @@
   <div id='lunch_details' class='meal_form_details'>
     <div class='time'>
       <h3>Meal Time?</h3>
-      <%= select_tag "lunch_hour", tag_hours.html_safe %>:
-      <%= select_tag "lunch_min", tag_minutes.html_safe %>
-      <%= select_tag "lunch_ampm", "<option>AM</option><option>PM</option>".html_safe %>
+      <%= select_tag "lunch_hour", tag_hours(@coop.lunch_time).html_safe %>:
+      <%= select_tag "lunch_min", tag_minutes(@coop.lunch_time).html_safe %>
+      <%= select_tag "lunch_ampm", am_pm(@coop.lunch_time).html_safe %>
     </div>
 
     <div class='days'>
       <h3>Days?</h3>
       <span class='day'>
         <%= label_tag "Monday" %>
-        <%= check_box_tag "monday_lunch", @coop.monday_lunch? %>
+        <%= check_box_tag "monday_lunch", true, (@coop.monday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Tuesday" %>
-        <%= check_box_tag "tuesday_lunch", @coop.tuesday_lunch? %>
+        <%= check_box_tag "tuesday_lunch", true, (@coop.tuesday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Wednesday" %>
-        <%= check_box_tag "wednesday_lunch", @coop.wednesday_lunch? %>
+        <%= check_box_tag "wednesday_lunch", true, (@coop.wednesday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Thursday" %>
-        <%= check_box_tag "thursday_lunch", @coop.thursday_lunch? %>
+        <%= check_box_tag "thursday_lunch", true, (@coop.thursday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Friday" %>
-        <%= check_box_tag "friday_lunch", @coop.friday_lunch? %>
+        <%= check_box_tag "friday_lunch", true, (@coop.friday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Saturday" %>
-        <%= check_box_tag "saturday_lunch", @coop.saturday_lunch? %>
+        <%= check_box_tag "saturday_lunch", true, (@coop.saturday_lunch.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Sunday" %>
-        <%= check_box_tag "sunday_lunch", @coop.sunday_lunch? %>
+        <%= check_box_tag "sunday_lunch", true, (@coop.sunday_lunch.to_i > 0) %>
       </span>
     </div>
 
     <div class='shifts'>
       <h3>Associated Shifts</h3>
       <span class='shift'>
-        <%= check_box_tag "kp_lunch", "yes", @coop.kp_lunch? %>
+        <%= check_box_tag "kp_lunch", true, (@coop.kp_lunch.to_i > 0) %>
         <%= label_tag "Kitchen Prep (KP)" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_1_lunch", "yes", @coop.cook_1_lunch? %>
+        <%= check_box_tag "cook_1_lunch", true, (@coop.cook_1_lunch.to_i > 0) %>
         <%= label_tag "1st Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_2_lunch", "yes", @coop.cook_2_lunch? %>
+        <%= check_box_tag "cook_2_lunch", true, (@coop.cook_2_lunch.to_i > 0) %>
         <%= label_tag "2nd Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "pre_crew_lunch", "yes", @coop.pre_crew_lunch? %>
+        <%= check_box_tag "pre_crew_lunch", true, (@coop.pre_crew_lunch.to_i > 0) %>
         <%= label_tag "Pre-Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "crew_lunch", "yes", @coop.crew_lunch? %>
+        <%= check_box_tag "crew_lunch", true, (@coop.crew_lunch.to_i > 0) %>
         <%= label_tag "Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_1_b", "yes", @custom_shift_1_b %>
-        <%= text_field_tag "custom_shift_1_b", @coop.custom_shift_1_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_1_l", true, (@coop.custom_shift_1_l && @coop.custom_shift_1_l.length > 0) %>
+        <%= text_field_tag "custom_shift_1_l", @coop.custom_shift_1_l, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_2_b", "yes", @custom_shift_2_b %>
-        <%= text_field_tag "custom_shift_2_b", @coop.custom_shift_2_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_2_l", true, (@coop.custom_shift_2_l && @coop.custom_shift_2_l.length > 0) %>
+        <%= text_field_tag "custom_shift_2_l", @coop.custom_shift_2_l, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_3_b", "yes", @custom_shift_3_b %>
-        <%= text_field_tag "custom_shift_3_b", @coop.custom_shift_3_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_3_l", true, (@coop.custom_shift_3_l && @coop.custom_shift_3_l.length > 0) %>
+        <%= text_field_tag "custom_shift_3_l", @coop.custom_shift_3_l, placeholder: 'other' %>
       </span>
     </div>
   </div>
@@ -171,76 +188,76 @@
   <div id='dinner_details' class='meal_form_details'>
     <div class='time'>
       <h3>Meal Time?</h3>
-      <%= select_tag "dinner_hour", tag_hours.html_safe %>:
-      <%= select_tag "dinner_min", tag_minutes.html_safe %>
-      <%= select_tag "dinner_ampm", "<option>AM</option><option>PM</option>".html_safe %>
+      <%= select_tag "dinner_hour", tag_hours(@coop.dinner_time).html_safe %>:
+      <%= select_tag "dinner_min", tag_minutes(@coop.dinner_time).html_safe %>
+      <%= select_tag "dinner_ampm", am_pm(@coop.dinner_time).html_safe %>
     </div>
 
     <div class='days'>
       <h3>Days?</h3>
       <span class='day'>
         <%= label_tag "Monday" %>
-        <%= check_box_tag "monday_dinner", @coop.monday_dinner? %>
+        <%= check_box_tag "monday_dinner", true, (@coop.monday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Tuesday" %>
-        <%= check_box_tag "tuesday_dinner", @coop.tuesday_dinner? %>
+        <%= check_box_tag "tuesday_dinner", true, (@coop.tuesday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Wednesday" %>
-        <%= check_box_tag "wednesday_dinner", @coop.wednesday_dinner? %>
+        <%= check_box_tag "wednesday_dinner", true, (@coop.wednesday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Thursday" %>
-        <%= check_box_tag "thursday_dinner", @coop.thursday_dinner? %>
+        <%= check_box_tag "thursday_dinner", true, (@coop.thursday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Friday" %>
-        <%= check_box_tag "friday_dinner", @coop.friday_dinner? %>
+        <%= check_box_tag "friday_dinner", true, (@coop.friday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Saturday" %>
-        <%= check_box_tag "saturday_dinner", @coop.saturday_dinner? %>
+        <%= check_box_tag "saturday_dinner", true, (@coop.saturday_dinner.to_i > 0) %>
       </span>
       <span class='day'>
         <%= label_tag "Sunday" %>
-        <%= check_box_tag "sunday_dinner", @coop.sunday_dinner? %>
+        <%= check_box_tag "sunday_dinner", true, (@coop.sunday_dinner.to_i > 0) %>
       </span>
     </div>
 
     <div class='shifts'>
       <h3>Associated Shifts</h3>
       <span class='shift'>
-        <%= check_box_tag "kp_dinner", "yes", @coop.kp_dinner? %>
+        <%= check_box_tag "kp_dinner", true, (@coop.kp_dinner.to_i > 0) %>
         <%= label_tag "Kitchen Prep (KP)" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_1_dinner", "yes", @coop.cook_1_dinner? %>
+        <%= check_box_tag "cook_1_dinner", true, (@coop.cook_1_dinner.to_i > 0) %>
         <%= label_tag "1st Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "cook_2_dinner", "yes", @coop.cook_2_dinner? %>
+        <%= check_box_tag "cook_2_dinner", true, (@coop.cook_2_dinner.to_i > 0) %>
         <%= label_tag "2nd Hour Cook" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "pre_crew_dinner", "yes", @coop.pre_crew_dinner? %>
+        <%= check_box_tag "pre_crew_dinner", true, (@coop.pre_crew_dinner.to_i > 0) %>
         <%= label_tag "Pre-Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "crew_dinner", "yes", @coop.crew_dinner? %>
+        <%= check_box_tag "crew_dinner", true, (@coop.crew_dinner.to_i > 0) %>
         <%= label_tag "Crew" %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_1_b", "yes", @custom_shift_1_b %>
-        <%= text_field_tag "custom_shift_1_b", @coop.custom_shift_1_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_1_d", true, (@coop.custom_shift_1_d && @coop.custom_shift_1_d.length > 0) %>
+        <%= text_field_tag "custom_shift_1_d", @coop.custom_shift_1_d, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_2_b", "yes", @custom_shift_2_b %>
-        <%= text_field_tag "custom_shift_2_b", @coop.custom_shift_2_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_2_d", true, (@coop.custom_shift_2_d && @coop.custom_shift_2_d.length > 0) %>
+        <%= text_field_tag "custom_shift_2_d", @coop.custom_shift_2_d, placeholder: 'other' %>
       </span>
       <span class='shift'>
-        <%= check_box_tag "custom_shift_3_b", "yes", @custom_shift_3_b %>
-        <%= text_field_tag "custom_shift_3_b", @coop.custom_shift_3_b, placeholder: 'other' %>
+        <%= check_box_tag "custom_shift_3_d", true, (@coop.custom_shift_3_d && @coop.custom_shift_3_d.length > 0) %>
+        <%= text_field_tag "custom_shift_3_d", @coop.custom_shift_3_d, placeholder: 'other' %>
       </span>
     </div>
   </div>

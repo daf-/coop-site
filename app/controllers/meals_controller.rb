@@ -28,20 +28,29 @@ class MealsController < ApplicationController
   end
 
   def edit_mult
+    puts @coop.inspect
   end
 
   def update_mult
-    if (breakfast_params)
-      @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
-    end
-    if (lunch_params)
-      @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
-    end
-    if (dinner_params)
-      @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
-    end
+    if @coop.update(@coop.set_meals_shifts(coop_meal_shift_params))
+      if @coop.update(coop_params)
+        if (breakfast_params)
+          @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
+        end
+        if (lunch_params)
+          @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
+        end
+        if (dinner_params)
+          @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
+        end
 
-    redirect_to @coop, notice: 'Successfully added meals and shifts'
+        redirect_to @coop, notice: 'Successfully added meals and shifts'
+      else
+        redirect_to edit_coop_path(@coop), notice: 'Failed to update coop'
+      end
+    else
+      redirect_to edit_coop_path(@coop), notice: 'Failed to update coop'
+    end
   end
 
   # POST /meals
@@ -133,6 +142,18 @@ class MealsController < ApplicationController
       dp = params.permit(:dinner_hour, :dinner_min, :dinner_ampm, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner, :kp_dinner, :cook_1_dinner, :cook_2_dinner, :pre_crew_dinner, :crew_dinner, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
       dp['time'] = time_from_select(dp[:dinner_hour], dp[:dinner_min], dp[:dinner_ampm])
       dp
+    end
+
+    def coop_params
+      pcp = params.permit(:member_descrip, :public_descrip, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
+      pcp['bfast_time'] = breakfast_params['time']
+      pcp['lunch_time'] = lunch_params['time']
+      pcp['dinner_time'] = dinner_params['time']
+      pcp
+    end
+
+    def coop_meal_shift_params
+      params.permit(:monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_lunch, :cook_1_lunch, :cook_2_lunch, :pre_crew_lunch, :crew_lunch, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1_breakfast, :cook_2_breakfast, :pre_crew_breakfast, :crew_breakfast, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner, :kp_dinner, :cook_1_dinner, :cook_2_dinner, :pre_crew_dinner, :crew_dinner)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120021838) do
+ActiveRecord::Schema.define(version: 20131120224513) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20131120021838) do
     t.string   "custom_shift_3_b"
     t.string   "custom_shift_3_l"
     t.string   "custom_shift_3_d"
+    t.text     "public_descrip"
+    t.text     "member_descrip"
   end
 
   create_table "meals", force: true do |t|

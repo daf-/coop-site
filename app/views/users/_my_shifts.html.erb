@@ -4,7 +4,7 @@
       <div class='shift_header'>
         <span class='name'><%= shift.niceTitle %></span>
         <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'remove_shift_link' %>
-        <%= link_to 'swap', new_swap_request_path, class: 'remove_shift_link' %>
+        <%= link_to 'swap', new_coop_shift_swap_request_path(@coop, shift), class: 'remove_shift_link' %>
       </div>
       <div class='shift_info'>
         <% if shift.users.length > 1 %>

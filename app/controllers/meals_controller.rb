@@ -32,7 +32,9 @@ class MealsController < ApplicationController
   end
 
   def update_mult
-    if @coop.update(@coop.set_meals_shifts(coop_meal_shift_params))
+    update_hash = @coop.set_meals_shifts(coop_meal_shift_params)
+    update_hash.merge(@coop.set_non_meal_shifts(coop_non_meal_shift_params))
+    if @coop.update(update_hash)
       if @coop.update(coop_params)
         if (breakfast_params)
           @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
@@ -42,6 +44,15 @@ class MealsController < ApplicationController
         end
         if (dinner_params)
           @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
+        end
+        if (commando_params)
+          Shift.make_shifts('commando', commando_params, @coop)
+        end
+        if (mid_crew_params)
+          Shift.make_shifts('mid_crew', mid_crew_params, @coop)
+        end
+        if (other_shift_params)
+          Shift.make_shifts('other_shift', other_shift_params, @coop)
         end
 
         redirect_to @coop, notice: 'Successfully added meals and shifts'
@@ -145,15 +156,49 @@ class MealsController < ApplicationController
     end
 
     def coop_params
-      pcp = params.permit(:member_descrip, :public_descrip, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
-      pcp['bfast_time'] = breakfast_params['time']
-      pcp['lunch_time'] = lunch_params['time']
-      pcp['dinner_time'] = dinner_params['time']
+      pcp = params.permit(:member_descrip, :public_descrip, :other_shift_name, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
+      pcp['bfast_time'] = breakfast_params['time'] if breakfast_params
+      pcp['lunch_time'] = lunch_params['time'] if lunch_params
+      pcp['dinner_time'] = dinner_params['time'] if dinner_params
+      pcp['commando_time'] = commando_params['time'] if commando_params
+      pcp['mid_crew_time'] = mid_crew_params['time'] if mid_crew_params
+      pcp['other_shift_time'] = other_shift_params['time'] if other_shift_params
       pcp
     end
 
     def coop_meal_shift_params
       params.permit(:monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_lunch, :cook_1_lunch, :cook_2_lunch, :pre_crew_lunch, :crew_lunch, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1_breakfast, :cook_2_breakfast, :pre_crew_breakfast, :crew_breakfast, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner, :kp_dinner, :cook_1_dinner, :cook_2_dinner, :pre_crew_dinner, :crew_dinner)
+    end
+
+    def coop_non_meal_shift_params
+      params.permit(:monday_commando, :tuesday_commando, :wednesday_commando, :thursday_commando, :friday_commando, :saturday_commando, :sunday_commando, :monday_mid_crew, :tuesday_mid_crew, :wednesday_mid_crew, :thursday_mid_crew, :friday_mid_crew, :saturday_mid_crew, :sunday_mid_crew, :monday_other_shift, :tuesday_other_shift, :wednesday_other_shift, :thursday_other_shift, :friday_other_shift, :saturday_other_shift, :sunday_other_shift)
+    end
+
+    def commando_params
+      unless params[:commando]
+        return nil
+      end
+      commando = params.permit(:commando_hour, :commando_min, :commando_ampm, :monday_commando, :tuesday_commando, :wednesday_commando, :thursday_commando, :friday_commando, :saturday_commando, :sunday_commando)
+      commando['time'] = time_from_select(commando[:commando_hour], commando[:commando_min], commando[:commando_ampm])
+      commando
+    end
+
+    def mid_crew_params
+      unless params[:mid_crew]
+        return nil
+      end
+      mid_crew = params.permit(:mid_crew_hour, :mid_crew_min, :mid_crew_ampm, :monday_mid_crew, :tuesday_mid_crew, :wednesday_mid_crew, :thursday_mid_crew, :friday_mid_crew, :saturday_mid_crew, :sunday_mid_crew)
+      mid_crew['time'] = time_from_select(mid_crew[:mid_crew_hour], mid_crew[:mid_crew_min], mid_crew[:mid_crew_ampm])
+      mid_crew
+    end
+
+    def other_shift_params
+      unless params[:other_shift]
+        return nil
+      end
+      other_shift = params.permit(:other_shift_name, :other_shift_hour, :other_shift_min, :other_shift_ampm, :monday_other_shift, :tuesday_other_shift, :wednesday_other_shift, :thursday_other_shift, :friday_other_shift, :saturday_other_shift, :sunday_other_shift)
+      other_shift['time'] = time_from_select(other_shift[:other_shift_hour], other_shift[:other_shift_min], other_shift[:other_shift_ampm])
+      other_shift
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

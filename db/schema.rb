@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120224513) do
+ActiveRecord::Schema.define(version: 20131121160133) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20131120224513) do
     t.string   "custom_shift_3_d"
     t.text     "public_descrip"
     t.text     "member_descrip"
+    t.string   "commando",         default: ""
+    t.string   "mid_crew",         default: ""
+    t.string   "other_shift_name", default: ""
+    t.string   "other_shift",      default: ""
+    t.time     "commando_time"
+    t.time     "mid_crew_time"
+    t.time     "other_shift_time"
   end
 
   create_table "meals", force: true do |t|

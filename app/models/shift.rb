@@ -38,6 +38,26 @@ class Shift < ActiveRecord::Base
     title
   end
 
+  def self.make_shifts(activity, shift_params, coop)
+    days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    days.each do |day|
+      old_shifts = Shift.where(coop: coop, activity: activity, day: day)
+      if shift_params[day + '_' + activity]
+        puts shift_params.inspect
+        new_shift = Shift.create(day: day, coop: coop, activity: activity, start_time: shift_params[:time])
+        if old_shifts
+          new_shift.users = old_shifts.first.users
+          old_shifts.each do |shift|
+            shift.destroy
+          end
+        end
+      end
+      old_shifts.each do |shift|
+        shift.destroy
+      end
+    end
+  end
+
   def self.makeForMealsOnDay(daynum, meals, params, coop, old_shifts)
     meal = meals.first.meal_type
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']

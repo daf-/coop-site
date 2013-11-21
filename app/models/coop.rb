@@ -24,29 +24,137 @@ class Coop < ActiveRecord::Base
       ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
         if meal_shift_hash[day + '_' + meal]
           if update_hash[day]
-            update_hash[day] << meal[0] unless (self[day].count(meal[0]) > 0)
+            update_hash[day] << meal[0]
           else
             update_hash[day] = meal[0]
           end
-        else
-          update_hash[day].gsub!(meal[0], '') if update_hash[day]
         end
       end
       # check shifts
       ['kp', 'cook_1', 'cook_2', 'pre_crew', 'crew'].each do |shift|
         if meal_shift_hash[shift + '_' + meal]
           if update_hash[shift]
-            update_hash[shift] << meal[0] unless (self[shift].count(meal[0]) > 0)
+            update_hash[shift] << meal[0]
           else
             update_hash[shift] = meal[0]
           end
-        else
-          update_hash[shift].gsub!(meal[0], '') if update_hash[shift]
         end
       end
     end
-    puts update_hash.inspect
     update_hash
+  end
+
+  def set_non_meal_shifts(non_meal_shift_hash)
+    update_hash = {}
+    ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
+      ['commando', 'mid_crew', 'other_shift'].each do |shift|
+        if non_meal_shift_hash[day + '_' + shift]
+          if update_hash[shift]
+            update_hash[shift] << day[0..2]
+          else
+            update_hash[shift] = day[0..2]
+          end
+        end
+      end
+    end
+    update_hash
+  end
+
+  def commando?
+    return self.monday_commando || self.tuesday_commando || self.wednesday_commando || self.thursday_commando || self.friday_commando || self.saturday_commando || self.sunday_commando
+  end
+
+  def monday_commando
+    return self.commando && self.commando.count('mon')
+  end
+
+  def tuesday_commando
+    return self.commando && self.commando.count('tue')
+  end
+
+  def wednesday_commando
+    return self.commando && self.commando.count('wen')
+  end
+
+  def thursday_commando
+    return self.commando && self.commando.count('thu')
+  end
+
+  def friday_commando
+    return self.commando && self.commando.count('fri')
+  end
+
+  def saturday_commando
+    return self.commando && self.commando.count('sat')
+  end
+
+  def sunday_commando
+    return self.commando && self.commando.count('sun')
+  end
+
+  def mid_crew?
+    return self.monday_mid_crew || self.tuesday_mid_crew || self.wednesday_mid_crew || self.thursday_mid_crew || self.friday_mid_crew || self.saturday_mid_crew || self.sunday_mid_crew
+  end
+
+  def monday_mid_crew
+    return self.mid_crew && self.mid_crew.count('mon')
+  end
+
+  def tuesday_mid_crew
+    return self.mid_crew && self.mid_crew.count('tue')
+  end
+
+  def wednesday_mid_crew
+    return self.mid_crew && self.mid_crew.count('wen')
+  end
+
+  def thursday_mid_crew
+    return self.mid_crew && self.mid_crew.count('thu')
+  end
+
+  def friday_mid_crew
+    return self.mid_crew && self.mid_crew.count('fri')
+  end
+
+  def saturday_mid_crew
+    return self.mid_crew && self.mid_crew.count('sat')
+  end
+
+  def sunday_mid_crew
+    return self.mid_crew && self.mid_crew.count('sun')
+  end
+
+
+  def other_shift?
+    return self.monday_other_shift || self.tuesday_other_shift || self.wednesday_other_shift || self.thursday_other_shift || self.friday_other_shift || self.saturday_other_shift || self.sunday_other_shift
+  end
+
+  def monday_other_shift
+    return self.other_shift && self.other_shift.count('mon')
+  end
+
+  def tuesday_other_shift
+    return self.other_shift && self.other_shift.count('tue')
+  end
+
+  def wednesday_other_shift
+    return self.other_shift && self.other_shift.count('wen')
+  end
+
+  def thursday_other_shift
+    return self.other_shift && self.other_shift.count('thu')
+  end
+
+  def friday_other_shift
+    return self.other_shift && self.other_shift.count('fri')
+  end
+
+  def saturday_other_shift
+    return self.other_shift && self.other_shift.count('sat')
+  end
+
+  def sunday_other_shift
+    return self.other_shift && self.other_shift.count('sun')
   end
 
   def kp_breakfast

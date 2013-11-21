@@ -65,31 +65,31 @@ class Coop < ActiveRecord::Base
   end
 
   def monday_commando
-    return self.commando && self.commando.count('mon')
+    return self.commando && self.commando.include?('mon')
   end
 
   def tuesday_commando
-    return self.commando && self.commando.count('tue')
+    return self.commando && self.commando.include?('tue')
   end
 
   def wednesday_commando
-    return self.commando && self.commando.count('wen')
+    return self.commando && self.commando.include?('wen')
   end
 
   def thursday_commando
-    return self.commando && self.commando.count('thu')
+    return self.commando && self.commando.include?('thu')
   end
 
   def friday_commando
-    return self.commando && self.commando.count('fri')
+    return self.commando && self.commando.include?('fri')
   end
 
   def saturday_commando
-    return self.commando && self.commando.count('sat')
+    return self.commando && self.commando.include?('sat')
   end
 
   def sunday_commando
-    return self.commando && self.commando.count('sun')
+    return self.commando && self.commando.include?('sun')
   end
 
   def mid_crew?
@@ -97,31 +97,31 @@ class Coop < ActiveRecord::Base
   end
 
   def monday_mid_crew
-    return self.mid_crew && self.mid_crew.count('mon')
+    return self.mid_crew && self.mid_crew.include?('mon')
   end
 
   def tuesday_mid_crew
-    return self.mid_crew && self.mid_crew.count('tue')
+    return self.mid_crew && self.mid_crew.include?('tue')
   end
 
   def wednesday_mid_crew
-    return self.mid_crew && self.mid_crew.count('wen')
+    return self.mid_crew && self.mid_crew.include?('wen')
   end
 
   def thursday_mid_crew
-    return self.mid_crew && self.mid_crew.count('thu')
+    return self.mid_crew && self.mid_crew.include?('thu')
   end
 
   def friday_mid_crew
-    return self.mid_crew && self.mid_crew.count('fri')
+    return self.mid_crew && self.mid_crew.include?('fri')
   end
 
   def saturday_mid_crew
-    return self.mid_crew && self.mid_crew.count('sat')
+    return self.mid_crew && self.mid_crew.include?('sat')
   end
 
   def sunday_mid_crew
-    return self.mid_crew && self.mid_crew.count('sun')
+    return self.mid_crew && self.mid_crew.include?('sun')
   end
 
 
@@ -130,31 +130,31 @@ class Coop < ActiveRecord::Base
   end
 
   def monday_other_shift
-    return self.other_shift && self.other_shift.count('mon')
+    return self.other_shift && self.other_shift.include?('mon')
   end
 
   def tuesday_other_shift
-    return self.other_shift && self.other_shift.count('tue')
+    return self.other_shift && self.other_shift.include?('tue')
   end
 
   def wednesday_other_shift
-    return self.other_shift && self.other_shift.count('wen')
+    return self.other_shift && self.other_shift.include?('wen')
   end
 
   def thursday_other_shift
-    return self.other_shift && self.other_shift.count('thu')
+    return self.other_shift && self.other_shift.include?('thu')
   end
 
   def friday_other_shift
-    return self.other_shift && self.other_shift.count('fri')
+    return self.other_shift && self.other_shift.include?('fri')
   end
 
   def saturday_other_shift
-    return self.other_shift && self.other_shift.count('sat')
+    return self.other_shift && self.other_shift.include?('sat')
   end
 
   def sunday_other_shift
-    return self.other_shift && self.other_shift.count('sun')
+    return self.other_shift && self.other_shift.include?('sun')
   end
 
   def kp_breakfast

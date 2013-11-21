@@ -41,20 +41,18 @@ class Shift < ActiveRecord::Base
   def self.make_shifts(activity, shift_params, coop)
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     days.each do |day|
-      old_shifts = Shift.where(coop: coop, activity: activity, day: day)
+      old_shift = Shift.where(coop: coop, activity: activity, day: day).first
       if shift_params[day + '_' + activity]
-        puts shift_params.inspect
-        new_shift = Shift.create(day: day, coop: coop, activity: activity, start_time: shift_params[:time])
-        if old_shifts
-          new_shift.users = old_shifts.first.users
-          old_shifts.each do |shift|
-            shift.destroy
-          end
+        if activity == 'other_shift'
+          new_shift = Shift.create(day: day, coop: coop, activity: shift_params[:other_shift_name], start_time: shift_params[:time])
+        else
+          new_shift = Shift.create(day: day, coop: coop, activity: activity, start_time: shift_params[:time])
+        end
+        if old_shift
+          new_shift.users = old_shift.users
         end
       end
-      old_shifts.each do |shift|
-        shift.destroy
-      end
+      old_shift.destroy if old_shift
     end
   end
 

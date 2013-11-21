@@ -33,7 +33,7 @@ class MealsController < ApplicationController
 
   def update_mult
     update_hash = @coop.set_meals_shifts(coop_meal_shift_params)
-    update_hash.merge(@coop.set_non_meal_shifts(coop_non_meal_shift_params))
+    update_hash.merge!(@coop.set_non_meal_shifts(coop_non_meal_shift_params))
     if @coop.update(update_hash)
       if @coop.update(coop_params)
         if (breakfast_params)

@@ -1,9 +1,7 @@
-<p>You're editing your co-op's meal and shift times.</p>
-
 <%= form_tag update_mult_coop_meals_path(@coop), method: :put %>
 
-
-<div class="form_block">
+<div class="form_block" id="description_area">
+  <div class='info_header'>Welcome people to your co-op's site</div>
   <div class='member_descrip field_info'>
     Write something to display to members of your coop when they look at your calendar:
     <span class='example'>welcome message, inside joke, fun news, etc.</span>
@@ -22,15 +20,23 @@
 </div>
 
 <div class="form_block">
+  <div class='form_block_header'>
+    <div class='primary'>What meals does your co-op have?</div>
+    <div class='secondary'>This is so we can know what meals happen on a regular basis and show relevant information for your co-op members!</div>
+  </div>
   <div id='breakfast_form' class='meal_shift_form'>
-    <%= check_box_tag "breakfast", "yes", @coop.breakfast?, class: 'meal_shift_type' %>
-    <%= label_tag "Breakfast?" %>
+    <div class='check_row'>
+      <%= check_box_tag "breakfast", "yes", @coop.breakfast?, class: 'meal_shift_type' %>
+      <%= label_tag "Breakfast" %>
+    </div>
     <div id='breakfast_details' class='meal_shift_form_details'>
       <div class='time'>
         <h3>Meal Time?</h3>
+        <div class='time_selector'>
         <%= select_tag "breakfast_hour", tag_hours(@coop.bfast_time).html_safe %>:
         <%= select_tag "breakfast_min", tag_minutes(@coop.bfast_time).html_safe %>
         <%= select_tag "breakfast_ampm", am_pm(@coop.bfast_time).html_safe %>
+        </div>
       </div>
 
       <div class='days'>
@@ -104,14 +110,18 @@
   </div>
 
   <div id='lunch_form' class='meal_shift_form'>
+  <div class='check_row'>
     <%= check_box_tag "lunch", "yes", @coop.lunch?, class: 'meal_shift_type' %>
-    <%= label_tag "Lunch?" %>
+    <%= label_tag "Lunch" %>
+  </div>
     <div id='lunch_details' class='meal_shift_form_details'>
       <div class='time'>
         <h3>Meal Time?</h3>
+        <div class='time_selector'>
         <%= select_tag "lunch_hour", tag_hours(@coop.lunch_time).html_safe %>:
         <%= select_tag "lunch_min", tag_minutes(@coop.lunch_time).html_safe %>
         <%= select_tag "lunch_ampm", am_pm(@coop.lunch_time).html_safe %>
+        </div>
       </div>
 
       <div class='days'>
@@ -186,14 +196,18 @@
 
 
     <div id='dinner_form' class='meal_shift_form'>
+    <div class='check_row'>
     <%= check_box_tag "dinner", "yes", @coop.dinner?, class: 'meal_shift_type' %>
-    <%= label_tag "Dinner?" %>
+    <%= label_tag "Dinner" %>
+  </div>
     <div id='dinner_details' class='meal_shift_form_details'>
       <div class='time'>
         <h3>Meal Time?</h3>
+        <div class='time_selector'>
         <%= select_tag "dinner_hour", tag_hours(@coop.dinner_time).html_safe %>:
         <%= select_tag "dinner_min", tag_minutes(@coop.dinner_time).html_safe %>
         <%= select_tag "dinner_ampm", am_pm(@coop.dinner_time).html_safe %>
+        </div>
       </div>
 
       <div class='days'>
@@ -229,7 +243,7 @@
       </div>
 
       <div class='shifts'>
-        <h3>Associated Shifts</h3>
+        <h3>What shifts happen with this meal?</h3>
         <span class='shift'>
           <%= check_box_tag "kp_dinner", true, (@coop.kp_dinner.to_i > 0) %>
           <%= label_tag "Kitchen Prep (KP)" %>
@@ -268,9 +282,15 @@
 </div>
 
 <div class="form_block no_meal">
+  <div class='form_block_header'>
+    <div class='primary'>What other shifts does your co-op have?</div>
+    <div class='secondary'>These are shifts that don't happen with any particular meal.</div>
+  </div>
   <div id='commando_form' class='meal_shift_form'>
+  <div class='check_row'>
     <%= check_box_tag "commando", "yes", @coop.commando.length > 0, class: 'meal_shift_type' %>
-    <%= label_tag "Commando?" %>
+    <%= label_tag "Commando" %>
+  </div>
     <div id="commando_details">
       <div class='days'>
         <h3>Days?</h3>
@@ -306,16 +326,20 @@
 
       <div class='time'>
         <h3>What time?</h3>
+        <div class='time_selector'>
         <%= select_tag "commando_hour", tag_hours(@coop.commando_time).html_safe %>:
         <%= select_tag "commando_min", tag_minutes(@coop.commando_time).html_safe %>
         <%= select_tag "commando_ampm", am_pm(@coop.commando_time).html_safe %>
+        </div>
       </div>
     </div>
   </div>
 
   <div id='mid_crew_form' class='meal_shift_form'>
+  <div class='check_row'>
     <%= check_box_tag "mid_crew", "yes", @coop.mid_crew.length > 0, class: 'meal_shift_type' %>
-    <%= label_tag "Midnight crew?" %>
+    <%= label_tag "Midnight crew" %>
+  </div>
     <div id="mid_crew_details">
       <div class='days'>
         <h3>Days?</h3>
@@ -351,16 +375,20 @@
 
       <div class='time'>
         <h3>What time?</h3>
+        <div class='time_selector'>
         <%= select_tag "mid_crew_hour", tag_hours(@coop.mid_crew_time).html_safe %>:
         <%= select_tag "mid_crew_min", tag_minutes(@coop.mid_crew_time).html_safe %>
         <%= select_tag "mid_crew_ampm", am_pm(@coop.mid_crew_time).html_safe %>
+        </div>
       </div>
     </div>
   </div>
 
   <div id='other_shift_form' class='meal_shift_form'>
+  <div class='check_row'>
     <%= check_box_tag "other_shift", "yes", @coop.other_shift.length > 0, class: 'meal_shift_type' %>
     <%= text_field_tag "other_shift_name", @coop.other_shift_name, placeholder: 'shift name' %>
+  </div>
     <div id="other_shift_details">
       <div class='days'>
         <h3>Days?</h3>
@@ -396,11 +424,15 @@
 
       <div class='time'>
         <h3>What time?</h3>
+        <div class='time_selector'>
         <%= select_tag "other_shift_hour", tag_hours(@coop.other_shift_time).html_safe %>:
         <%= select_tag "other_shift_min", tag_minutes(@coop.other_shift_time).html_safe %>
         <%= select_tag "other_shift_ampm", am_pm(@coop.other_shift_time).html_safe %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<%= submit_tag "Upadate Coop Schedule" %>
+<%= link_to "Back to #{@coop.name} without saving changes", @coop %>
+<%= submit_tag "Save Coop Schedule for #{@coop.name}" %>
+

@@ -2,17 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-table {
-  border-collapse: collapse;
-}
-table, th, td {
-  border: 1px solid #cccccc;
-}
-
-th, td {
-  width: 100px;
-}
-
 .header_row {
   background-color: #b0b0b0;
   font-weight: bold;
@@ -216,7 +205,8 @@ th, td {
     font-weight: bold;
 
     &.checked {
-      background-color: #3B5998 // facebook yall
+      background-color: #3B5998; // facebook yall
+      color: #ffffff;
     }
   }
 

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+git pull origin production
+RAILS_ENV=production bundle exec rake assets:precompile
+sudo apache2ctl restart

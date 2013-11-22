@@ -1,14 +1,45 @@
 CoopSite::Application.routes.draw do
 
+  resources :swap_requests
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  root 'users#index'
+  root 'coops#index'
 
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
-  resources :coops
-  resources :users
+  resources :coops do
+    resources :meals do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+    end
+
+    resources :shifts do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+
+      member do
+        get "add_user"
+        get "remove_user"
+      end
+    end
+
+    member do
+      get 'generate_member_join_link'
+      get 'generate_admin_join_link'
+      get 'member_join_link/:member_join_hash', action: 'member_join'
+      get 'admin_join_link/:admin_join_hash', action: 'admin_join'
+    end
+  end
+
+  resources :users do
+    get 'edit_shifts'
+  end
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
@@ -47,7 +78,7 @@ CoopSite::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

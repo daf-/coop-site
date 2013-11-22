@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing shifts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coop</th>
+      <th>Day</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Activity</th>
+      <th>Leader</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= Coop.find(shift.coop_id).name %></td>
+        <td><%= shift.day %></td>
+        <td><%= shift.start_time %></td>
+        <td><%= shift.end_time %></td>
+        <td><%= shift.activity %></td>
+        <% if shift.leader %>
+          <td><%= User.find(shift.leader).username %></td>
+        <% else %>
+          <td>None</td>
+        <% end %>
+        <td><%= link_to 'Show', shift %></td>
+        <% if shift.users.include?(current_user) %>
+          <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+          <% if current_user.admin %>
+            <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+          <td><%= link_to 'Remove from my shifts', remove_user_shift_path(shift) %></td>
+        <% else %>
+          <td><%= link_to 'Add to my shifts', add_user_shift_path(shift) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shift', new_shift_path %>

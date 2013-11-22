@@ -1,0 +1,28 @@
+<div class='my_shifts'>
+  <% @user.shifts.each do |shift| %>
+    <div class='shift'>
+      <div class='shift_header'>
+        <span class='name'><%= shift.niceTitle %></span>
+        <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'remove_shift_link' %>
+        <%= link_to 'swap', new_swap_request_path, class: 'remove_shift_link' %>
+      </div>
+      <div class='shift_info'>
+        <% if shift.users.length > 1 %>
+          <div class='users_tag'>also on this shift:</div>
+          <% if shift.pic %>
+            <div class='leader'>PIC: <%= render 'users/user_in_shift', user: shift.pic %></div>
+          <% elsif shift.headCook %>
+            <div class='leader'>Head Cook: <%= render 'users/user_in_shift', user: shift.leader %></div>
+          <% end %>
+          <% shift.users.each do |user| %>
+            <div class='member'><%= render 'users/user_in_shift', user: user unless user == current_user %></div>
+          <% end %>
+        <% else %>
+          <div class='no_users'>no one else has listed this as their shift yet</div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to '+ Add new shifts', user_edit_shifts_path(@user) %>
+</div>

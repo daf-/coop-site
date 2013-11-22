@@ -11,15 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field coopName">
-    <%= f.label :coopName %><br>
-    <%= f.text_field :coopName %>
+  <div class="coop">
+    Member of <%= @coop.name %>
   </div>
+
   <div class="field">
     <%= f.label :username %><br>
-    <%= f.text_field :username %>
+    <%= f.text_field :username, required: 'required' %>
   </div>
+
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, readonly: 'readonly' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_email %><br>
+    <%= f.check_box :display_email %>
+  </div>
+
+  <div class="phone">
+    <%= f.label :phone %><br>
+    <%= f.phone_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_phone %><br>
+    <%= f.check_box :display_phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label "I'm Head Cook/PIC trained" %><br>
+    <%= f.check_box :pic %>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Save' %>
   </div>
 <% end %>

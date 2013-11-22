@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Headcook required:</strong>
+  <%= @swap_request.headcook_required %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @swap_request.message %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @swap_request.date %>
+</p>
+
+<p>
+  <strong>Isresolved?:</strong>
+  <%= @swap_request.isResolved? %>
+</p>
+
+<%= link_to 'Edit', edit_swap_request_path(@swap_request) %> |
+<%= link_to 'Back', swap_requests_path %>

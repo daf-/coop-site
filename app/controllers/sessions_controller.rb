@@ -1,28 +1,33 @@
 class SessionsController < ApplicationController
 	def create
     auth = request.env["omniauth.auth"]
+
     user = User.where(:email => auth["info"]["email"]).first_or_initialize(
-      :email => auth["info"]["email"]
+      :email => auth["info"]["email"],
     )
+    new_user_bool = user.new_record?
 
-    url = session[:return_to] || root_path
-    session[:return_to] = nil
-    url = root_path if url.eql?('/logout')
-
-    unless user.id
-      # the user is new, direct them to the form to edit profile
-      url = nil
+    if user.new_record?
+      unless current_coop
+        redirect_to root_path, :notice => "Permission denied"
+        return # prevents falling through the rest of the file
+      end
+      if session[:return_to] == 'new admin'
+        user.admin = true
+      end
+      user.coop = current_coop
     end
 
     if user.save
       session[:user_id] = user.id
-      notice = "Signed in!"
-      if url
-        logger.debug "URL to redirect to: #{url}"
-        redirect_to url, :notice => notice
+      session[:coop_id] = user.coop_id
+
+      if new_user_bool
+        notice = "New account created!"
+        redirect_to edit_user_path(user.id), :notice => notice
       else
-        logger.debug "URL to redirect to: /users/#{user.id}/edit"
-        redirect_to "/users/#{user.id}/edit"
+        notice = "Signed in!"
+        redirect_to coop_path(user.coop_id), :notice => notice
       end
     else
       raise "Failed to login"
@@ -31,6 +36,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session[:coop_id] = nil
     redirect_to root_url, :notice => "Signed out!"
   end
 end

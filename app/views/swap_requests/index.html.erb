@@ -1,0 +1,35 @@
+<h1>Listing swap_requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Headcook required</th>
+      <th>Message</th>
+      <th>Date</th>
+      <th>Isresolved?</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @swap_requests.each do |swap_request| %>
+      <tr>
+        <td><%= swap_request.user.username %></td>
+        <td><%= swap_request.message %></td>
+        </tr><tr>
+        <td><%= swap_request.date %></td>
+        <td><%= swap_request.user.coopName %></td>
+        <td><%= link_to 'Show', swap_request %></td>
+        <td><%= link_to 'Edit', edit_swap_request_path(swap_request) %></td>
+        <td><%= link_to 'Destroy', swap_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Swap request', new_swap_request_path %>

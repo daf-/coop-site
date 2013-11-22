@@ -1,6 +1,6 @@
-<h1>Editing coop</h1>
+<h1>Editing <%= @coop.name %></h1>
+<p id="notice"><%= notice %></p>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @coop %> |
-<%= link_to 'Back', coops_path %>
+<%= link_to "View #{@coop.name}", @coop %>

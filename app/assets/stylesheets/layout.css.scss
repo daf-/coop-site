@@ -1,7 +1,31 @@
+.header {
+	position: relative;
+	height: 60px;
+	margin-bottom: 10px;
+
+	.title {
+		width: 500px;
+		margin: 30px auto;
+		text-align: center;
+		font-size: 32px;
+	}
+
+	.sign_in_out_area {
+		float: right;
+	}
+
+	.site_nav {
+		position: absolute;
+		right: 50px;
+		bottom: 0px;
+	}
+}
+
 .tab {
 	width: 220px;
 	font-size: 16px;
 	display: inline-block;
+	text-align: center;
 
 	&.selected {
 		background-color: #BB88FF;

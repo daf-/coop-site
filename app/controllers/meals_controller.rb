@@ -3,6 +3,7 @@ class MealsController < ApplicationController
   before_action :check_for_user, only: [:edit, :update, :destroy, :edit_mult]
   before_action :set_coop, only: [:new, :create, :edit, :edit_mult, :update_mult]
   before_action :is_admin, only: [:edit_mult, :update_mult]
+  before_action :set_selected
 
   include TimeHelper
 
@@ -28,6 +29,7 @@ class MealsController < ApplicationController
   end
 
   def edit_mult
+    @selcted = 
     puts @coop.inspect
   end
 
@@ -204,5 +206,9 @@ class MealsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meal_params
       params.require(:meal).permit(:meal_type, :isSpecial, :name, :cancelled, :discussion_info, :meal_info, :end_time_no_date, :start_time_no_date, :date)
+    end
+
+    def set_selected
+      @selected = 'calendar'
     end
 end

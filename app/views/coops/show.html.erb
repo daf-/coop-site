@@ -23,66 +23,66 @@
 
   <table>
     <tr class='header_row'>
-      <th></th>
+      <th class='meal_label'></th>
       <% @days.each do |day| %>
       <th><%= day %></th>
       <% end %>
     </tr>
     <tr class='odd_row'>
-      <td class='breakfast_label'>
+      <td class='breakfast_label meal_label'>
         <div class='meal_name'>Breakfast</div>
         <div class='meal_time'><%= @breakfast_time %></div>
       </td>
       <% @days.each do |day| %>
-      <td class='meal'>
      <% if @breakfasts[day] && @breakfasts[day].length > 0 %>
+      <td class='meal'>
        <% @breakfasts[day].each do |meal| %>
        <% if meal %>
        <%= render 'meals/table_show', meal: meal, coop: @coop %>
        <% end %>
        <% end %>
+       </td>
       <% else %>
-        <div class='no_meal'>X</div>
+        <td class='no_meal'>X</td>
       <% end %>
-     </td>
      <% end %>
    </tr>
    <tr class='even_row'>
-    <td class='lunch_label'>
+    <td class='lunch_label meal_label'>
       <div class='meal_name'>Lunch</div>
       <div class='meal_time'><%= @lunch_time %></div>
     </td>
     <% @days.each do |day| %>
-    <td class='meal'>
      <% if @lunches[day] && @lunches[day].length > 0 %>
+    <td class='meal'>
        <% @lunches[day].each do |meal| %>
        <% if meal %>
        <%= render 'meals/table_show', meal: meal, coop: @coop %>
        <% end %>
        <% end %>
-      <% else %>
-        <div class='no_meal'>X</div>
-      <% end %>
    </td>
+      <% else %>
+        <td class='no_meal'>X</td>
+      <% end %>
    <% end %>
   </tr>
   <tr class='odd_row'>
-    <td class='dinner_label'>
+    <td class='dinner_label meal_label'>
       <div class='meal_name'>Dinner</div>
       <div class='meal_time'><%= @dinner_time %></div>
     </td>
     <% @days.each do |day| %>
-    <td class='meal'>
      <% if @dinners[day] && @dinners[day].length > 0 %>
+    <td class='meal'>
      <% @dinners[day].each do |meal| %>
      <% if meal %>
      <%= render 'meals/table_show', meal: meal, coop: @coop %>
      <% end %>
      <% end %>
-      <% else %>
-        <div class='no_meal'>X</div>
-      <% end %>
    </td>
+      <% else %>
+        <td class='no_meal'>X</td>
+      <% end %>
    <% end %>
   </tr>
   </table>

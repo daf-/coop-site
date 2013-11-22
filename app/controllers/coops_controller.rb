@@ -49,9 +49,9 @@ class CoopsController < ApplicationController
         @dinners[day] << ds.shift
       end
     end
-    @breakfast_time = calendarTime(@breakfast_time)
-    @lunch_time = calendarTime(@lunch_time)
-    @dinner_time = calendarTime(@dinner_time)
+    @breakfast_time = calendarTime(@breakfast_time) if @breakfast_time != ''
+    @lunch_time = calendarTime(@lunch_time) if @lunch_time != ''
+    @dinner_time = calendarTime(@dinner_time) if @dinner_time != ''
     @user = current_user
   end
 

@@ -17,6 +17,7 @@ class CoopsController < ApplicationController
   # GET /coops/1
   # GET /coops/1.json
   def show
+    time = Time.now
     bs = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7)).order('start_time asc')
     ls = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7)).order('start_time asc')
     ds = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7)).order('start_time asc')
@@ -24,20 +25,33 @@ class CoopsController < ApplicationController
     @breakfasts = {}
     @lunches = {}
     @dinners = {}
+    @dinner_time = ''
+    @breakfast_time = ''
+    @lunch_time = ''
+    @next_meal = nil
     @days.each do |day|
       @breakfasts[day] = []
       while bs[0] && bs[0].day == day
+        @breakfast_time = bs[0].start_time
+        @next_meal = bs[0] if @breakfast_time > time && !@next_meal
         @breakfasts[day] << bs.shift
       end
       @lunches[day] = []
       while ls[0] && ls[0].day == day
+        @lunch_time = ls[0].start_time
+        @next_meal = ls[0] if @lunch_time > time && !@next_meal
         @lunches[day] << ls.shift
       end
       @dinners[day] = []
       while ds[0] && ds[0].day == day
+        @dinner_time = ds[0].start_time
+        @next_meal = ds[0] if @dinner_time > time && !@next_meal
         @dinners[day] << ds.shift
       end
     end
+    @breakfast_time = calendarTime(@breakfast_time) if @breakfast_time != ''
+    @lunch_time = calendarTime(@lunch_time) if @lunch_time != ''
+    @dinner_time = calendarTime(@dinner_time) if @dinner_time != ''
     @user = current_user
   end
 

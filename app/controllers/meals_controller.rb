@@ -29,8 +29,6 @@ class MealsController < ApplicationController
   end
 
   def edit_mult
-    @selcted = 
-    puts @coop.inspect
   end
 
   def update_mult

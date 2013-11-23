@@ -7,6 +7,8 @@ var ready = function() {
 		$mealInfoArea.html(info);
 	});
 
+	$('.next_meal').click();
+
 	// $('.meal').mouseleave(function(e) {
 	// 	$mealInfo.html('');
 	// });

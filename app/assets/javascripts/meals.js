@@ -11,8 +11,8 @@ var ready = function() {
 	// 	$mealInfo.html('');
 	// });
 
-	var $meal_chk_box = $('.meal_form input.meal_type');
-	$.each($meal_chk_box, function(index, box) {
+	var $meal_shift_chk_box = $('.meal_shift_form input.meal_shift_type');
+	$.each($meal_shift_chk_box, function(index, box) {
 		if ($(box).is(':checked')) {
 			$('#'+$(box).attr('id')+'_details').show();
 		} else {
@@ -21,7 +21,7 @@ var ready = function() {
 	});
 
 
-	$meal_chk_box.change(function(e) {
+	$meal_shift_chk_box.change(function(e) {
 		if ($(e.target).is(':checked')) {
 			$('#'+$(e.target).attr('id')+'_details').show();
 		} else {

@@ -1,21 +1,18 @@
-<h2>View a Coop Calendar</h2>
-
+<div class='welcome_page'>
 <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
+<p class='welcome'>
+Welcome to co-operation nation! This is a place for dining co-ops at Oberlin College
+to organize and share information about meals and shifts.
+</p>
 
-  <tbody>
-    <% @coops.each do |coop| %>
-      <tr>
-        <td><%= coop.name %></td>
-        <td><%= link_to 'Show', coop %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<p class='coop_info'>
+These are the co-ops that currently exist on the site. Without signing in you can view
+the calendars of each co-op listed below. Sign in to your account to be able to see things
+like head cooks, shift schedules, and contact information for people in your co-op. Contact
+your co-op's DLEC to gain account if you do not have one yet.
+</p>
+<% @coops.each do |coop| %>
+  <%= link_to coop.name, coop, class: 'coop_link' %>
+<% end %>
+</div>

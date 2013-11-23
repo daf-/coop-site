@@ -1,0 +1,8 @@
+<div class='pic_confirm_deny'>
+  <div class='title'>Just one more thing...</div>
+
+  <div class='pic_trained'>You've marked that you are PIC trained.</div>
+  <div class='question'>Are you the PIC for <%= @shift.niceTitle %>?</div>
+  <%= link_to 'No!', add_user_pic_coop_shift_path(@coop, @shift, false), class: 'pic_link pic_false_link' %>
+  <%= link_to 'Yes!', add_user_pic_coop_shift_path(@coop, @shift, true), class: 'pic_link pic_true_link' %>
+</div>

@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.integer  "coop_id"
     t.boolean  "cancelled"
     t.integer  "user_id"
+    t.integer  "head_cook"
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"

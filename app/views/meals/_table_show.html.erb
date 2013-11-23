@@ -1,8 +1,8 @@
 <% if meal.cancelled %>
   <div class='cancelled'>
-  <span class='cancel_text'>CANCELLED</span>
+    <span class='cancel_text'>CANCELLED</span>
     <% if @user && @user.coop == @coop %>
-      <%= link_to 'edit', edit_coop_meal_path(@coop, meal), class: 'meal_edit_link' %>
+    <%= link_to 'edit', edit_coop_meal_path(@coop, meal), class: 'meal_edit_link' %>
     <% end %>
   </div>
 <% else %>
@@ -10,38 +10,44 @@
   <div class='next_meal'>
 <% else %>
   <div>
-<% end %>
-  <div class='namearea'>
-    <% if meal.name %>
+    <% end %>
+    <div class='namearea'>
+      <% if meal.name %>
       <span class='name'><%= meal.name %></span>
-    <% else %>
+      <% else %>
       <span class='type'>There's <%= meal.meal_type%></span>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
     <% if meal.isSpecial %>
-  <div class='time'>
-    <%= calendarTime(meal.start_time) %>
-  </div>
+    <div class='time'>
+      <%= calendarTime(meal.start_time) %>
+    </div>
     <% end %>
-  <% if meal.meal_info || meal.discussion_info || meal.user %>
+    <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
     <div class='more_info'>click for more info</div>
-  <% end %>
-  <div class='mouseover'>
-    <% if meal.meal_info %>
-      <h3>Meal Info</h3>
-      <p><%= meal.meal_info %></p>
     <% end %>
-    <% if meal.discussion_info %>
-      <h3>Discussion Info</h3>
-      <p><%= meal.discussion_info %></p>
-    <% end %>
-    <% if meal.user %>
-      <h3>Last Edited By:</h3>
-      <p><%= meal.user.username %></p>
+    <div class='mouseover'>
+      <% if @user && @user.coop == @coop %>
+        <% if meal.head_cook %>
+          <h3>Head Cook:</h3>
+          <p><%= User.find(meal.head_cook).username %></p>
+        <% end %>
+        <% if meal.meal_info %>
+          <h3>Meal Info</h3>
+          <p><%= meal.meal_info %></p>
+        <% end %>
+        <% if meal.discussion_info %>
+          <h3>Discussion Info</h3>
+          <p><%= meal.discussion_info %></p>
+        <% end %>
+        <% if meal.user %>
+          <h3>Last Edited By:</h3>
+          <p><%= meal.user.username %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @user && @user.coop == @coop %>
+    <%= link_to 'edit', edit_coop_meal_path(@coop, meal), class: 'meal_edit_link' %>
     <% end %>
   </div>
-  <% if @user && @user.coop == @coop %>
-    <%= link_to 'edit', edit_coop_meal_path(@coop, meal), class: 'meal_edit_link' %>
-  <% end %>
-</div>
 <% end %>

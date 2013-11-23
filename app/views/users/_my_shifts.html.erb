@@ -2,20 +2,44 @@
   <% @user.shifts.each do |shift| %>
     <div class='shift'>
       <div class='shift_header'>
+      <div class='left_content'>
         <span class='name'><%= shift.niceTitle %></span>
-        <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'remove_shift_link' %>
-        <%= link_to 'swap', new_coop_shift_swap_request_path(@coop, shift), class: 'remove_shift_link' %>
+        </div>
+        <div class='right_content'>
+        <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'shift_link remove_shift_link' %>
+        <span class='divider'>|</span>
+        <%= link_to 'swap', new_swap_request_path, class: 'shift_link swap_shift_link' %>
+        </div>
       </div>
       <div class='shift_info'>
         <% if shift.users.length > 1 %>
           <div class='users_tag'>also on this shift:</div>
           <% if shift.pic %>
-            <div class='leader'>PIC: <%= render 'users/user_in_shift', user: shift.pic %></div>
+            <div class='leader'>
+              <span class='detail_left'>PIC:</span>
+              <span class='detail_right'><%= render 'users/user_in_shift', user: shift.pic %></span>
+            </div>
+
           <% elsif shift.headCook %>
-            <div class='leader'>Head Cook: <%= render 'users/user_in_shift', user: shift.leader %></div>
+            <div class='leader'>
+              <span class='detail_left'>Head Cook:</span>
+              <span class='detail_right'><%= render 'users/user_in_shift', user: shift.headCook %></span>
+            </div>
           <% end %>
+
+            <div class='member'>
+              <span class='detail_left'>Everyone else:</span>
+              <span class='detail_right'><%= render 'users/user_in_shift', user: shift.users.first if shift.users.first %></span>
+            </div>
+          <% first = true %>
           <% shift.users.each do |user| %>
-            <div class='member'><%= render 'users/user_in_shift', user: user unless user == current_user %></div>
+            <% if first %>
+              <% first = false %>
+              <% next %>
+            <% end %>
+            <div class='member'>
+              <span class='detail_right'><%= render 'users/user_in_shift', user: user %></span>
+            </div>
           <% end %>
         <% else %>
           <div class='no_users'>no one else has listed this as their shift yet</div>
@@ -23,6 +47,7 @@
       </div>
     </div>
   <% end %>
-
-  <%= link_to '+ Add new shifts', user_edit_shifts_path(@user) %>
+  <div class='shift_add'>
+  <%= link_to '+ Add new shifts', user_edit_shifts_path(@user), class: 'shift_add_link' %>
+  </div>
 </div>

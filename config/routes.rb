@@ -26,6 +26,7 @@ CoopSite::Application.routes.draw do
       member do
         get "add_user"
         get "remove_user"
+        get "add_user_pic/:pic", action: 'add_user_pic', as: 'add_user_pic'
       end
 
       resources :swap_requests

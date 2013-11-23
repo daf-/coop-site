@@ -3,17 +3,229 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 table {
-	border-collapse: collapse;
+  border-collapse: collapse;
 }
 table, th, td {
-	border: 1px solid #cccccc;
+  border: 1px solid #cccccc;
 }
 
 th, td {
-	width: 100px;
+  width: 100px;
+}
+
+.header_row {
+  background-color: #b0b0b0;
+  font-weight: bold;
+}
+
+.odd_row {
+  background-color: #dfdfdf;
+}
+
+.even_row {
+  background-color: #f5f5f5;
+}
+
+.coop_header {
+  margin-left: 40px;
+
+  .page_title {
+    display: inline-block;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  .description_area {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+    max-width: 300px;
+  }
+
+  .edit_coop_link {
+    display: block;
+    font-size: 20px;
+  }
+}
+
+.meal_label {
+  text-align: right;
+  width: 80px;
+  padding-right: 5px;
 }
 
 .meal {
-	padding: 5px;
-	height: 50px;
+  position: relative;
+  padding: 5px;
+  height: 80px;
+  width: 130px;
+  text-align: center;
+
+  &:hover {
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .cancelled {
+    background-color: #dd8282;
+    height: 100%;
+
+    .cancel_text {
+      font-size: 16px;
+      line-height: 80px;
+      vertical-align: middle;
+    }
+  }
+
+
+  .meal_edit_link {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+  }
+
+  .more_info {
+    font-style: italic;
+  }
+}
+
+.no_meal {
+  position: relative;
+  padding: 5px;
+  height: 80px;
+  width: 130px;
+  font-size: 55px;
+  color: #888888;
+  text-align: center;
+}
+
+/*
+  EDIT COOP PAGE
+ */
+
+.edit_coop_page {
+  margin-left: 5px;
+  margin-right: 20px;
+
+  h3 {
+    font-weight: bold;
+  }
+
+  #description_area {
+    textarea {
+      min-width: 300px;
+      min-height: 40px;
+    }
+
+    .field_info {
+      font-size: 16px;
+    }
+
+    .example {
+      font-style: italic;
+      display: block;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  }
+
+  .form_block {
+    padding: 4px;
+    margin: 4px;
+    border: 2px solid #333333;
+
+    .form_block_header {
+      margin-bottom: 16px;
+
+      .primary {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .secondary {
+        font-size: 16px;
+      }
+    }
+
+    .time {
+      h3 {
+        display: inline-block;
+      }
+
+      .time_selector {
+        display: inline-block;
+        margin-left: 20px;
+      }
+    }
+
+
+
+    .meal_shift_form {
+      margin: 3px;
+      padding: 4px;
+      border-top: 1px solid #333333;
+
+      .days {
+        margin: 16px auto;
+
+        h3 {
+          display: inline;
+          vertical-align: top;
+          margin-right: 40px;
+        }
+
+        .day {
+          position: relative;
+          width: 100px;
+          text-align: center;
+          display: inline-block;
+
+          label {
+            top: 0;
+            display: block;
+          }
+
+          input {
+            position: relative;
+            bottom: 0;
+          }
+        }
+      }
+
+      .shifts {
+
+        .shift {
+          display: block;
+          margin-left: 50px;
+          margin-top: 4px;
+        }
+      }
+    }
+
+    .info_header {
+      margin-bottom: 18px;
+      font-size: 20px;
+    }
+  }
+
+  .check_row {
+    border-bottom: 1px solid #cccccc;
+    font-size: 16px;
+    padding: 4px;
+    font-weight: bold;
+
+    &.checked {
+      background-color: #3B5998 // facebook yall
+    }
+  }
+
+  input[type=submit] {
+    margin-top: 20px;
+    height: 80px;
+    width: 400px;
+    font-size: 40px;
+    float: right;
+    margin-right: 80px;
+  }
 }

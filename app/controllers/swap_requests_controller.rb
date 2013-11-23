@@ -1,6 +1,6 @@
 class SwapRequestsController < ApplicationController
   before_action :set_swap_request, only: [:show, :edit, :update, :destroy]
-  before_action :set_coop, only: [:new, :show, :edit, :update, :destroy]
+  before_action :set_coop, only: [:create, :new, :show, :edit, :update, :destroy]
   before_action :set_shift, only: [:create, :new, :show, :edit, :update, :destroy]
 
   # GET /swap_requests
@@ -30,6 +30,8 @@ class SwapRequestsController < ApplicationController
     @swap_request.user = current_user
     @swap_request.shift = @shift
     @shift.swap_request = @swap_request
+    @coop.swap_requests << @swap_request
+
     respond_to do |format|
       if @swap_request.save
         format.html { redirect_to user_path(current_user), notice: 'Swap request was successfully created.' }

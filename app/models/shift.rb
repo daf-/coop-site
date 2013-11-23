@@ -19,7 +19,7 @@ class Shift < ActiveRecord::Base
 
   def pic
     pic = nil
-    if self.leader && !self.headCook?
+    if self.leader && !self.headCook
       pic = User.find(self.leader)
     end
     pic

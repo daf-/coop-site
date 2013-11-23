@@ -28,7 +28,8 @@ class SwapRequestsController < ApplicationController
   def create
     @swap_request = SwapRequest.new(swap_request_params)
     @swap_request.user = current_user
-    @swap_request.date = @swap_request.date.change(hour: @shift.start_time.hour, min: @shift.start_time.min, sec: @shift.start_time.sec)
+    @swap_request.shift = @shift
+    @shift.swap_request = @swap_request
     respond_to do |format|
       if @swap_request.save
         format.html { redirect_to user_path(current_user), notice: 'Swap request was successfully created.' }

@@ -2,6 +2,7 @@ class Shift < ActiveRecord::Base
   belongs_to :coop
   has_and_belongs_to_many :users
   has_and_belongs_to_many :meals
+  has_one :swap_request
 
   def isLeader
   end

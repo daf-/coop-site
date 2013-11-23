@@ -1,0 +1,20 @@
+<div class='swap_requests'>
+  <% @swap_requests.each do |swap_request| %>
+    <div class='swap_request'>
+      <% if swap_request.user.username %>
+        <span class='user_name'>
+          <%= swap_request.user.username %>
+        </span>
+      <% end -%>
+      <% if swap_request.message %>
+        <span class='message'>
+          <%= swap_request.message %>
+        </span>
+      <% end %>
+      <span class='swap_shift_info'>
+        <%= swap_request.shift.niceTitle %>
+        <%= swap_request.date.strftime('%B %d') %>
+      </span>
+    </div>
+  <% end %>
+</div>

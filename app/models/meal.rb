@@ -91,7 +91,7 @@ class Meal < ActiveRecord::Base
   def from_params(params)
     new_params = {}
     params.each do | key, value |
-      if key.count('(') == 0
+      if key.count('(') == 0 && value && value.length > 0
         # has no parens in key name
         new_params[key] = value
       end

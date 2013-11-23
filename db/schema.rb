@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.string   "custom_shift_3_l"
     t.string   "custom_shift_3_d"
     t.integer  "swap_request_id"
+    t.text     "public_descrip"
+    t.text     "member_descrip"
+    t.string   "commando",         default: ""
+    t.string   "mid_crew",         default: ""
+    t.string   "other_shift_name", default: ""
+    t.string   "other_shift",      default: ""
+    t.time     "commando_time"
+    t.time     "mid_crew_time"
+    t.time     "other_shift_time"
   end
 
   add_index "coops", ["swap_request_id"], name: "index_coops_on_swap_request_id"

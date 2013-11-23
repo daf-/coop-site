@@ -11,6 +11,29 @@
     </div>
   <% end %>
 
+  <div class='member_descrip field_info'>
+    Write something to display to members of your coop when they look at your calendar:
+    <span class='example'>welcome message, inside joke, fun news, etc.</span>
+  </div>
+  <div class="field">
+    <%= f.label :member_descrip %><br>
+    <%= f.text_area :member_descrip %>
+  </div>
+
+  <div class='public_descrip field_info'>
+    Write something to display to to people viewing your calendar that are not in your coop:
+    <span class='example'>your guest policy, your co-op's address, etc.</span>
+  </div>
+  <div class="field">
+    <%= f.label :public_descrip %><br>
+    <%= f.text_area :public_descrip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :bfast_time %><br>
+    <%= f.time_select :bfast_time, {ampm: true, minute_step: 5, ignore_date: true} %>
+  </div>
+
   <div class="field">
     <%= f.label :bfast_time %><br>
     <%= f.time_select :bfast_time, {ampm: true, minute_step: 5, ignore_date: true} %>

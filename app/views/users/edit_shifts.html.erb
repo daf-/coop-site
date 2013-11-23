@@ -50,7 +50,7 @@
     <td class='shifts other'>Other:</td>
     <% @days.each do |day| %>
       <td>
-        <% @dinners[day].each do |shift| %>
+        <% @others[day].each do |shift| %>
           <% @shift = shift %>
           <div class='shift_toggle'>
             <%= render 'shifts/add_remove_show' %>

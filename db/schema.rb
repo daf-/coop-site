@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123194159) do
+ActiveRecord::Schema.define(version: 20131123204937) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -43,7 +43,10 @@ ActiveRecord::Schema.define(version: 20131123194159) do
     t.string   "custom_shift_3_b"
     t.string   "custom_shift_3_l"
     t.string   "custom_shift_3_d"
+    t.integer  "swap_request_id"
   end
+
+  add_index "coops", ["swap_request_id"], name: "index_coops_on_swap_request_id"
 
   create_table "meals", force: true do |t|
     t.string   "meal_type"
@@ -96,8 +99,10 @@ ActiveRecord::Schema.define(version: 20131123194159) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "shift_id"
+    t.integer  "coop_id"
   end
 
+  add_index "swap_requests", ["coop_id"], name: "index_swap_requests_on_coop_id"
   add_index "swap_requests", ["shift_id"], name: "index_swap_requests_on_shift_id"
   add_index "swap_requests", ["user_id"], name: "index_swap_requests_on_user_id"
 

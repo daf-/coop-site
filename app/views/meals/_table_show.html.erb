@@ -23,7 +23,7 @@
       <%= calendarTime(meal.start_time) %>
     </div>
     <% end %>
-    <% if meal.meal_info || meal.discussion_info || meal.user %>
+    <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
     <div class='more_info'>click for more info</div>
     <% end %>
     <div class='mouseover'>

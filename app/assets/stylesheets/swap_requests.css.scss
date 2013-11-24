@@ -4,6 +4,10 @@
 
 .swap_area {
   margin-left: 20px;
+  width: 500px;
+  border: 1px solid #333333;
+  padding: 4px;
+  overflow: auto;
 
   .swap_requests {
     width: 500px;
@@ -16,6 +20,7 @@
       margin-bottom: 5px;
 
       .top_content {
+        overflow: auto;
         padding: 4px;
 
         .user_name {

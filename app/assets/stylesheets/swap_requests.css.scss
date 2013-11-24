@@ -1,3 +1,83 @@
 // Place all the styles related to the SwapRequests controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.swap_area {
+  margin-left: 20px;
+  width: 500px;
+  border: 1px solid #333333;
+  padding: 4px;
+  overflow: auto;
+
+  .swap_requests {
+    width: 500px;
+    border: 1px solid #333333;
+    padding: 4px;
+    overflow: auto;
+
+    .swap_request {
+      clear: both;
+      margin-bottom: 5px;
+
+      .top_content {
+        overflow: auto;
+        padding: 4px;
+
+        .user_name {
+          float: left;
+          font-weight: bold;
+        }
+
+        .swap_shift_info {
+          font-weight: bold;
+          float: right;
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: #3B5998;
+        }
+      }
+
+      .bottom_content {
+        display: none;
+
+        .message {
+          width: 80%;
+          margin: 0 auto;
+          float: left;
+          padding: 4px;
+        }
+
+        .note {
+          color: #3B5998;
+          float: left;
+          display: block;
+          width: 99%;
+          float: right;
+          padding: 4px;
+        }
+
+        .swap_request_links {
+          width: 99%;
+          display: block;
+          float: left;
+          padding: 4px;
+        }
+
+        .contact_info {
+          padding: 4px;
+          display: block;
+          font-style: italic;
+
+          .email {
+            float: left;
+          }
+          .phone {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122162421) do
+ActiveRecord::Schema.define(version: 20131124180057) do
 
   create_table "coops", force: true do |t|
     t.string   "name"
@@ -66,12 +66,10 @@ ActiveRecord::Schema.define(version: 20131122162421) do
     t.string   "discussion_info"
     t.integer  "coop_id"
     t.boolean  "cancelled"
-    t.integer  "user_id"
     t.integer  "head_cook"
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
-  add_index "meals", ["user_id"], name: "index_meals_on_user_id"
 
   create_table "meals_shifts", id: false, force: true do |t|
     t.integer "shift_id", null: false
@@ -102,8 +100,12 @@ ActiveRecord::Schema.define(version: 20131122162421) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "shift_id"
+    t.integer  "coop_id"
   end
 
+  add_index "swap_requests", ["coop_id"], name: "index_swap_requests_on_coop_id"
+  add_index "swap_requests", ["shift_id"], name: "index_swap_requests_on_shift_id"
   add_index "swap_requests", ["user_id"], name: "index_swap_requests_on_user_id"
 
   create_table "users", force: true do |t|

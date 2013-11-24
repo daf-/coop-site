@@ -93,3 +93,7 @@
   <!-- The box that will follow the mouse holding the meal info -->
   <div id='mealInfo'></div>
 </div>
+
+<%= link_to "Create member account for #{@coop.name}", "/coops/#{@coop.id}/member_join_link/#{@coop.member_join_hash}" %>
+<%= link_to "Create admin account for #{@coop.name}", "/coops/#{@coop.id}/admin_join_link/#{@coop.admin_join_hash}" %>
+

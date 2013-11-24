@@ -8,9 +8,6 @@ class CoopsController < ApplicationController
   # GET /coops
   # GET /coops.json
   def index
-    if current_user
-      redirect_to coop_path(current_user.coop)
-    end
     @coops = Coop.all
   end
 
@@ -46,9 +43,9 @@ class CoopsController < ApplicationController
         @dinners[day] << ds.shift
       end
     end
-    @breakfast_time = calendarTime(@breakfast_time) if @breakfast_time != ''
-    @lunch_time = calendarTime(@lunch_time) if @lunch_time != ''
-    @dinner_time = calendarTime(@dinner_time) if @dinner_time != ''
+    @breakfast_time = calendarTime(@breakfast_time) if @breakfast_time != '' && @breakfast_time != nil
+    @lunch_time = calendarTime(@lunch_time) if @lunch_time != '' && @lunch_time != nil
+    @dinner_time = calendarTime(@dinner_time) if @dinner_time != '' && @dinner_time != nil
     @user = current_user
   end
 

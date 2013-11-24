@@ -9,22 +9,27 @@
 <body>
 <div class='header'>
   <% if current_user && !@hide_nav_links %>
-    <div class='sign_in_out_area'>
-      Signed in as: <%= current_user.email %>
-      <%= link_to 'Sign out', signout_path %>
-    </div>
+
     <div class='site_nav'>
+      <%= link_to 'home', coop_path(current_user.coop), class: (@selected == 'calendar') ? 'selected tab' : 'tab' %>|
       <%= link_to 'shifts', user_path(current_user), class: (@selected == 'shifts') ? 'selected tab' : 'tab' %>|
-      <%= link_to current_user.coop.name+' calendar', coop_path(current_user.coop), class: (@selected == 'calendar') ? 'selected tab' : 'tab' %>|
-      <%= link_to 'me', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab' %>
-    </div>
-
-  <% else %>
-
-    <div class='sign_in_out_area'>
-     <%= link_to 'Sign in to your account', "/auth/google_login" %>
+      <%= link_to 'my account', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab' %>
     </div>
   <% end %>
+
+  <div class='site_nav_2'>
+
+    <div class='sign_in_out_area'>
+      <% unless @hide_nav_links %>
+        <%= link_to 'Other co-ops', root_path, class: 'tab' %>|
+        <% if current_user %>
+          <%= link_to 'Sign out', signout_path, class: 'tab' %>
+        <% else %>
+          <%= link_to 'Sign in', "/auth/google_login", class: 'tab' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
   <div class='title'>CO-OPERATION NATION</div>
 </div>

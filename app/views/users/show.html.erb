@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <div class='shift_area'>
-<h2>Your <%= @coop.name %> shifts:</h2>
-<%= render 'my_shifts' %>
+  <h2>Your <%= @coop.name %> shifts:</h2>
+  <%= render 'my_shifts' %>
+</div>
 
-<h2>Add a Shift Swap Request</h2>
-<div id='swap_form_holder'></div>
+<div class='swap_area'>
+  <!-- <h2>Add a Shift Swap Request</h2> -->
+  <div id='swap_form_holder'></div>
 
-<h2>Swapportunities</h2>
-<%= render 'swap_requests' %>
+  <h2>Swapportunities</h2>
+  <%= render 'swap_requests' %>
+</div>

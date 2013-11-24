@@ -1,20 +1,48 @@
 <div class='swap_requests'>
   <% @swap_requests.each do |swap_request| %>
-    <div class='swap_request'>
-      <% if swap_request.user.username %>
-        <span class='user_name'>
-          <%= swap_request.user.username %>
-        </span>
-      <% end -%>
-      <% if swap_request.message %>
-        <span class='message'>
-          <%= swap_request.message %>
-        </span>
-      <% end %>
-      <span class='swap_shift_info'>
-        <%= swap_request.shift.niceTitle %>
-        <%= swap_request.date.strftime('%B %d') %>
-      </span>
-    </div>
+    <% unless swap_request.isResolved? %>
+      <div class='swap_request'>
+
+        <div class='top_content'>
+          <% if swap_request.user.username %>
+            <span class='user_name'>
+              <%= swap_request.user.username %>
+            </span>
+          <% end -%>
+          <span class='swap_shift_info'>
+            <%= swap_request.shift.niceTitle %>
+            (<%= swap_request.date.strftime('%B %d') %>)
+          </span>
+        </div>
+
+        <div class='bottom_content'>
+          <% if swap_request.user == current_user %>
+            <div class='swap_request_links'>
+              <%= link_to 'Remove request', coop_shift_swap_request_resolve_path(swap_request.user.coop, swap_request.shift, swap_request), class: 'resolve_swap_request' %>
+            </div>
+          <% end %>
+          <% if swap_request.headcook_required %>
+            <div class='note'>Head cook or PIC required</div>
+          <% end %>
+          <% if swap_request.message %>
+            <div class='message'>
+              <%= swap_request.message %>
+            </div>
+          <% end %>
+          <div class='contact_info'>
+            <% if swap_request.user.allowed_email %>
+              <span class='email'>
+                <%= swap_request.user.email %>
+              </span>
+            <% end %>
+            <% if swap_request.user.allowed_phone %>
+              <span class='phone'>
+                <%= swap_request.user.phone_pretty %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

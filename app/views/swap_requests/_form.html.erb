@@ -19,7 +19,7 @@
     <%= f.label :date %><br>
     <%= f.date_select :date, discard_year: true %>
   </div>
-  <% if @swap_request.user.pic %>
+  <% if @user.pic %>
     <div class="field">
       <%= f.label "Head cook or PIC required?" %><br>
       <%= f.check_box :headcook_required %>

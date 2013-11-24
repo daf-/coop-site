@@ -20,15 +20,17 @@ class ShiftsController < ApplicationController
 
   def add_user_pic
     @user = current_user
-    pic = params[:pic]
     unless @shift.users.include?(@user)
-      @shift.leader = @user.id
-      @shift.save
-      @shift.users << @user
-      @shift.meals.each do |meal|
-        meal.head_cook = @user.id
-        meal.save
+      if params[:pic] == 'true'
+        @shift.leader = @user.id
+        @shift.save
+        @shift.meals.each do |meal|
+          meal.head_cook = @user.id
+          meal.save
+        end
       end
+      @shift.users << @user
+
       render partial: 'add_remove_show', shift: @shift, notice: 'Successfully joined shift.'
     else
       render partial: 'add_remove_show', shift: @shift, notice: 'You\'re already on this shift.'

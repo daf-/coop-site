@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123204937) do
+ActiveRecord::Schema.define(version: 20131124180057) do
 
   create_table "coops", force: true do |t|
     t.string   "name"

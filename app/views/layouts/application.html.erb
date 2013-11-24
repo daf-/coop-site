@@ -15,24 +15,18 @@
       <%= link_to 'shifts', user_path(current_user), class: (@selected == 'shifts') ? 'selected tab' : 'tab' %>|
       <%= link_to 'my account', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab' %>
     </div>
-
-  <% else %>
-
-    <div class='sign_in_out_area'>
-    </div>
-    <% a_coop = Coop.first %>
-    <%= link_to "Create member account for #{a_coop.name}", "/coops/#{a_coop.id}/member_join_link/#{a_coop.member_join_hash}" %>
-    <%= link_to "Create admin account for #{a_coop.name}", "/coops/#{a_coop.id}/admin_join_link/#{a_coop.admin_join_hash}" %>
   <% end %>
 
   <div class='site_nav_2'>
 
     <div class='sign_in_out_area'>
-      <%= link_to 'Other co-ops', root_path, class: 'tab' %>|
-      <% if current_user && !@hide_nav_links %>
-        <%= link_to 'Sign out', signout_path, class: 'tab' %>
-      <% else %>
-        <%= link_to 'Sign in', "/auth/google_login", class: 'tab' %>
+      <% unless @hide_nav_links %>
+        <%= link_to 'Other co-ops', root_path, class: 'tab' %>|
+        <% if current_user %>
+          <%= link_to 'Sign out', signout_path, class: 'tab' %>
+        <% else %>
+          <%= link_to 'Sign in', "/auth/google_login", class: 'tab' %>
+        <% end %>
       <% end %>
     </div>
   </div>

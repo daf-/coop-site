@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.string   "custom_shift_3_b"
     t.string   "custom_shift_3_l"
     t.string   "custom_shift_3_d"
-    t.integer  "swap_request_id"
     t.text     "public_descrip"
     t.text     "member_descrip"
     t.string   "commando",         default: ""
@@ -53,6 +52,7 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.time     "commando_time"
     t.time     "mid_crew_time"
     t.time     "other_shift_time"
+    t.integer  "swap_request_id"
   end
 
   add_index "coops", ["swap_request_id"], name: "index_coops_on_swap_request_id"
@@ -90,10 +90,7 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.string   "day"
     t.time     "start_time"
     t.time     "end_time"
-    t.integer  "swap_request_id"
   end
-
-  add_index "shifts", ["swap_request_id"], name: "index_shifts_on_swap_request_id"
 
   create_table "shifts_users", id: false, force: true do |t|
     t.integer "shift_id", null: false

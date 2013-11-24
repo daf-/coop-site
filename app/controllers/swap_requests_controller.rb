@@ -1,7 +1,18 @@
 class SwapRequestsController < ApplicationController
-  before_action :set_swap_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_swap_request, only: [:resolve, :show, :edit, :update, :destroy]
   before_action :set_coop, only: [:create, :new, :show, :edit, :update, :destroy]
   before_action :set_shift, only: [:create, :new, :show, :edit, :update, :destroy]
+
+  def resolve
+    @swap_request.update_attribute(:isResolved?, true)
+    if @swap_request.save
+      puts "resolved"
+      redirect_to user_path(current_user)
+    else
+      puts "not resolved"
+      redirect_to user_path(current_user)
+    end
+  end
 
   # GET /swap_requests
   # GET /swap_requests.json
@@ -29,7 +40,7 @@ class SwapRequestsController < ApplicationController
     @swap_request = SwapRequest.new(swap_request_params)
     @swap_request.user = current_user
     @swap_request.shift = @shift
-    @shift.swap_request = @swap_request
+    @shift.swap_requests << @swap_request
     @coop.swap_requests << @swap_request
 
     respond_to do |format|
@@ -78,7 +89,7 @@ class SwapRequestsController < ApplicationController
   end
 
   def set_swap_request
-    @swap_request = SwapRequest.find(params[:id])
+    @swap_request = SwapRequest.find(params[:swap_request_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

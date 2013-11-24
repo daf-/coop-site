@@ -8,9 +8,6 @@ class CoopsController < ApplicationController
   # GET /coops
   # GET /coops.json
   def index
-    if current_user
-      redirect_to coop_path(current_user.coop)
-    end
     @coops = Coop.all
   end
 

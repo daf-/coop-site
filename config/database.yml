@@ -24,7 +24,7 @@ production:
   pool: 5
   timeout: 5000
 
-usage_develpment:
+usage_development:
   adapter: sqlite3
   database: db/usage_development.sqlite3
   pool: 5

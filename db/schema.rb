@@ -52,10 +52,7 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.time     "commando_time"
     t.time     "mid_crew_time"
     t.time     "other_shift_time"
-    t.integer  "swap_request_id"
   end
-
-  add_index "coops", ["swap_request_id"], name: "index_coops_on_swap_request_id"
 
   create_table "meals", force: true do |t|
     t.string   "meal_type"
@@ -69,23 +66,15 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.string   "discussion_info"
     t.integer  "coop_id"
     t.boolean  "cancelled"
-<<<<<<< HEAD
-  end
-
-  add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
-=======
-    t.integer  "user_id"
     t.integer  "head_cook"
   end
 
   add_index "meals", ["coop_id"], name: "index_meals_on_coop_id"
-  add_index "meals", ["user_id"], name: "index_meals_on_user_id"
 
   create_table "meals_shifts", id: false, force: true do |t|
     t.integer "shift_id", null: false
     t.integer "meal_id",  null: false
   end
->>>>>>> 5ab0f48517330f2eb16c558d7588357e05ea217e
 
   create_table "shifts", force: true do |t|
     t.integer  "coop_id"
@@ -96,14 +85,8 @@ ActiveRecord::Schema.define(version: 20131123204937) do
     t.string   "day"
     t.time     "start_time"
     t.time     "end_time"
-    t.integer  "swap_request_id"
   end
 
-<<<<<<< HEAD
-=======
-  add_index "shifts", ["swap_request_id"], name: "index_shifts_on_swap_request_id"
-
->>>>>>> 5ab0f48517330f2eb16c558d7588357e05ea217e
   create_table "shifts_users", id: false, force: true do |t|
     t.integer "shift_id", null: false
     t.integer "user_id",  null: false

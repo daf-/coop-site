@@ -24,9 +24,6 @@
     <div class='sign_in_out_area'>
      <%= link_to 'Sign in to your account', "/auth/google_login" %>
     </div>
-    <% a_coop = Coop.first %>
-    <%= link_to "Create member account for #{a_coop.name}", "/coops/#{a_coop.id}/member_join_link/#{a_coop.member_join_hash}" %>
-    <%= link_to "Create admin account for #{a_coop.name}", "/coops/#{a_coop.id}/admin_join_link/#{a_coop.admin_join_hash}" %>
   <% end %>
 
   <div class='title'>CO-OPERATION NATION</div>

@@ -1,6 +1,6 @@
 CoopSite::Application.routes.draw do
 
-  resources :swap_requests
+  # resources :swap_requests
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -27,6 +27,10 @@ CoopSite::Application.routes.draw do
         get "add_user"
         get "remove_user"
         get "add_user_pic/:pic", action: 'add_user_pic', as: 'add_user_pic'
+      end
+
+      resources :swap_requests do
+        get "resolve"
       end
     end
 

@@ -1,13 +1,6 @@
 CoopSite::Application.routes.draw do
 
-  resources :shifts do
-    member do
-      get "add_user"
-      get "remove_user"
-    end
-  end
-
-  resources :swap_requests
+  # resources :swap_requests
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,7 +10,29 @@ CoopSite::Application.routes.draw do
   get "/signout" => "sessions#destroy", :as => :signout
 
   resources :coops do
-    resources :meals
+    resources :meals do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+    end
+
+    resources :shifts do
+      collection do
+        get "edit_mult"
+        put "update_mult"
+      end
+
+      member do
+        get "add_user"
+        get "remove_user"
+        get "add_user_pic/:pic", action: 'add_user_pic', as: 'add_user_pic'
+      end
+
+      resources :swap_requests do
+        get "resolve"
+      end
+    end
 
     member do
       get 'generate_member_join_link'
@@ -26,7 +41,10 @@ CoopSite::Application.routes.draw do
       get 'admin_join_link/:admin_join_hash', action: 'admin_join'
     end
   end
-  resources :users
+
+  resources :users do
+    get 'edit_shifts'
+  end
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

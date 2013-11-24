@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_coop, only: [:show, :edit]
-  before_action :is_same_user, only: [:edit, :update]
+  before_action :is_same_user, only: [:edit, :update, :show]
   before_action :is_admin, only: [:destroy]
 
   def home
@@ -20,6 +20,43 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @selected = 'shifts'
+    @swap_requests = @coop.swap_requests
+  end
+
+  def edit_shifts
+    @selected = 'shifts'
+    @user = User.find(params[:user_id])
+    is_same_user
+    @coop = @user.coop
+    @days = normal_week_lowercase;
+    @breakfasts = {}
+    @lunches = {}
+    @dinners = {}
+    @others = {}
+    @days.each do |day|
+      @breakfasts[day] = []
+      @lunches[day] = []
+      @dinners[day] = []
+      @others[day] = []
+      shifts = Shift.where(coop: @coop, day: day)
+      shifts.each do |shift|
+        if shift.meals && shift.meals.first
+          meal_type = shift.meals.first.meal_type
+          if meal_type == 'breakfast'
+            @breakfasts[day] << shift
+          elsif meal_type == 'lunch'
+            @lunches[day] << shift
+          elsif meal_type == 'dinner'
+            @dinners[day] << shift
+          else
+            @others[day] << shift
+          end
+        else
+          @others[day] << shift
+        end
+      end
+    end
   end
 
   # GET /users/new
@@ -29,6 +66,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @selected = 'edit_user'
+    @hide_nav_links = (@user.username == nil || @user.username == '')
   end
 
   # POST /users
@@ -66,7 +105,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to signout_path }
       format.json { head :no_content }
     end
   end
@@ -95,6 +134,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :username, :phone)
+      params.require(:user).permit(:email, :username, :phone, :display_email, :display_phone, :pic)
     end
 end

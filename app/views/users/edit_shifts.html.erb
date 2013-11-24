@@ -1,0 +1,70 @@
+<div id='shift_select_page'>
+<h2>Select your <%= @coop.name %> shifts:</h2>
+
+<table>
+  <tr>
+    <th class='shifts_row_label'></th>
+    <% @days.each do |day| %>
+      <th><%= day.capitalize %></th>
+    <% end %>
+  </tr>
+  <tr>
+    <td class='shifts_row_label breakfast'>Breakfast:</td>
+    <% @days.each do |day| %>
+      <td>
+        <% @breakfasts[day].each do |shift| %>
+          <% @shift = shift %>
+          <div class='shift_toggle'>
+            <%= render 'shifts/add_remove_show' %>
+          </div>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td class='shifts_row_label lunch'>Lunch:</td>
+    <% @days.each do |day| %>
+      <td>
+        <% @lunches[day].each do |shift| %>
+          <% @shift = shift %>
+          <div class='shift_toggle'>
+            <%= render 'shifts/add_remove_show' %>
+          </div>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td class='shifts_row_label dinner'>Dinner:</td>
+    <% @days.each do |day| %>
+      <td>
+        <% @dinners[day].each do |shift| %>
+          <% @shift = shift %>
+          <div class='shift_toggle'>
+            <%= render 'shifts/add_remove_show' %>
+          </div>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td class='shifts_row_label other'>Other:</td>
+    <% @days.each do |day| %>
+      <td>
+        <% @others[day].each do |shift| %>
+          <% @shift = shift %>
+          <div class='shift_toggle'>
+            <%= render 'shifts/add_remove_show' %>
+          </div>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+</table>
+
+<%= link_to 'Done Editing', user_path(@user), class: 'done_link' %>
+
+</div>
+
+<div id='alert_area'></div>
+

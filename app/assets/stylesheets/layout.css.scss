@@ -1,0 +1,43 @@
+.header {
+	position: relative;
+	height: 60px;
+	margin-bottom: 10px;
+
+	.title {
+		width: 500px;
+		margin: 30px auto;
+		text-align: center;
+		font-size: 32px;
+	}
+
+	.sign_in_out_area {
+		position: absolute;
+		right: 20px;
+		bottom: 0px;
+	}
+
+	.site_nav {
+		position: absolute;
+		right: 330px;
+		bottom: 0px;
+	}
+}
+
+.tab {
+	width: 120px;
+	font-size: 16px;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #888888;
+	text-decoration: none;
+
+	&.selected {
+		background-color: #BB88FF;
+	}
+}
+
+.background {
+	opacity:0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+}
+

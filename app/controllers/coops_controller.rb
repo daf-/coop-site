@@ -1,21 +1,20 @@
 class CoopsController < ApplicationController
   before_action :set_coop, only: [:show, :edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link, :join_coop_page, :member_join, :admin_join]
   before_action :force_admin, only: [:edit, :update, :destroy, :generate_member_join_link, :generate_admin_join_link]
+  before_action :set_selected
 
   include CoopsHelper
 
   # GET /coops
   # GET /coops.json
   def index
-    if current_user
-      redirect_to coop_path(current_user.coop)
-    end
     @coops = Coop.all
   end
 
   # GET /coops/1
   # GET /coops/1.json
   def show
+    time = Time.now.utc
     bs = Meal.where(coop: @coop, meal_type: 'breakfast', start_time: (Date.today..Date.today + 7)).order('start_time asc')
     ls = Meal.where(coop: @coop, meal_type: 'lunch', start_time: (Date.today..Date.today + 7)).order('start_time asc')
     ds = Meal.where(coop: @coop, meal_type: 'dinner', start_time: (Date.today..Date.today + 7)).order('start_time asc')
@@ -23,20 +22,30 @@ class CoopsController < ApplicationController
     @breakfasts = {}
     @lunches = {}
     @dinners = {}
+    @dinner_time = @coop.dinner_time
+    @breakfast_time = @coop.bfast_time
+    @lunch_time = @coop.lunch_time
+    @next_meal = nil
     @days.each do |day|
       @breakfasts[day] = []
       while bs[0] && bs[0].day == day
+        @next_meal = bs[0] if bs[0].start_time > time && !@next_meal
         @breakfasts[day] << bs.shift
       end
       @lunches[day] = []
       while ls[0] && ls[0].day == day
+        @next_meal = ls[0] if ls[0].start_time > time && !@next_meal
         @lunches[day] << ls.shift
       end
       @dinners[day] = []
       while ds[0] && ds[0].day == day
+        @next_meal = ds[0] if ds[0].start_time > time && !@next_meal
         @dinners[day] << ds.shift
       end
     end
+    @breakfast_time = calendarTime(@breakfast_time) if @breakfast_time != '' && @breakfast_time != nil
+    @lunch_time = calendarTime(@lunch_time) if @lunch_time != '' && @lunch_time != nil
+    @dinner_time = calendarTime(@dinner_time) if @dinner_time != '' && @dinner_time != nil
     @user = current_user
   end
 
@@ -154,8 +163,12 @@ class CoopsController < ApplicationController
       end
     end
 
+    def set_selected
+      @selected = 'calendar'
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def coop_params
-      params.require(:coop).permit(:name, :bfast_time, :lunch_time, :dinner_time, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner)
+      params.require(:coop).permit(:name, :public_descrip, :member_descrip, :bfast_time, :lunch_time, :dinner_time, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner)
     end
 end

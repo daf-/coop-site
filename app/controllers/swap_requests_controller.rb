@@ -1,5 +1,6 @@
 class SwapRequestsController < ApplicationController
   before_action :set_swap_request, only: [:resolve, :show, :edit, :update, :destroy]
+  before_action :set_swap_requests, only: [:resolve]
   before_action :set_coop, only: [:create, :new, :show, :edit, :update, :destroy]
   before_action :set_shift, only: [:create, :new, :show, :edit, :update, :destroy]
   before_action :set_user, only: [:new]
@@ -8,10 +9,12 @@ class SwapRequestsController < ApplicationController
     @swap_request.update_attribute(:isResolved?, true)
     if @swap_request.save
       puts "resolved"
-      redirect_to user_path(current_user)
+      render partial: 'users/swap_requests', locals: {swap_requests: @swap_requests}
+      # redirect_to user_path(current_user)
     else
       puts "not resolved"
-      redirect_to user_path(current_user)
+      render partial: 'users/swap_requests', locals: {swap_requests: @swap_requests}
+      # redirect_to user_path(current_user)
     end
   end
 
@@ -29,10 +32,12 @@ class SwapRequestsController < ApplicationController
   # GET /swap_requests/new
   def new
     @swap_request = SwapRequest.new
+    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request}
   end
 
   # GET /swap_requests/1/edit
   def edit
+    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request}
   end
 
   # POST /swap_requests
@@ -91,6 +96,10 @@ class SwapRequestsController < ApplicationController
 
   def set_swap_request
     @swap_request = SwapRequest.find(params[:swap_request_id])
+  end
+
+  def set_swap_requests
+    @swap_requests = SwapRequest.all
   end
 
   def set_user

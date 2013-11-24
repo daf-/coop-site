@@ -5,10 +5,18 @@ var ready = function() {
   });
 
   $('.shift .remove_shift_link').click(function(e) {
-  	e.preventDefault();
-  	$.get($(e.currentTarget).attr('href'), function(res) {
-  		$(e.currentTarget).closest('.shift').remove();
-  	});
+    e.preventDefault();
+    $.get($(e.currentTarget).attr('href'), function(res) {
+      $(e.currentTarget).closest('.shift').remove();
+    });
+  });
+
+  $('.shift .swap_shift_link').click(function(e) {
+    e.preventDefault();
+    $.get($(e.currentTarget).attr('href'), function(res) {
+      // $(e.currentTarget).closest('.shift').remove();
+      $('#swap_form_holder').append(res);
+    });
   });
 };
 

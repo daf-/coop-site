@@ -8,7 +8,7 @@
         <div class='right_content'>
         <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'shift_link remove_shift_link' %>
         <span class='divider'>|</span>
-        <%= link_to 'swap', new_swap_request_path, class: 'shift_link swap_shift_link' %>
+        <%= link_to 'swap', new_coop_shift_swap_request_path(@coop, shift), class: 'shift_link swap_shift_link' %>
         </div>
       </div>
       <div class='shift_info'>

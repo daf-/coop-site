@@ -11,44 +11,36 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :meal_type %><br>
-    <%= f.select :meal_type, [['Breakfast', 'breakfast'], ['Lunch', 'lunch'], ['Dinner', 'dinner'], ['Other', 'other']] %>
+  <div class="field cancelled">
+    <%= f.check_box :cancelled %>
+    <span class='label'>This meal is cancelled</span>
   </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_field :date %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time_no_date %><br>
-    <%= f.time_select :start_time_no_date, {ampm: true, minute_step: 5, ignore_date: true} %>
-  </div>
-  <div class="field">
-    <%= f.label :end_time_no_date %><br>
-    <%= f.time_select :end_time_no_date, {ampm: true, minute_step: 5, ignore_date: true} %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
+
+  <div class='upper_row'>
+
+  <div class="field meal_name">
+    <span class='label'>Meal Title:</span>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :cancelled %><br>
-    <%= f.check_box :cancelled %>
+
+  <div class="field start_time">
+    <span class='label'>Start Time:</span>
+    <%= f.time_select :start_time_no_date, {ampm: true, minute_step: 5, ignore_date: true} %>
   </div>
-  <div class="field">
-    <%= f.label :isSpecial %><br>
-    <%= f.check_box :isSpecial %>
   </div>
-  <div class="field">
-    <%= f.label :meal_info %><br>
+
+  <div class='lower_row'>
+  <div class="field meal_info">
+    <span class='label'>Meal menu, description, announcements:</span>
     <%= f.text_area :meal_info %>
   </div>
-  <div class="field">
-    <%= f.label :discussion_info %><br>
+  <div class="field discussion_info">
+    <span class='label'>Discussion info:</span>
     <%= f.text_area :discussion_info %>
+  </div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Save' %>
   </div>
 <% end %>

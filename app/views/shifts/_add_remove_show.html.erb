@@ -1,5 +1,5 @@
 <% if @shift.users.include? @user %>
-  <%= link_to @shift.activity, remove_user_coop_shift_path(@coop, @shift), class: 'remove_shift add_remove_link' %>
+  <%= link_to @shift.pretty_activity, remove_user_coop_shift_path(@coop, @shift), class: 'remove_shift add_remove_link' %>
 <% else %>
-  <%= link_to @shift.activity, add_user_coop_shift_path(@coop, @shift), class: 'add_shift add_remove_link' %>
+  <%= link_to @shift.pretty_activity, add_user_coop_shift_path(@coop, @shift), class: 'add_shift add_remove_link' %>
 <% end %>

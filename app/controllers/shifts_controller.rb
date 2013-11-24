@@ -1,12 +1,34 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy, :add_user, :remove_user]
-  before_action :set_coop, only: [:add_user, :remove_user]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy, :add_user, :remove_user, :add_user_pic]
+  before_action :set_coop, only: [:add_user, :remove_user, :add_user_pic]
 
   # adds the current user to this shift
   def add_user
     @user = current_user
+    if @user.pic
+      puts @shift.inspect
+      render partial: 'shift_pic_confirm_deny'
+    else
+      unless @shift.users.include?(@user)
+        @shift.users << @user
+        render partial: 'add_remove_show', shift: @shift, notice: 'Successfully joined shift.'
+      else
+        render partial: 'add_remove_show', shift: @shift, notice: 'You\'re already on this shift.'
+      end
+    end
+  end
+
+  def add_user_pic
+    @user = current_user
+    pic = params[:pic]
     unless @shift.users.include?(@user)
+      @shift.leader = @user.id
+      @shift.save
       @shift.users << @user
+      @shift.meals.each do |meal|
+        meal.head_cook = @user.id
+        meal.save
+      end
       render partial: 'add_remove_show', shift: @shift, notice: 'Successfully joined shift.'
     else
       render partial: 'add_remove_show', shift: @shift, notice: 'You\'re already on this shift.'
@@ -22,6 +44,10 @@ class ShiftsController < ApplicationController
       if @shift.leader == @user.id
         @shift.leader = nil
         if @shift.save
+          @shift.meals.each do |meal|
+            meal.head_cook = nil
+            meal.save
+          end
           render partial: 'add_remove_show', shift: @shift, notice: 'Successfully removed from shift.'
         else
           render partial: 'add_remove_show', shift: @shift, notice: "Couldn't remove you"

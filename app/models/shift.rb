@@ -19,23 +19,25 @@ class Shift < ActiveRecord::Base
 
   def pic
     pic = nil
-    if self.leader && !self.headCook?
+    if self.leader && !self.headCook
       pic = User.find(self.leader)
     end
     pic
   end
 
   def niceTitle
-    activities = {'kp' => 'Kitchen Prep', 'cook_1' => 'First Hour Cook', 'cook_2' => 'Second Hour Cook', 'pre_crew' => 'Pre-Crew', 'crew' => 'Crew'}
-    puts self.activity
-    puts activities
-    puts activities.has_key?self.activity
+    activities = {'kp' => 'Kitchen Prep', 'cook_1' => '1st Hour Cook', 'cook_2' => '2nd Hour Cook', 'pre_crew' => 'Pre-Crew', 'crew' => 'Crew'}
     title = self.day.capitalize
     if self.meals && self.meals.first
       title << ' ' + self.meals.first.meal_type.capitalize
     end
     title << ' ' + (activities[self.activity] ? activities[self.activity] : self.activity.capitalize)
     title
+  end
+
+  def pretty_activity
+    activities = {'kp' => 'Kitchen Prep', 'cook_1' => '1st Hour Cook', 'cook_2' => '2nd Hour Cook', 'pre_crew' => 'Pre-Crew', 'crew' => 'Crew'}
+    activities[self.activity] ? activities[self.activity] : self.activity.capitalize
   end
 
   def self.make_shifts(activity, shift_params, coop)

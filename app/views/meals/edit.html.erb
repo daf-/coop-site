@@ -1,5 +1,6 @@
-<h1>Editing meal</h1>
-
+<div class='meal_edit_page'>
+<div class='meal_header'>
+  <%= @meal.day %> <%= @meal.meal_type.capitalize %> <%= @meal.start_time.strftime("%m/%-d/%Y") %>
+</div>
 <%= render 'form' %>
-
-<%= link_to 'Calendar', coop_path(@meal.coop) %> |
+</div>

@@ -4,11 +4,21 @@ class Meal < ActiveRecord::Base
   has_and_belongs_to_many :shifts
   belongs_to :user
 
+  include TimeHelper
+
   def day
     days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     days[start_time.to_date.wday]
   end
 
+  def irreg_time
+    field_name = self.meal_type
+    if field_name == 'breakfast'
+      field_name = 'bfast'
+    end
+    field_name << '_time'
+    calendarTime(self.start_time) != calendarTime(self.coop[field_name])
+  end
 
   def self.makeMeals(type, params, coop)
     end_of_fall = Date.new(Date.today.year, 12, 31)
@@ -97,7 +107,6 @@ class Meal < ActiveRecord::Base
       end
     end
     new_params[:start_time_no_date] = Meal.time_from_select(params['start_time_no_date(4i)'], params['start_time_no_date(5i)'])
-    new_params[:end_time_no_date] = Meal.time_from_select(params['end_time_no_date(4i)'], params['end_time_no_date(5i)'])
     new_params
   end
 

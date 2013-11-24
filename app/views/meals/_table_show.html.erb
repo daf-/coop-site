@@ -18,7 +18,7 @@
       <span class='type'>There's <%= meal.meal_type%></span>
       <% end %>
     </div>
-    <% if meal.isSpecial %>
+    <% if meal.irreg_time %>
     <div class='time'>
       <%= calendarTime(meal.start_time) %>
     </div>

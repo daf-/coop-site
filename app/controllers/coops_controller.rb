@@ -107,10 +107,10 @@ class CoopsController < ApplicationController
       @coop.update_member_join_hash
       if @coop.save
         UserMailer.coop_join_info_email(current_user, @coop).deliver
-        format.html { redirect_to edit_coop_path(@coop), notice: 'Email sent!' }
+        format.html { redirect_to @coop, notice: 'Email sent!' }
         format.json { head :no_content }
       else
-        format.html { redirect_to edit_coop_path(@coop), notice: 'Something went wrong' }
+        format.html { redirect_to @coop, notice: 'Something went wrong' }
         format.json { render json: @coop.errors, status: :unprocessable_entity }
       end
     end
@@ -121,10 +121,10 @@ class CoopsController < ApplicationController
       @coop.update_admin_join_hash
       if @coop.save
         UserMailer.coop_admin_email(current_user, @coop).deliver
-        format.html { redirect_to edit_coop_path(@coop), notice: 'Email sent!' }
+        format.html { redirect_to @coop, notice: 'Email sent!' }
         format.json { head :no_content }
       else
-        format.html { redirect_to edit_coop_path(@coop), notice: 'Something went wrong' }
+        format.html { redirect_to @coop, notice: 'Something went wrong' }
         format.json { render json: @coop.errors, status: :unprocessable_entity }
       end
     end

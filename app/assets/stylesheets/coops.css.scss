@@ -43,6 +43,18 @@
   margin-right: 100px;
 
 
+  .member_links {
+    display: inline-block;
+    position: relative;
+    left: 400px;
+    text-align: right;
+
+    .membership_link {
+      padding: 8px;
+    }
+  }
+
+
   .page_title {
     display: inline-block;
     font-size: 30px;

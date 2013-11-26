@@ -22,7 +22,7 @@
     </div>
     <div class="field">
       <%= f.label :date %><br>
-      <%= f.date_select :date, discard_year: true %>
+      <%= f.select :date, shift.allFutureDates.collect{|x| [x, x]} %>
     </div>
     <% if @user.pic %>
       <div class="field">

@@ -14,11 +14,17 @@
 
     <% if @user && @user.coop == @coop %>
       <% if @user.admin? %>
-        <%= link_to "edit co-op information", edit_mult_coop_meals_path(@coop), class: 'edit_coop_link' %>
-        <span class='member_links'>
+        <div id="admin_links">
+          <%= link_to "edit co-op information", edit_mult_coop_meals_path(@coop), class: 'edit_coop_link' %>
+          <span id="membership_links">
+            <%= link_to "email myself a link to add members", generate_member_join_link_coop_path(@coop), class: 'membership_link' %>
+            <%= link_to "email myself a link to add admins", generate_admin_join_link_coop_path(@coop), class: 'membership_link' %>
+          </span>
+        </div>
+        <!-- <span class='member_links'>
         <%= link_to "email myself a link to add members", generate_member_join_link_coop_path(@coop), class: 'membership_link' %>
         <%= link_to "email myself a link to add admins", generate_admin_join_link_coop_path(@coop), class: 'membership_link' %>
-        </span>
+        </span> -->
       <% end %>
     <% end %>
   </div>
@@ -100,4 +106,3 @@
 
 <%= link_to "Create member account for #{@coop.name}", "/coops/#{@coop.id}/member_join_link/#{@coop.member_join_hash}" %>
 <%= link_to "Create admin account for #{@coop.name}", "/coops/#{@coop.id}/admin_join_link/#{@coop.admin_join_hash}" %>
-

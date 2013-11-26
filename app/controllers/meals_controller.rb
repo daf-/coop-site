@@ -37,28 +37,46 @@ class MealsController < ApplicationController
     if @coop.update(update_hash)
       if @coop.update(coop_params)
         if (breakfast_params)
-          Meal.delete_all('breakfast', @coop) if breakfast_params == 'delete'
-          @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
+          if breakfast_params == 'delete'
+            Meal.delete_all('breakfast', @coop)
+          else
+            @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
+          end
         end
         if (lunch_params)
-          Meal.delete_all('lunch', @coop) if lunch_params == 'delete'
-          @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
+          if lunch_params == 'delete'
+            Meal.delete_all('lunch', @coop)
+          else
+            @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
+          end
         end
         if (dinner_params)
-          Meal.delete_all('dinner', @coop) if dinner_params == 'delete'
-          @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
+          if dinner_params == 'delete'
+            Meal.delete_all('dinner', @coop)
+          else
+            @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
+          end
         end
         if (commando_params)
-          Shift.delete_all('commando', @coop) if commando_params == 'delete'
-          Shift.make_shifts('commando', commando_params, @coop)
+          if commando_params == 'delete'
+            Shift.delete_all('commando', @coop)
+          else
+            Shift.make_shifts('commando', commando_params, @coop)
+          end
         end
         if (mid_crew_params)
-          Shift.delete_all('mid_crew', @coop) if mid_crew_params == 'delete'
-          Shift.make_shifts('mid_crew', mid_crew_params, @coop)
+          if mid_crew_params == 'delete'
+            Shift.delete_all('mid_crew', @coop)
+          else
+            Shift.make_shifts('mid_crew', mid_crew_params, @coop)
+          end
         end
         if (other_shift_params)
-          Shift.delete_all('other_shift', @coop) if other_shift_params == 'delete'
-          Shift.make_shifts('other_shift', other_shift_params, @coop)
+          if other_shift_params == 'delete'
+            Shift.delete_all('other_shift', @coop)
+          else
+            Shift.make_shifts('other_shift', other_shift_params, @coop)
+          end
         end
 
         redirect_to @coop, notice: 'Successfully added meals and shifts'

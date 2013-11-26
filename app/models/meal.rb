@@ -25,6 +25,9 @@ class Meal < ActiveRecord::Base
     default_meals.each do |meal|
       if meal.shifts
         meal.shifts.each do |shift|
+          shift.swap_requests.each do |sr|
+            sr.destroy
+          end
           shift.destroy
         end
       end
@@ -68,6 +71,9 @@ class Meal < ActiveRecord::Base
       if (meal.start_time.strftime('%w') == daynum.to_s)
         if meal.shifts
           meal.shifts.each do |shift|
+            shift.swap_requests.each do |sr|
+              sr.destroy
+            end
             shift.destroy
           end
         end

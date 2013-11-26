@@ -61,7 +61,12 @@ class Shift < ActiveRecord::Base
           new_shift.users = old_shift.users
         end
       end
-      old_shift.destroy if old_shift
+      if old_shift
+        shift.swap_requests.each do |sr|
+          sr.destroy
+        end
+        old_shift.destroy
+      end
     end
   end
 
@@ -93,6 +98,9 @@ class Shift < ActiveRecord::Base
     end
 
     destroy_shifts.each do |shift|
+      shift.swap_requests.each do |sr|
+        sr.destroy
+      end
       shift.destroy
     end
 

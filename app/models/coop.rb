@@ -60,6 +60,57 @@ class Coop < ActiveRecord::Base
     update_hash
   end
 
+  def no_meal(type)
+    char = type[0]
+    ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
+      if self[day]
+        self[day].gsub!(char, "")
+      end
+      puts day, self[day]
+    end
+
+    self.kp.gsub!(char, "") if self.kp
+    self.crew.gsub!(char, "") if self.crew
+    self.pre_crew.gsub!(char, "") if self.pre_crew
+    self.cook_1.gsub!(char, "") if self.cook_1
+    self.cook_2.gsub!(char, "") if self.cook_2
+
+    if type == 'breakfast'
+      self.bfast_time = Time.parse("9:00AM")
+      self.custom_shift_1_b = ""
+      self.custom_shift_2_b = ""
+      self.custom_shift_3_b = ""
+
+    elsif type == 'lunch'
+      self.lunch_time = Time.parse("12:20PM")
+      self.custom_shift_1_l = ""
+      self.custom_shift_2_l = ""
+      self.custom_shift_3_l = ""
+
+    elsif type == 'dinner'
+      self.dinner_time = Time.parse("6:20PM")
+      self.custom_shift_1_d = ""
+      self.custom_shift_2_d = ""
+      self.custom_shift_3_d = ""
+
+    end
+  end
+
+  def no_shift(type)
+    if self[type]
+      ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].each do |day|
+        self[type].gsub!(day, "")
+      end
+      puts type, self[type]
+    end
+
+    if type == 'other_shift'
+      self.other_shift_name = ""
+    end
+
+    self[type+"_time"] = Time.parse("12:00AM")
+  end
+
   def commando?
     return self.monday_commando || self.tuesday_commando || self.wednesday_commando || self.thursday_commando || self.friday_commando || self.saturday_commando || self.sunday_commando
   end
@@ -384,7 +435,7 @@ class Coop < ActiveRecord::Base
 
 # breakfast!!
   def breakfast?
-    return self.monday_breakfast || self.tuesday_breakfast || self.wednesday_breakfast || self.thursday_breakfast || self.friday_breakfast || self.saturday_breakfast || self.sunday_breakfast
+    return (self.monday_breakfast || self.tuesday_breakfast || self.wednesday_breakfast || self.thursday_breakfast || self.friday_breakfast || self.saturday_breakfast || self.sunday_breakfast)>1
   end
 
   def monday_breakfast
@@ -466,7 +517,7 @@ class Coop < ActiveRecord::Base
 
   # lunch!!
   def lunch?
-    return self.monday_lunch || self.tuesday_lunch || self.wednesday_lunch || self.thursday_lunch || self.friday_lunch || self.saturday_lunch || self.sunday_lunch
+    return (self.monday_lunch || self.tuesday_lunch || self.wednesday_lunch || self.thursday_lunch || self.friday_lunch || self.saturday_lunch || self.sunday_lunch)>1
   end
 
   def monday_lunch
@@ -548,7 +599,7 @@ class Coop < ActiveRecord::Base
 
   # dinner!!
   def dinner?
-    return self.monday_dinner || self.tuesday_dinner || self.wednesday_dinner || self.thursday_dinner || self.friday_dinner || self.saturday_dinner || self.sunday_dinner
+    return (self.monday_dinner || self.tuesday_dinner || self.wednesday_dinner || self.thursday_dinner || self.friday_dinner || self.saturday_dinner || self.sunday_dinner)>1
   end
 
   def monday_dinner

@@ -39,6 +39,7 @@ class MealsController < ApplicationController
         if (breakfast_params)
           if breakfast_params == 'delete'
             Meal.delete_all('breakfast', @coop)
+            @coop.no_meal('breakfast')
           else
             @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
           end
@@ -46,6 +47,7 @@ class MealsController < ApplicationController
         if (lunch_params)
           if lunch_params == 'delete'
             Meal.delete_all('lunch', @coop)
+            @coop.no_meal('lunch')
           else
             @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
           end
@@ -53,6 +55,7 @@ class MealsController < ApplicationController
         if (dinner_params)
           if dinner_params == 'delete'
             Meal.delete_all('dinner', @coop)
+            @coop.no_meal('dinner')
           else
             @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
           end
@@ -60,6 +63,7 @@ class MealsController < ApplicationController
         if (commando_params)
           if commando_params == 'delete'
             Shift.delete_all('commando', @coop)
+            @coop.no_shift('commando')
           else
             Shift.make_shifts('commando', commando_params, @coop)
           end
@@ -67,6 +71,7 @@ class MealsController < ApplicationController
         if (mid_crew_params)
           if mid_crew_params == 'delete'
             Shift.delete_all('mid_crew', @coop)
+            @coop.no_shift('mid_crew')
           else
             Shift.make_shifts('mid_crew', mid_crew_params, @coop)
           end
@@ -74,10 +79,13 @@ class MealsController < ApplicationController
         if (other_shift_params)
           if other_shift_params == 'delete'
             Shift.delete_all('other_shift', @coop)
+            @coop.no_shift('other_shift')
           else
             Shift.make_shifts('other_shift', other_shift_params, @coop)
           end
         end
+
+        @coop.save
 
         redirect_to @coop, notice: 'Successfully added meals and shifts'
       else

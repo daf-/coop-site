@@ -30,7 +30,9 @@ CoopSite::Application.routes.draw do
       end
 
       resources :swap_requests do
-        get "resolve"
+        member do
+          get "resolve"
+        end
       end
     end
 

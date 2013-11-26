@@ -11,7 +11,7 @@
           <% end -%>
           <span class='swap_shift_info'>
             <%= swap_request.shift.niceTitle %>
-            (<%= swap_request.date.strftime('%B %d') %>)
+            (<%= swap_request.date.strftime('%B %-d') %>)
           </span>
         </div>
 
@@ -38,7 +38,8 @@
           </div>
           <% if swap_request.user == current_user %>
             <div class='swap_request_links'>
-              <%= link_to 'Remove request', coop_shift_swap_request_resolve_path(swap_request.user.coop, swap_request.shift, swap_request), class: 'resolve_swap_request' %>
+              <%= link_to 'Remove request', resolve_coop_shift_swap_request_path(@coop, swap_request.shift, swap_request), id: 'resolve_swap_request' %>
+              <%= link_to 'Edit', edit_coop_shift_swap_request_path(@coop, swap_request.shift, swap_request), id: 'edit_swap_request' %>
             </div>
           <% end %>
         </div>

@@ -13,7 +13,7 @@
     <% end %>
 
     <div id="swap_request_header">
-      Submit Swap Request for <span id="shift_title"><%= @shift.niceTitle %></span>
+      <%= action.capitalize %> Swap Request for <span id="shift_title"><%= @shift.niceTitle %></span>
     </div>
 
     <div class="field">
@@ -22,7 +22,7 @@
     </div>
     <div class="field">
       <%= f.label :date %><br>
-      <%= f.date_select :date, discard_year: true %>
+      <%= f.select :date, shift.allFutureDates.collect{|x| [x, x]} %>
     </div>
     <% if @user.pic %>
       <div class="field">

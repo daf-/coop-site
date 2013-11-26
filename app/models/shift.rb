@@ -47,6 +47,31 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  # The day of the week this shift occurs on, as an integer
+  def dayNum
+    ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].index(self.day.downcase)
+  end
+
+  # Return an array of ["MonthName dayNum", ...] for all days on which
+  # this shift could occur to populate the shift swap form
+  def allFutureDates
+    curday = Date.today
+    end_of_fall = Date.new(Date.today.year, 12, 31)
+    end_of_spring = Date.new(Date.today.year, 5, 30)
+    curday < end_of_spring ? end_date = end_of_spring : end_date = end_of_fall
+    dayNum = self.dayNum
+    dates = []
+
+    while curday <= end_date
+      if curday.wday == dayNum
+        dates.append(Date::MONTHNAMES[curday.month] + " #{curday.day}")
+      end
+      curday = curday.next_day
+    end
+
+    dates
+  end
+
   def self.make_shifts(activity, shift_params, coop)
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     days.each do |day|
@@ -61,7 +86,12 @@ class Shift < ActiveRecord::Base
           new_shift.users = old_shift.users
         end
       end
-      old_shift.destroy if old_shift
+      if old_shift
+        shift.swap_requests.each do |sr|
+          sr.destroy
+        end
+        old_shift.destroy
+      end
     end
   end
 
@@ -74,7 +104,7 @@ class Shift < ActiveRecord::Base
       if key.include? "_#{meal}"
         act = key.gsub("_#{meal}", "")
         unless days.include? act
-          activities[act] = false
+          activities[act] = 'exists'
         end
       end
     end
@@ -83,9 +113,9 @@ class Shift < ActiveRecord::Base
     destroy_shifts = []
     if (old_shifts)
       old_shifts.each do |shift|
-        if activities[shift.activity]
+        if activities[shift.activity] == 'exists'
           new_shifts << shift
-          activities[shift.activity] = true
+          activities[shift.activity] = 'found'
         else
           destroy_shifts << shift
         end
@@ -93,6 +123,9 @@ class Shift < ActiveRecord::Base
     end
 
     destroy_shifts.each do |shift|
+      shift.swap_requests.each do |sr|
+        sr.destroy
+      end
       shift.destroy
     end
 
@@ -101,9 +134,9 @@ class Shift < ActiveRecord::Base
     end
 
     out = []
-    activities.each_pair do |activity, exists|
+    activities.each_pair do |activity, found|
       out << activity
-      unless exists
+      unless found == 'found'
         shift = Shift.create(day: day, coop: coop, activity: activity)
         out << shift
         shift.meals = meals

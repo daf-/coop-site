@@ -10,14 +10,6 @@ var ready = function() {
       $(e.currentTarget).closest('.shift').remove();
     });
   });
-
-  $('.shift .swap_shift_link').click(function(e) {
-    e.preventDefault();
-    $.get($(e.currentTarget).attr('href'), function(res) {
-      $('#swap_form_holder').toggle();
-      $('#swap_form_holder').append(res);
-    });
-  });
 };
 
 $(document).ready(ready);

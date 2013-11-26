@@ -47,6 +47,31 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  # The day of the week this shift occurs on, as an integer
+  def dayNum
+    ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].index(self.day.downcase)
+  end
+
+  # Return an array of ["MonthName dayNum", ...] for all days on which
+  # this shift could occur to populate the shift swap form
+  def allFutureDates
+    curday = Date.today
+    end_of_fall = Date.new(Date.today.year, 12, 31)
+    end_of_spring = Date.new(Date.today.year, 5, 30)
+    curday < end_of_spring ? end_date = end_of_spring : end_date = end_of_fall
+    dayNum = self.dayNum
+    dates = []
+
+    while curday <= end_date
+      if curday.wday == dayNum
+        dates.append(Date::MONTHNAMES[curday.month] + " #{curday.day}")
+      end
+      curday = curday.next_day
+    end
+
+    dates
+  end
+
   def self.make_shifts(activity, shift_params, coop)
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     days.each do |day|

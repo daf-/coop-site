@@ -66,7 +66,6 @@ class Coop < ActiveRecord::Base
       if self[day]
         self[day].gsub!(char, "")
       end
-      puts day, self[day]
     end
 
     self.kp.gsub!(char, "") if self.kp
@@ -101,7 +100,6 @@ class Coop < ActiveRecord::Base
       ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].each do |day|
         self[type].gsub!(day, "")
       end
-      puts type, self[type]
     end
 
     if type == 'other_shift'

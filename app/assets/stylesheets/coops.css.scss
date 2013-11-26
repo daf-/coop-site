@@ -40,7 +40,7 @@
 
 .coop_header {
   margin-left: 50px;
-  margin-right: 100px;
+  margin-right: 350px;
 
 
   .member_links {
@@ -48,10 +48,6 @@
     position: relative;
     left: 400px;
     text-align: right;
-
-    .membership_link {
-      padding: 8px;
-    }
   }
 
 
@@ -68,9 +64,20 @@
     max-width: 300px;
   }
 
-  .edit_coop_link {
-    display: block;
-    font-size: 20px;
+
+  #admin_links {
+    .edit_coop_link {
+      font-size: 20px;
+      /* float: left; */
+    }
+
+    #membership_links {
+      float: right;
+
+      .membership_link {
+        padding: 8px;
+      }
+    }
   }
 }
 

@@ -61,7 +61,12 @@ class Shift < ActiveRecord::Base
           new_shift.users = old_shift.users
         end
       end
-      old_shift.destroy if old_shift
+      if old_shift
+        shift.swap_requests.each do |sr|
+          sr.destroy
+        end
+        old_shift.destroy
+      end
     end
   end
 
@@ -74,7 +79,7 @@ class Shift < ActiveRecord::Base
       if key.include? "_#{meal}"
         act = key.gsub("_#{meal}", "")
         unless days.include? act
-          activities[act] = false
+          activities[act] = 'exists'
         end
       end
     end
@@ -83,9 +88,9 @@ class Shift < ActiveRecord::Base
     destroy_shifts = []
     if (old_shifts)
       old_shifts.each do |shift|
-        if activities[shift.activity]
+        if activities[shift.activity] == 'exists'
           new_shifts << shift
-          activities[shift.activity] = true
+          activities[shift.activity] = 'found'
         else
           destroy_shifts << shift
         end
@@ -93,6 +98,9 @@ class Shift < ActiveRecord::Base
     end
 
     destroy_shifts.each do |shift|
+      shift.swap_requests.each do |sr|
+        sr.destroy
+      end
       shift.destroy
     end
 
@@ -101,9 +109,9 @@ class Shift < ActiveRecord::Base
     end
 
     out = []
-    activities.each_pair do |activity, exists|
+    activities.each_pair do |activity, found|
       out << activity
-      unless exists
+      unless found == 'found'
         shift = Shift.create(day: day, coop: coop, activity: activity)
         out << shift
         shift.meals = meals

@@ -16,11 +16,6 @@
         </div>
 
         <div class='bottom_content'>
-          <% if swap_request.user == current_user %>
-            <div class='swap_request_links'>
-              <%= link_to 'Remove request', coop_shift_swap_request_resolve_path(swap_request.user.coop, swap_request.shift, swap_request), class: 'resolve_swap_request' %>
-            </div>
-          <% end %>
           <% if swap_request.headcook_required %>
             <div class='note'>Head cook or PIC required</div>
           <% end %>
@@ -41,6 +36,11 @@
               </span>
             <% end %>
           </div>
+          <% if swap_request.user == current_user %>
+            <div class='swap_request_links'>
+              <%= link_to 'Remove request', coop_shift_swap_request_resolve_path(swap_request.user.coop, swap_request.shift, swap_request), class: 'resolve_swap_request' %>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

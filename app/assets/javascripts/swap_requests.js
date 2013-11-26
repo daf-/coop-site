@@ -13,6 +13,14 @@ var ready = function() {
     });
   });
 
+  $('.swap_request_links #edit_swap_request').click(function(e) {
+    e.preventDefault();
+    console.log($(e.currentTarget));
+    $.get($(e.currentTarget).attr('href'), function(res) {
+      $(e.currentTarget).closest('.swap_request').html(res);
+    });
+  });
+
 
   $('.swap_request .resolve_swap_request').click(function(e) {
     e.preventDefault();

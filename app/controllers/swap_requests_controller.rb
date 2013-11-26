@@ -3,7 +3,7 @@ class SwapRequestsController < ApplicationController
   before_action :set_swap_requests, only: [:resolve]
   before_action :set_coop, only: [:create, :new, :show, :edit, :update, :destroy]
   before_action :set_shift, only: [:create, :new, :show, :edit, :update, :destroy]
-  before_action :set_user, only: [:new]
+  before_action :set_user, only: [:new, :edit]
 
   def resolve
     @swap_request.update_attribute(:isResolved?, true)
@@ -32,12 +32,12 @@ class SwapRequestsController < ApplicationController
   # GET /swap_requests/new
   def new
     @swap_request = SwapRequest.new
-    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request}
+    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request, action: "new"}
   end
 
   # GET /swap_requests/1/edit
   def edit
-    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request}
+    render partial: 'form', locals: {coop: @coop, shift: @shift, swap_request: @swap_request, action: "edit"}
   end
 
   # POST /swap_requests
@@ -65,8 +65,8 @@ class SwapRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @swap_request.update(swap_request_params)
-        format.html { redirect_to @swap_request, notice: 'Swap request was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to user_path(current_user), notice: 'Swap request was successfully updated.' }
+        format.json { render action: 'show', status: :created, location: user_path(current_user) }
       else
         format.html { render action: 'edit' }
         format.json { render json: @swap_request.errors, status: :unprocessable_entity }
@@ -95,7 +95,7 @@ class SwapRequestsController < ApplicationController
   end
 
   def set_swap_request
-    @swap_request = SwapRequest.find(params[:swap_request_id])
+    @swap_request = SwapRequest.find(params[:id])
   end
 
   def set_swap_requests

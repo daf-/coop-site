@@ -2,22 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.swap_area {
-  margin-left: 20px;
-  width: 500px;
+#swap_form_holder {
+  display: none;
+  margin-top: 20px;
+  float: left;
+  clear: both;
   border: 1px solid #333333;
-  padding: 4px;
   overflow: auto;
+  padding: 4px;
+  width: 500px;
+
+  .swap_request_form {
+    margin: 4px;
+
+    #swap_request_header {
+      font-weight: bold;
+
+      #shift_title {
+        font-style: italic;
+      }
+    }
+  }
+
+  textarea {
+    width: 300px;
+    height: 100px;
+  }
+}
+
+.swap_area {
+  margin-right: 20px;
+  margin-left: 20px;
+  float: left;
 
   .swap_requests {
     width: 500px;
-    border: 1px solid #333333;
-    padding: 4px;
     overflow: auto;
 
     .swap_request {
-      clear: both;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      padding: 4px;
+      border: 1px solid #333333;
+      overflow: auto;
+
 
       .top_content {
         overflow: auto;
@@ -35,12 +62,13 @@
 
         &:hover {
           cursor: pointer;
-          color: #3B5998;
+          background-color: #3B5998;
+          color: #ffffff;
         }
       }
 
       .bottom_content {
-        display: none;
+        overflow: auto;
 
         .message {
           width: 80%;
@@ -58,17 +86,11 @@
           padding: 4px;
         }
 
-        .swap_request_links {
-          width: 99%;
-          display: block;
-          float: left;
-          padding: 4px;
-        }
-
         .contact_info {
           padding: 4px;
           display: block;
           font-style: italic;
+          clear: both;
 
           .email {
             float: left;
@@ -76,6 +98,12 @@
           .phone {
             float: right;
           }
+        }
+
+        .swap_request_links {
+          display: block;
+          padding: 4px;
+          clear: both;
         }
       }
     }

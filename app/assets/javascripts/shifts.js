@@ -14,7 +14,7 @@ var ready = function() {
   $('.shift .swap_shift_link').click(function(e) {
     e.preventDefault();
     $.get($(e.currentTarget).attr('href'), function(res) {
-      // $(e.currentTarget).closest('.shift').remove();
+      $('#swap_form_holder').toggle();
       $('#swap_form_holder').append(res);
     });
   });

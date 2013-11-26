@@ -92,6 +92,19 @@
     cursor: pointer;
   }
 
+  .next_meal, .a_meal {
+    height: 100%;
+    position: relative;
+
+    .meal_info_holder {
+      margin: auto;
+      // height: inherit;
+      // vertical-align: middle;
+      // font-size: 12px;
+      // line-height: 12px;
+    }
+  }
+
   .cancelled {
     background-color: #dd8282;
     height: 100%;
@@ -106,7 +119,7 @@
 
   .meal_edit_link {
     position: absolute;
-    bottom: 4px;
+    bottom: 0px;
     right: 8px;
   }
 

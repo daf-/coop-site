@@ -20,6 +20,18 @@ class Meal < ActiveRecord::Base
     calendarTime(self.start_time) != calendarTime(self.coop[field_name])
   end
 
+  def self.delete_all(type, coop)
+    default_meals = Meal.where(coop: coop, meal_type: type, name: nil) # nil name implies that it was a regularly sched meal
+    default_meals.each do |meal|
+      if meal.shifts
+        meal.shifts.each do |shift|
+          shift.destroy
+        end
+      end
+      meal.destroy
+    end
+  end
+
   def self.makeMeals(type, params, coop)
     end_of_fall = Date.new(Date.today.year, 12, 31)
     end_of_spring = Date.new(Date.today.year, 5, 30)

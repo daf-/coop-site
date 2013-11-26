@@ -9,8 +9,9 @@
 <% if meal == @next_meal %>
   <div class='next_meal'>
 <% else %>
-  <div>
-    <% end %>
+  <div class='a_meal'>
+<% end %>
+  <div class='meal_info_holder'>
     <div class='namearea'>
       <% if meal.name %>
       <span class='name'><%= meal.name %></span>
@@ -26,6 +27,7 @@
     <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
     <div class='more_info'>click for more info</div>
     <% end %>
+    </div>
     <div class='mouseover'>
       <% if @user && @user.coop == @coop %>
         <% if meal.head_cook %>

@@ -37,21 +37,27 @@ class MealsController < ApplicationController
     if @coop.update(update_hash)
       if @coop.update(coop_params)
         if (breakfast_params)
+          Meal.delete_all('breakfast', @coop) if breakfast_params == 'delete'
           @breakfasts = Meal.makeMeals('breakfast', breakfast_params, @coop)
         end
         if (lunch_params)
+          Meal.delete_all('lunch', @coop) if lunch_params == 'delete'
           @lunches = Meal.makeMeals('lunch', lunch_params, @coop)
         end
         if (dinner_params)
+          Meal.delete_all('dinner', @coop) if dinner_params == 'delete'
           @dinners = Meal.makeMeals('dinner', dinner_params, @coop)
         end
         if (commando_params)
+          Shift.delete_all('commando', @coop) if commando_params == 'delete'
           Shift.make_shifts('commando', commando_params, @coop)
         end
         if (mid_crew_params)
+          Shift.delete_all('mid_crew', @coop) if mid_crew_params == 'delete'
           Shift.make_shifts('mid_crew', mid_crew_params, @coop)
         end
         if (other_shift_params)
+          Shift.delete_all('other_shift', @coop) if other_shift_params == 'delete'
           Shift.make_shifts('other_shift', other_shift_params, @coop)
         end
 
@@ -130,7 +136,7 @@ class MealsController < ApplicationController
 
     def breakfast_params
       unless params[:breakfast]
-        return nil
+        return 'delete'
       end
       bp = params.permit(:breakfast_hour, :breakfast_min, :breakfast_ampm, :monday_breakfast, :tuesday_breakfast, :wednesday_breakfast, :thursday_breakfast, :friday_breakfast, :saturday_breakfast, :sunday_breakfast, :kp_breakfast, :cook_1_breakfast, :cook_2_breakfast, :pre_crew_breakfast, :crew_breakfast, :custom_shift_1_b, :custom_shift_2_b, :custom_shift_3_b)
       bp['time'] = time_from_select(bp[:breakfast_hour], bp[:breakfast_min], bp[:breakfast_ampm])
@@ -139,7 +145,7 @@ class MealsController < ApplicationController
 
     def lunch_params
       unless params[:lunch]
-        return nil
+        return 'delete'
       end
       lp = params.permit(:lunch_hour, :lunch_min, :lunch_ampm, :monday_lunch, :tuesday_lunch, :wednesday_lunch, :thursday_lunch, :friday_lunch, :saturday_lunch, :sunday_lunch, :kp_lunch, :cook_1_lunch, :cook_2_lunch, :pre_crew_lunch, :crew_lunch, :custom_shift_1_l, :custom_shift_2_l, :custom_shift_3_l)
       lp['time'] = time_from_select(lp[:lunch_hour], lp[:lunch_min], lp[:lunch_ampm])
@@ -148,7 +154,7 @@ class MealsController < ApplicationController
 
     def dinner_params
       unless params[:dinner]
-        return nil
+        return 'delete'
       end
       dp = params.permit(:dinner_hour, :dinner_min, :dinner_ampm, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_dinner, :saturday_dinner, :sunday_dinner, :kp_dinner, :cook_1_dinner, :cook_2_dinner, :pre_crew_dinner, :crew_dinner, :custom_shift_1_d, :custom_shift_2_d, :custom_shift_3_d)
       dp['time'] = time_from_select(dp[:dinner_hour], dp[:dinner_min], dp[:dinner_ampm])
@@ -176,7 +182,7 @@ class MealsController < ApplicationController
 
     def commando_params
       unless params[:commando]
-        return nil
+        return 'delete'
       end
       commando = params.permit(:commando_hour, :commando_min, :commando_ampm, :monday_commando, :tuesday_commando, :wednesday_commando, :thursday_commando, :friday_commando, :saturday_commando, :sunday_commando)
       commando['time'] = time_from_select(commando[:commando_hour], commando[:commando_min], commando[:commando_ampm])
@@ -185,7 +191,7 @@ class MealsController < ApplicationController
 
     def mid_crew_params
       unless params[:mid_crew]
-        return nil
+        return 'delete'
       end
       mid_crew = params.permit(:mid_crew_hour, :mid_crew_min, :mid_crew_ampm, :monday_mid_crew, :tuesday_mid_crew, :wednesday_mid_crew, :thursday_mid_crew, :friday_mid_crew, :saturday_mid_crew, :sunday_mid_crew)
       mid_crew['time'] = time_from_select(mid_crew[:mid_crew_hour], mid_crew[:mid_crew_min], mid_crew[:mid_crew_ampm])
@@ -194,7 +200,7 @@ class MealsController < ApplicationController
 
     def other_shift_params
       unless params[:other_shift]
-        return nil
+        return 'delete'
       end
       other_shift = params.permit(:other_shift_name, :other_shift_hour, :other_shift_min, :other_shift_ampm, :monday_other_shift, :tuesday_other_shift, :wednesday_other_shift, :thursday_other_shift, :friday_other_shift, :saturday_other_shift, :sunday_other_shift)
       other_shift['time'] = time_from_select(other_shift[:other_shift_hour], other_shift[:other_shift_min], other_shift[:other_shift_ampm])

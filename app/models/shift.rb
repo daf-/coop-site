@@ -41,6 +41,12 @@ class Shift < ActiveRecord::Base
     activities[self.activity] ? activities[self.activity] : self.activity.capitalize
   end
 
+  def self.delete_all(activity, coop)
+    Shift.where(coop: coop, activity: activity).each do |shift|
+      shift.destroy
+    end
+  end
+
   def self.make_shifts(activity, shift_params, coop)
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     days.each do |day|

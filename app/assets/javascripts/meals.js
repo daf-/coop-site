@@ -1,17 +1,17 @@
 // wait for all elements to be in page!
 var ready = function() {
   var $mealInfoArea = $('#mealInfo');
+  var $mealInfoContentArea = $('#mealInfo .info_content');
+
+  $mealInfoArea.click(function() {
+    $mealInfoArea.hide();
+  });
 
   $('.meal').click(function(e) {
     var info = $(e.currentTarget).find('.mouseover').html();
-    $mealInfoArea.html(info);
+    $mealInfoContentArea.html(info);
+    $mealInfoArea.show();
   });
-
-  $('.next_meal').click();
-
-  // $('.meal').mouseleave(function(e) {
-  //  $mealInfo.html('');
-  // });
 
   var $meal_shift_chk_box = $('.meal_shift_form input.meal_shift_type');
   $.each($meal_shift_chk_box, function(index, box) {

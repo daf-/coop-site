@@ -74,70 +74,80 @@
         </th>
       <% end %>
     </tr>
-    <tr class='odd_row'>
-      <td class='breakfast_label meal_label'>
-        <div class='meal_name'>Breakfast</div>
-        <div class='meal_time'><%= @breakfast_time %></div>
+    <% if @coop.breakfast? %>
+      <tr class='odd_row'>
+        <td class='breakfast_label meal_label'>
+          <div class='meal_name'>Breakfast</div>
+          <div class='meal_time'><%= @breakfast_time %></div>
+        </td>
+        <% @days.each do |day| %>
+       <% if @breakfasts[day] && @breakfasts[day].length > 0 %>
+        <td class='meal'>
+         <% @breakfasts[day].each do |meal| %>
+         <% if meal %>
+         <%= render 'meals/table_show', meal: meal, coop: @coop %>
+         <% end %>
+         <% end %>
+         </td>
+        <% else %>
+          <td class='no_meal'></td>
+        <% end %>
+       <% end %>
+     </tr>
+    <% end %>
+    <% if @coop.lunch? %>
+     <tr class='even_row'>
+      <td class='lunch_label meal_label'>
+        <div class='meal_name'>Lunch</div>
+        <div class='meal_time'><%= @lunch_time %></div>
       </td>
       <% @days.each do |day| %>
-     <% if @breakfasts[day] && @breakfasts[day].length > 0 %>
+       <% if @lunches[day] && @lunches[day].length > 0 %>
       <td class='meal'>
-       <% @breakfasts[day].each do |meal| %>
+         <% @lunches[day].each do |meal| %>
+         <% if meal %>
+         <%= render 'meals/table_show', meal: meal, coop: @coop %>
+         <% end %>
+         <% end %>
+     </td>
+        <% else %>
+          <td class='no_meal'></td>
+        <% end %>
+     <% end %>
+    </tr>
+  <% end %>
+  <% if @coop.dinner? %>
+    <tr class='odd_row'>
+      <td class='dinner_label meal_label'>
+        <div class='meal_name'>Dinner</div>
+        <div class='meal_time'><%= @dinner_time %></div>
+      </td>
+      <% @days.each do |day| %>
+       <% if @dinners[day] && @dinners[day].length > 0 %>
+      <td class='meal'>
+       <% @dinners[day].each do |meal| %>
        <% if meal %>
        <%= render 'meals/table_show', meal: meal, coop: @coop %>
        <% end %>
        <% end %>
-       </td>
-      <% else %>
-        <td class='no_meal'></td>
-      <% end %>
+     </td>
+        <% else %>
+          <td class='no_meal'></td>
+        <% end %>
      <% end %>
-   </tr>
-   <tr class='even_row'>
-    <td class='lunch_label meal_label'>
-      <div class='meal_name'>Lunch</div>
-      <div class='meal_time'><%= @lunch_time %></div>
-    </td>
-    <% @days.each do |day| %>
-     <% if @lunches[day] && @lunches[day].length > 0 %>
-    <td class='meal'>
-       <% @lunches[day].each do |meal| %>
-       <% if meal %>
-       <%= render 'meals/table_show', meal: meal, coop: @coop %>
-       <% end %>
-       <% end %>
-   </td>
-      <% else %>
-        <td class='no_meal'></td>
-      <% end %>
-   <% end %>
-  </tr>
-  <tr class='odd_row'>
-    <td class='dinner_label meal_label'>
-      <div class='meal_name'>Dinner</div>
-      <div class='meal_time'><%= @dinner_time %></div>
-    </td>
-    <% @days.each do |day| %>
-     <% if @dinners[day] && @dinners[day].length > 0 %>
-    <td class='meal'>
-     <% @dinners[day].each do |meal| %>
-     <% if meal %>
-     <%= render 'meals/table_show', meal: meal, coop: @coop %>
-     <% end %>
-     <% end %>
-   </td>
-      <% else %>
-        <td class='no_meal'></td>
-      <% end %>
-   <% end %>
-  </tr>
+    </tr>
+  <% end %>
   </table>
 
 
 
 
   <!-- The box that will follow the mouse holding the meal info -->
-  <div id='mealInfo'></div>
+  <div id='mealInfo'>
+    <div class='overlay'></div>
+    <div class='info_content'>
+    </div>
+  </div>
 </div>
 
 <%= link_to "Create member account for #{@coop.name}", "/coops/#{@coop.id}/member_join_link/#{@coop.member_join_hash}" %>

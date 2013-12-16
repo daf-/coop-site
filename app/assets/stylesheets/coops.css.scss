@@ -141,6 +141,37 @@ th.sunday {
   }
 }
 
+#mealInfo {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+
+  .overlay {
+    position: relative;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    opacity:0.6;
+    filter:alpha(opacity=60);
+    z-index: 100;
+  }
+
+  .info_content {
+    position: absolute;
+    left: 33%;
+    top: 33%;
+    width: 33%;
+    height: 50%;
+    overflow: auto;
+    padding: 6px;
+
+    background-color: #ffffff;
+    z-index: 101;
+  }
+}
 
 
 .meal_label {

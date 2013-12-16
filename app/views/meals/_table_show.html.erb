@@ -30,26 +30,26 @@
       <% end %>
     <% end %>
     </div>
-    <div class='mouseover'>
-      <% if @user && @user.coop == @coop %>
-        <% if meal.head_cook %>
-          <h3>Head Cook:</h3>
-          <p><%= User.find(meal.head_cook).username %></p>
-        <% end %>
-        <% if meal.meal_info %>
-          <h3>Meal Info</h3>
-          <p><%= meal.meal_info %></p>
-        <% end %>
-        <% if meal.discussion_info %>
-          <h3>Discussion Info</h3>
-          <p><%= meal.discussion_info %></p>
-        <% end %>
-        <% if meal.user %>
-          <h3>Last Edited By:</h3>
-          <p><%= meal.user.username %></p>
-        <% end %>
-      <% end %>
-    </div>
+    <% if @user && @user.coop == @coop %>
+      <div class='mouseover'>
+          <% if meal.head_cook %>
+            <h3>Head Cook:</h3>
+            <p><%= User.find(meal.head_cook).username %></p>
+          <% end %>
+          <% if meal.meal_info %>
+            <h3>Meal Info</h3>
+            <p><%= meal.meal_info %></p>
+          <% end %>
+          <% if meal.discussion_info %>
+            <h3>Discussion Info</h3>
+            <p><%= meal.discussion_info %></p>
+          <% end %>
+          <% if meal.user %>
+            <h3>Last Edited By:</h3>
+            <p><%= meal.user.username %></p>
+          <% end %>
+      </div>
+    <% end %>
     <% if @user && @user.coop == @coop %>
     <%= link_to 'edit', edit_coop_meal_path(@coop, meal), class: 'meal_edit_link' %>
     <% end %>

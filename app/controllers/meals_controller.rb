@@ -85,7 +85,15 @@ class MealsController < ApplicationController
           end
         end
 
-        @coop.save
+        puts "****** BEFORE SAVE"
+        puts @coop.inspect
+        if @coop.save
+          puts "******* SAVED"
+        else
+          puts "******** SAVE FAILED"
+        end
+        puts "****** AFTER SAVE"
+        puts @coop.inspect
 
         redirect_to @coop, notice: 'Successfully added meals and shifts'
       else

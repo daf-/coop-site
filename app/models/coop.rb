@@ -433,7 +433,7 @@ class Coop < ActiveRecord::Base
 
 # breakfast!!
   def breakfast?
-    return (self.monday_breakfast || self.tuesday_breakfast || self.wednesday_breakfast || self.thursday_breakfast || self.friday_breakfast || self.saturday_breakfast || self.sunday_breakfast)>1
+    return (self.monday_breakfast || self.tuesday_breakfast || self.wednesday_breakfast || self.thursday_breakfast || self.friday_breakfast || self.saturday_breakfast || self.sunday_breakfast)>0
   end
 
   def monday_breakfast
@@ -515,7 +515,7 @@ class Coop < ActiveRecord::Base
 
   # lunch!!
   def lunch?
-    return (self.monday_lunch || self.tuesday_lunch || self.wednesday_lunch || self.thursday_lunch || self.friday_lunch || self.saturday_lunch || self.sunday_lunch)>1
+    return (self.monday_lunch || self.tuesday_lunch || self.wednesday_lunch || self.thursday_lunch || self.friday_lunch || self.saturday_lunch || self.sunday_lunch)>0
   end
 
   def monday_lunch
@@ -597,7 +597,7 @@ class Coop < ActiveRecord::Base
 
   # dinner!!
   def dinner?
-    return (self.monday_dinner || self.tuesday_dinner || self.wednesday_dinner || self.thursday_dinner || self.friday_dinner || self.saturday_dinner || self.sunday_dinner)>1
+    return (self.monday_dinner || self.tuesday_dinner || self.wednesday_dinner || self.thursday_dinner || self.friday_dinner || self.saturday_dinner || self.sunday_dinner)>0
   end
 
   def monday_dinner

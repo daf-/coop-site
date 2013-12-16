@@ -12,28 +12,42 @@
 </head>
 <body>
 <div class='header'>
-  <% if current_user && !@hide_nav_links %>
+  <% unless @hide_nav_links %>
 
-    <div class='site_nav'>
-      <%= link_to 'home', coop_path(current_user.coop), class: (@selected == 'calendar') ? 'selected tab' : 'tab' %>|
-      <%= link_to 'shifts', user_path(current_user), class: (@selected == 'shifts') ? 'selected tab' : 'tab' %>|
-      <%= link_to 'my account', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab' %>
-    </div>
-  <% end %>
+    <div class="nav_bar">
+      <ul id='site_nav'>
 
-  <div class='site_nav_2'>
-
-    <div class='sign_in_out_area'>
-      <% unless @hide_nav_links %>
-        <%= link_to 'Other co-ops', root_path, class: 'tab' %>|
         <% if current_user %>
-          <%= link_to 'Sign out', signout_path, class: 'tab' %>
-        <% else %>
-          <%= link_to 'Sign in', "/auth/google_login", class: 'tab' %>
+          <li><%= link_to 'Meals Calendar', coop_path(current_user.coop), class: (@selected == 'calendar') ? 'selected tab' : 'tab' %></li>
+          <li><%= link_to 'Shifts Hub', user_path(current_user), class: (@selected == 'shifts') ? 'selected tab' : 'tab' %></li>
         <% end %>
-      <% end %>
+
+        <li>
+          <%# link_to 'Other co-ops', root_path, class: 'tab' %>
+          <a href="#">Co-ops</a>
+          <ul>
+            <% @coops.each do |coop| %>
+              <li><%= link_to coop.name, coop %></li>
+            <% end %>
+          </ul>
+        </li>
+
+        <% if current_user %>
+          <!-- Account drop-down -->
+          <li>
+            <a href="#">My Account</a>
+            <ul>
+              <li><%= link_to 'Settings', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab', id: "account_dropdown" %></li>
+              <li><%= link_to 'Sign out', signout_path, class: 'tab' %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to 'Sign in', "/auth/google_login", class: 'tab' %></li>
+        <% end %>
+      </ul>
     </div>
-  </div>
+
+  <% end %>
 
   <% if @coop %>
     <div class='title'><%= @coop.name.upcase %> CO-OP</div>

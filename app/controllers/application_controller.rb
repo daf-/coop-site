@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_coop
   before_action :track_usage
+  before_action :all_coops
 
   include TimeHelper
 
@@ -36,5 +37,9 @@ class ApplicationController < ActionController::Base
 
   def current_coop
     @current_coop ||= Coop.find(session[:coop_id]) if session[:coop_id]
+  end
+
+  def all_coops
+    @coops = Coop.all
   end
 end

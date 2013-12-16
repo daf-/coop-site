@@ -29,6 +29,7 @@ $border_color: #555555;
 
 #coop_calendar {
   border-collapse: collapse;
+  margin-top: 20px;
 
   td {
     border: 2px solid $border_color;
@@ -47,6 +48,15 @@ $border_color: #555555;
 
 .even_row {
   background-color: #fafafa;
+}
+
+th.saturday {
+  background-color: #bf9630;
+  // background-color: #ffec73;
+}
+
+th.sunday {
+  background-color: #bf9630;
 }
 
 .description_area {

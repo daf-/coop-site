@@ -67,7 +67,9 @@
     <tr class='header_row'>
       <th class='meal_label'></th>
       <% @days.each do |day| %>
-      <th><%= day %></th>
+        <th class=<%= "#{day.downcase}" %>>
+          <%= day %>
+        </th>
       <% end %>
     </tr>
     <tr class='odd_row'>

@@ -1,43 +1,83 @@
 .header {
-	position: relative;
-	height: 60px;
-	margin-bottom: 10px;
+  position: relative;
+  height: 60px;
+  margin-bottom: 10px;
 
-	.title {
-		width: 500px;
-		margin: 30px auto;
-		text-align: center;
-		font-size: 32px;
-	}
+  .title {
+    width: 500px;
+    margin: 30px auto;
+    text-align: center;
+    font-size: 32px;
+  }
 
-	.sign_in_out_area {
-		position: absolute;
-		right: 20px;
-		bottom: 0px;
-	}
+  /* The outermost <ul> (nav bar) */
+  .nav_bar {
+    /* width: 100%; */
+    /* display: block; */
 
-	.site_nav {
-		position: absolute;
-		right: 330px;
-		bottom: 0px;
-	}
-}
+    #site_nav {
+      list-style:none;
+      font-weight:bold;
+      margin-bottom:10px;
+      float:right;
+      display: block;
+      width: 100%;
 
-.tab {
-	width: 120px;
-	font-size: 16px;
-	display: inline-block;
-	text-align: center;
-	border: 1px solid #888888;
-	text-decoration: none;
+      li {
+        float:right;
+        margin-right:10px;
+        position:relative;
 
-	&.selected {
-		background-color: #BB88FF;
-	}
+
+        /* When hovering over a top-level menu item */
+        &:hover {
+          ul {                      /* Show the sub-menu */
+            display: block;
+            float: none;
+
+            a {                     /* Don't show underlines */
+              text-decoration: none;
+            }
+          }
+        }
+
+        a {
+          display:block;
+          padding:5px;
+          color:#fff;
+          background:#333;
+          text-decoration:none;
+
+          &:hover {
+            color:#fff;
+            background:#6b0c36;
+            text-decoration:underline;
+          }
+        }
+
+        ul {
+          background:#fff;
+          background:rgba(255,255,255,0);
+          list-style:none;
+          position:absolute;
+          display: none;
+          float: left;
+
+          li {
+            padding-top:1px;
+            float:none;
+          }
+
+          a {
+            white-space:nowrap;
+          }
+        }
+      }
+    }
+  }
 }
 
 .background {
-	opacity:0.4;
-	filter:alpha(opacity=40); /* For IE8 and earlier */
+  opacity:0.4;
+  filter:alpha(opacity=40); /* For IE8 and earlier */
 }
-

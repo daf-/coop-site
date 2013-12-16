@@ -6,7 +6,7 @@
         <span class='name'><%= shift.niceTitle %></span>
         </div>
         <div class='right_content'>
-        <%= link_to 'delete', remove_user_coop_shift_path(@coop, shift), class: 'shift_link remove_shift_link' %>
+        <%= link_to 'remove from my shifts', remove_user_coop_shift_path(@coop, shift), class: 'shift_link remove_shift_link' %>
         <span class='divider'>|</span>
         <%= link_to 'swap', new_coop_shift_swap_request_path(@coop, shift), class: 'shift_link swap_shift_link' %>
         </div>

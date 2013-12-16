@@ -1,30 +1,30 @@
 .header {
   position: relative;
   height: 60px;
-  margin-bottom: 10px;
+  /* margin-right: 350px; */
+  margin-bottom: 50px;
 
   .title {
     width: 500px;
     margin: 30px auto;
     text-align: center;
     font-size: 32px;
+    clear: both;
   }
 
   /* The outermost <ul> (nav bar) */
   .nav_bar {
-    /* width: 100%; */
-    /* display: block; */
+    display: block;
 
     #site_nav {
       list-style:none;
       font-weight:bold;
       margin-bottom:10px;
       float:right;
-      display: block;
-      width: 100%;
+      clear: left;
 
       li {
-        float:right;
+        float:left;
         margin-right:10px;
         position:relative;
 
@@ -33,7 +33,6 @@
         &:hover {
           ul {                      /* Show the sub-menu */
             display: block;
-            float: none;
 
             a {                     /* Don't show underlines */
               text-decoration: none;
@@ -51,7 +50,6 @@
           &:hover {
             color:#fff;
             background:#6b0c36;
-            text-decoration:underline;
           }
         }
 
@@ -61,15 +59,17 @@
           list-style:none;
           position:absolute;
           display: none;
-          float: left;
+          padding: 0;
 
           li {
             padding-top:1px;
-            float:none;
-          }
+            float:left;
+            width: 100%;
+            z-index: 5;
 
-          a {
-            white-space:nowrap;
+            a {
+              white-space:nowrap;
+            }
           }
         }
       }

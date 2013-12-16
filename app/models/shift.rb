@@ -87,7 +87,7 @@ class Shift < ActiveRecord::Base
         end
       end
       if old_shift
-        shift.swap_requests.each do |sr|
+        old_shift.swap_requests.each do |sr|
           sr.destroy
         end
         old_shift.destroy

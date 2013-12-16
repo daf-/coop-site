@@ -6,6 +6,8 @@
   Welcome page!
  */
 
+$border_color: #555555;
+
 .welcome_page {
   padding-top: 30px;
   margin: 30px;
@@ -25,18 +27,36 @@
   }
 }
 
+#coop_calendar {
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  td {
+    border: 2px solid $border_color;
+  }
+}
+
 .header_row {
-  background-color: #b0b0b0;
+  // background-color: #b0b0b0;
   font-weight: bold;
   font-size: 16px;
 }
 
 .odd_row {
-  background-color: #eaeaea;
+  background-color: #e1e1e1;
 }
 
 .even_row {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
+}
+
+th.saturday {
+  background-color: #bf9630;
+  // background-color: #ffec73;
+}
+
+th.sunday {
+  background-color: #bf9630;
 }
 
 .description_area {
@@ -55,10 +75,12 @@
     position: relative;
     display: inline-block;
     min-width: 400px;
+    max-width: 50%;
     left: 60px;
     height: 120px;
     padding: 10px;
     overflow: auto;
+    border: 3px solid $border_color;
     background-color: #b6d7a8;
 
     .namearea {
@@ -75,11 +97,11 @@
     }
 
     .edited_by {
-      position: absolute;
+      position: relative;
       text-align: right;
       font-style: italic;
-      bottom: 6px;
-      right: 6px;
+      bottom: 0px;
+      right: 0px;
     }
   }
 }
@@ -119,6 +141,37 @@
   }
 }
 
+#mealInfo {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+
+  .overlay {
+    position: relative;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    opacity:0.6;
+    filter:alpha(opacity=60);
+    z-index: 100;
+  }
+
+  .info_content {
+    position: absolute;
+    left: 33%;
+    top: 33%;
+    width: 33%;
+    height: 50%;
+    overflow: auto;
+    padding: 6px;
+
+    background-color: #ffffff;
+    z-index: 101;
+  }
+}
 
 
 .meal_label {
@@ -137,6 +190,10 @@
   &:hover {
     background-color: #fff;
     cursor: pointer;
+  }
+
+  .next_meal {
+    background-color: #b6d7a8;
   }
 
   .next_meal, .a_meal {
@@ -166,7 +223,7 @@
 
   .meal_edit_link {
     position: absolute;
-    bottom: 0px;
+    bottom: 4px;
     right: 8px;
   }
 
@@ -181,7 +238,7 @@
   height: 80px;
   width: 130px;
   font-size: 55px;
-  color: #888888;
+  background-color: #888888;
   text-align: center;
 }
 

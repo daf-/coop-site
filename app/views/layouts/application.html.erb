@@ -24,7 +24,7 @@
 
         <li>
           <%# link_to 'Other co-ops', root_path, class: 'tab' %>
-          <a href="#">Co-ops</a>
+          <a href="#">Co-ops &#x25BC;</a>
           <ul>
             <% @coops.each do |coop| %>
               <li><%= link_to coop.name, coop %></li>
@@ -35,7 +35,7 @@
         <% if current_user %>
           <!-- Account drop-down -->
           <li>
-            <a href="#">My Account</a>
+            <a href="#">My Account &#x25BC;</a>
             <ul>
               <li><%= link_to 'Settings', edit_user_path(current_user), class: (@selected == 'edit_user') ? 'selected tab' : 'tab', id: "account_dropdown" %></li>
               <li><%= link_to 'Sign out', signout_path, class: 'tab' %></li>

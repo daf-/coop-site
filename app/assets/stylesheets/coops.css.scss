@@ -28,14 +28,60 @@
 .header_row {
   background-color: #b0b0b0;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .odd_row {
-  background-color: #dfdfdf;
+  background-color: #eaeaea;
 }
 
 .even_row {
   background-color: #f5f5f5;
+}
+
+.description_area {
+  position: relative;
+  width: 100%;
+
+  .descrip {
+    left: 60px;
+    width: 350px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  #next_meal {
+    position: relative;
+    display: inline-block;
+    min-width: 400px;
+    left: 60px;
+    height: 120px;
+    padding: 10px;
+    overflow: auto;
+    background-color: #b6d7a8;
+
+    .namearea {
+      font-size: 16px;
+      margin-bottom: 6px
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    div {
+      margin: 3px 0;
+    }
+
+    .edited_by {
+      position: absolute;
+      text-align: right;
+      font-style: italic;
+      bottom: 6px;
+      right: 6px;
+    }
+  }
 }
 
 .coop_header {
@@ -57,14 +103,6 @@
     margin-bottom: 20px;
   }
 
-  .description_area {
-    display: inline-block;
-    margin-left: 20px;
-    vertical-align: top;
-    max-width: 300px;
-  }
-
-
   #admin_links {
     .edit_coop_link {
       font-size: 20px;
@@ -80,6 +118,8 @@
     }
   }
 }
+
+
 
 .meal_label {
   text-align: right;

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CO-OPERATION NATION</title>
+  <% if @coop %>
+    <title><%= @coop.name.upcase %> CO-OP</title>
+  <% else %>
+    <title>CO-OPERATION NATION</title>
+  <% end %>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -45,7 +49,12 @@
 
   <% end %>
 
-  <div class='title'>CO-OPERATION NATION</div>
+  <% if @coop %>
+    <div class='title'><%= @coop.name.upcase %> CO-OP</div>
+  <% else %>
+    <div class='title'>CO-OPERATION NATION</div>
+  <% end %>
+
 </div>
 
 <%= yield %>

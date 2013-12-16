@@ -7,7 +7,7 @@ var ready = function() {
     $mealInfoArea.hide();
   });
 
-  $('.meal').click(function(e) {
+  $('.clickable').click(function(e) {
     var info = $(e.currentTarget).find('.mouseover').html();
     $mealInfoContentArea.html(info);
     $mealInfoArea.show();

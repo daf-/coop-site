@@ -82,9 +82,13 @@
         </td>
         <% @days.each do |day| %>
        <% if @breakfasts[day] && @breakfasts[day].length > 0 %>
-        <td class='meal'>
          <% @breakfasts[day].each do |meal| %>
          <% if meal %>
+         <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+            <td class='meal clickable'>
+          <% else %>
+          <td class='meal'>
+          <% end %>
          <%= render 'meals/table_show', meal: meal, coop: @coop %>
          <% end %>
          <% end %>
@@ -103,9 +107,13 @@
       </td>
       <% @days.each do |day| %>
        <% if @lunches[day] && @lunches[day].length > 0 %>
-      <td class='meal'>
          <% @lunches[day].each do |meal| %>
          <% if meal %>
+         <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+            <td class='meal clickable'>
+          <% else %>
+          <td class='meal'>
+          <% end %>
          <%= render 'meals/table_show', meal: meal, coop: @coop %>
          <% end %>
          <% end %>
@@ -124,17 +132,21 @@
       </td>
       <% @days.each do |day| %>
        <% if @dinners[day] && @dinners[day].length > 0 %>
-      <td class='meal'>
-       <% @dinners[day].each do |meal| %>
-       <% if meal %>
-       <%= render 'meals/table_show', meal: meal, coop: @coop %>
+         <% @dinners[day].each do |meal| %>
+         <% if meal %>
+          <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+            <td class='meal clickable'>
+          <% else %>
+          <td class='meal'>
+          <% end %>
+          <%= render 'meals/table_show', meal: meal, coop: @coop %>
+         <% end %>
+       </td>
+      <% end %>
+          <% else %>
+            <td class='no_meal'></td>
+          <% end %>
        <% end %>
-       <% end %>
-     </td>
-        <% else %>
-          <td class='no_meal'></td>
-        <% end %>
-     <% end %>
     </tr>
   <% end %>
   </table>

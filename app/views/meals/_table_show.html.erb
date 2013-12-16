@@ -16,7 +16,7 @@
       <% if meal.name %>
       <span class='name'><%= meal.name %></span>
       <% else %>
-      <span class='type'>There's <%= meal.meal_type%></span>
+      <span class='type'><%= "#{meal.day} #{meal.meal_type}" %></span>
       <% end %>
     </div>
     <% if meal.irreg_time %>

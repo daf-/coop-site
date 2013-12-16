@@ -63,7 +63,7 @@
     </div>
 
 
-  <table>
+  <table id="coop_calendar">
     <tr class='header_row'>
       <th class='meal_label'></th>
       <% @days.each do |day| %>
@@ -85,7 +85,7 @@
        <% end %>
        </td>
       <% else %>
-        <td class='no_meal'>X</td>
+        <td class='no_meal'></td>
       <% end %>
      <% end %>
    </tr>
@@ -104,7 +104,7 @@
        <% end %>
    </td>
       <% else %>
-        <td class='no_meal'>X</td>
+        <td class='no_meal'></td>
       <% end %>
    <% end %>
   </tr>
@@ -123,7 +123,7 @@
      <% end %>
    </td>
       <% else %>
-        <td class='no_meal'>X</td>
+        <td class='no_meal'></td>
       <% end %>
    <% end %>
   </tr>

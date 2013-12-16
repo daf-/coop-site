@@ -25,7 +25,9 @@
     </div>
     <% end %>
     <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
-    <div class='more_info'>click for more info</div>
+      <% if @user && @user.coop == @coop %>
+        <div class='more_info'>click for more info</div>
+      <% end %>
     <% end %>
     </div>
     <div class='mouseover'>

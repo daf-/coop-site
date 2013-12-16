@@ -34,30 +34,32 @@
               <span class='type'><%= "#{@next_meal.day} #{@next_meal.meal_type}"%></span>
             <% end %>
           </div>
-          <div class='head_cook'>
-            <% if @next_meal.head_cook %>
-              <span class='label'>Head cook: </span>
-              <span class=''><%= User.find(@next_meal.head_cook).username %></span>
-            <% end %>
-          </div>
-          <div class='meal_info'>
-            <% if @next_meal.meal_info %>
-              <span class='label'>Meal Info: </span>
-              <span><%= @next_meal.meal_info %></span>
-            <% end %>
-          </div>
-          <div class='discussion_info'>
-            <% if @next_meal.discussion_info %>
-              <span class='label'>Discussion Info: </span>
-              <span><%= @next_meal.discussion_info %></span>
-            <% end %>
-          </div>
-          <div class='edited_by'>
-            <% if @next_meal.user %>
-              <span>last edited by </span>
-              <span><%= @next_meal.user.username %></span>
-            <% end %>
-          </div>
+          <% if @user && @user.coop == @coop %>
+            <div class='head_cook'>
+              <% if @next_meal.head_cook %>
+                <span class='label'>Head cook: </span>
+                <span class=''><%= User.find(@next_meal.head_cook).username %></span>
+              <% end %>
+            </div>
+            <div class='meal_info'>
+              <% if @next_meal.meal_info %>
+                <span class='label'>Meal Info: </span>
+                <span><%= @next_meal.meal_info %></span>
+              <% end %>
+            </div>
+            <div class='discussion_info'>
+              <% if @next_meal.discussion_info %>
+                <span class='label'>Discussion Info: </span>
+                <span><%= @next_meal.discussion_info %></span>
+              <% end %>
+            </div>
+            <div class='edited_by'>
+              <% if @next_meal.user %>
+                <span>last edited by </span>
+                <span><%= @next_meal.user.username %></span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

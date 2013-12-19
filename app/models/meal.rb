@@ -4,11 +4,22 @@ class Meal < ActiveRecord::Base
   has_and_belongs_to_many :shifts
   belongs_to :user
 
+  ## meal_info is public
+  ## discussion_info is private to members
+
   include TimeHelper
 
   def day
     days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     days[start_time.to_date.wday]
+  end
+
+  def has_public_info?
+    self.meal_info.present?
+  end
+
+  def has_private_info?
+    (self.head_cook || self.user || self.discussion_info.present? || self.meal_info.present?)
   end
 
   def irreg_time

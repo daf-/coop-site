@@ -12,8 +12,6 @@
         </div>
       </div>
       <div class='shift_info'>
-        <% if shift.users.length > 1 %>
-          <div class='users_tag'>also on this shift:</div>
           <% if shift.pic %>
             <div class='leader'>
               <span class='detail_left'>PIC:</span>
@@ -27,23 +25,23 @@
             </div>
           <% end %>
 
-            <div class='member'>
-              <span class='detail_left'>Everyone else:</span>
-              <span class='detail_right'><%= render 'users/user_in_shift', user: shift.users.first if shift.users.first %></span>
-            </div>
           <% first = true %>
           <% shift.users.each do |user| %>
-            <% if first %>
-              <% first = false %>
+            <% if user == shift.pic || user == shift.headCook %>
               <% next %>
             <% end %>
-            <div class='member'>
+            <% if first %>
+              <div class='member'>
+              <span class='detail_left'>Everyone else:</span>
               <span class='detail_right'><%= render 'users/user_in_shift', user: user %></span>
-            </div>
+              <% first = false %>
+              </div>
+            <% else %>
+              <div class='member'>
+                <span class='detail_right'><%= render 'users/user_in_shift', user: user %></span>
+              </div>
+            <% end %>
           <% end %>
-        <% else %>
-          <div class='no_users'>no one else has listed this as their shift yet</div>
-        <% end %>
       </div>
     </div>
   <% end %>

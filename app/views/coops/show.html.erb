@@ -34,7 +34,7 @@
             <span class='type'><%= "#{@next_meal.day} #{@next_meal.meal_type}"%></span>
           <% end %>
         </div>
-        <% if @user && @user.coop == @coop %>
+        <% if @private_info %>
           <div class='head_cook'>
             <% if @next_meal.head_cook %>
               <span class='label'>Head cook: </span>
@@ -42,14 +42,14 @@
             <% end %>
           </div>
           <div class='meal_info'>
-            <% if @next_meal.meal_info %>
-              <span class='label'>Meal Info: </span>
+            <% if @next_meal.meal_info.present? %>
+              <span class='label'>Public Info: </span>
               <span><%= @next_meal.meal_info %></span>
             <% end %>
           </div>
           <div class='discussion_info'>
-            <% if @next_meal.discussion_info %>
-              <span class='label'>Discussion Info: </span>
+            <% if @next_meal.discussion_info.present? %>
+              <span class='label'>Member Info: </span>
               <span><%= @next_meal.discussion_info %></span>
             <% end %>
           </div>
@@ -57,6 +57,13 @@
             <% if @next_meal.user %>
               <span>last edited by </span>
               <span><%= @next_meal.user.username %></span>
+            <% end %>
+          </div>
+        <% else %>
+          <div class='meal_info'>
+            <% if @next_meal.meal_info.present? %>
+              <span class='label'>Public Info: </span>
+              <span><%= @next_meal.meal_info %></span>
             <% end %>
           </div>
         <% end %>
@@ -85,7 +92,7 @@
             <% if @breakfasts[day] && @breakfasts[day].length > 0 %>
               <% @breakfasts[day].each do |meal| %>
                 <% if meal %>
-                  <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+                  <% if (@private_info && meal.has_private_info?) || ((!@private_info) && meal.has_public_info?) %>
                     <td class='meal clickable'>
                   <% else %>
                       <td class='meal'>
@@ -110,7 +117,7 @@
             <% if @lunches[day] && @lunches[day].length > 0 %>
               <% @lunches[day].each do |meal| %>
                 <% if meal %>
-                  <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+                  <% if (@private_info && meal.has_private_info?) || ((!@private_info) && meal.has_public_info?) %>
                     <td class='meal clickable'>
                   <% else %>
                       <td class='meal'>
@@ -135,7 +142,7 @@
             <% if @dinners[day] && @dinners[day].length > 0 %>
               <% @dinners[day].each do |meal| %>
                 <% if meal %>
-                  <% if meal.meal_info || meal.discussion_info || meal.user || meal.head_cook %>
+                  <% if (@private_info && meal.has_private_info?) || ((!@private_info) && meal.has_public_info?) %>
                     <td class='meal clickable'>
                   <% else %>
                       <td class='meal'>

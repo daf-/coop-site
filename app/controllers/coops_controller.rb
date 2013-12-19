@@ -47,6 +47,7 @@ class CoopsController < ApplicationController
     @lunch_time = calendarTime(@lunch_time) if @lunch_time != '' && @lunch_time != nil
     @dinner_time = calendarTime(@dinner_time) if @dinner_time != '' && @dinner_time != nil
     @user = current_user
+    @private_info = (@user && @user.coop == @coop)
   end
 
   # GET /coops/new

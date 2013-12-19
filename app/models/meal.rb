@@ -15,11 +15,11 @@ class Meal < ActiveRecord::Base
   end
 
   def has_public_info?
-    (self.meal_info)
+    self.meal_info.present?
   end
 
   def has_private_info?
-    (self.head_cook || self.user || self.discussion_info || self.meal_info)
+    (self.head_cook || self.user || self.discussion_info.present? || self.meal_info.present?)
   end
 
   def irreg_time

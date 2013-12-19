@@ -42,13 +42,13 @@
             <% end %>
           </div>
           <div class='meal_info'>
-            <% if @next_meal.meal_info %>
+            <% if @next_meal.meal_info.present? %>
               <span class='label'>Public Info: </span>
               <span><%= @next_meal.meal_info %></span>
             <% end %>
           </div>
           <div class='discussion_info'>
-            <% if @next_meal.discussion_info %>
+            <% if @next_meal.discussion_info.present? %>
               <span class='label'>Member Info: </span>
               <span><%= @next_meal.discussion_info %></span>
             <% end %>
@@ -61,7 +61,7 @@
           </div>
         <% else %>
           <div class='meal_info'>
-            <% if @next_meal.meal_info %>
+            <% if @next_meal.meal_info.present? %>
               <span class='label'>Public Info: </span>
               <span><%= @next_meal.meal_info %></span>
             <% end %>

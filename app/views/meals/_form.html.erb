@@ -31,11 +31,11 @@
 
   <div class='lower_row'>
   <div class="field meal_info">
-    <span class='label'>Meal menu, description, announcements:</span>
+    <span class='label'>Information to display publicly about this meal:</span>
     <%= f.text_area :meal_info %>
   </div>
   <div class="field discussion_info">
-    <span class='label'>Discussion info:</span>
+    <span class='label'>Information to display only to <%= @coop.name %> members about this meal:</span>
     <%= f.text_area :discussion_info %>
   </div>
   </div>

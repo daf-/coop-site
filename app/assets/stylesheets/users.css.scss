@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$light_green: #b6d7a8;
 #alert_area {
   position: fixed;
   top: 200px;
@@ -47,7 +48,7 @@
   }
 
   .pic_true_link {
-    background-color: #3B5998;
+    background-color: $light_green;
     float: right;
   }
 }
@@ -110,7 +111,7 @@
   }
 
   .remove_shift {
-    background-color: #3B5998;
+    background-color: $light_green;
     color: #ffffff;
   }
 }

@@ -7,6 +7,7 @@
  */
 
 $border_color: #555555;
+$light_green: #b6d7a8;
 
 .welcome_page {
   padding-top: 30px;
@@ -81,7 +82,7 @@ th.sunday {
     padding: 10px;
     overflow: auto;
     border: 3px solid $border_color;
-    background-color: #b6d7a8;
+    background-color: $light_green;
 
     .namearea {
       font-size: 16px;
@@ -360,8 +361,8 @@ th.sunday {
     font-weight: bold;
 
     &.checked {
-      background-color: #3B5998; // facebook yall
-      color: #ffffff;
+      background-color: $light_green; // green yall
+      color: #333;
     }
   }
 

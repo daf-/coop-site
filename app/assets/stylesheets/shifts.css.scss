@@ -6,6 +6,7 @@
   User show page (shifts, swap requests)
  */
 
+$light_green: #b6d7a8;
 .shift_area {
   margin-right: 20px;
   margin-left: 20px;
@@ -32,7 +33,7 @@
 
           &:hover {
             cursor: pointer;
-            background-color: #3B5998;
+            background-color: $light_green;
             color: #ffffff;
           }
         }
@@ -100,7 +101,7 @@
       text-align: center;
       font-size: 14px;
       text-decoration: none;
-      background-color: #3B5998;
+      background-color: $light_green;
       color: #ffffff;
     }
   }
